@@ -136,6 +136,7 @@
   let lastModalTrigger = null;
 
   const page = document.getElementById("page");
+  const pageViewport = document.getElementById("page-viewport");
   const pageTitle = document.getElementById("page-title");
   const pageKicker = document.getElementById("page-kicker");
   const topAction = document.getElementById("top-action");
@@ -178,7 +179,7 @@
   const discoveryInterestsUI = window.KnowledgeGachaDiscoveryInterestsUI.createDiscoveryInterestsUI({
     api: agentApi, page: page, escapeHtml: escapeHtml, escapeAttr: escapeAttr, icon: icon, mutationId: nextMutationId,
     isVisible: function () { return state.view === "interests"; }, showPage: function () { setView("interests"); },
-    focusPage: function () { window.scrollTo({ top: 0, behavior: "instant" }); page.focus({ preventScroll: true }); },
+    focusPage: function () { pageViewport.scrollTo({ top: 0, behavior: "instant" }); page.focus({ preventScroll: true }); },
     onCancel: function (returnView, onboarding) { setView(onboarding ? "home" : returnView); },
     onSaved: function (result, returnView, visible) {
       if (result.changed) { invalidateLocalDiscoveryPools(); state.memoryLoaded = false; }
@@ -262,14 +263,19 @@
       void loadMcpAudit();
     }
     if (view === "discovery" && previous !== "discovery") void ensureDiscoveryPool();
-    window.scrollTo({ top: restoreDiscoveryScroll ? state.discoveryScrollTop : 0, behavior: prefersReducedMotion() || restoreDiscoveryScroll ? "auto" : "smooth" });
+    pageViewport.scrollTo({ top: restoreDiscoveryScroll ? state.discoveryScrollTop : 0, behavior: "instant" });
     window.requestAnimationFrame(function () { page.focus({ preventScroll: true }); });
   }
 
   function render() {
     document.body.dataset.view = state.view;
+    const navView = state.view === "draw" ? (state.drawReturnView === "discovery" ? "home" : "feed")
+      : ({ plan: "feed", import: "feed", discovery: "home", interests: "home", settings: "home", model: "home", memory: "home", observability: "home" }[state.view] || state.view);
     document.querySelectorAll(".nav-item").forEach(function (button) {
-      button.classList.toggle("is-active", button.dataset.view === state.view);
+      const active = button.dataset.view === navView;
+      button.classList.toggle("is-active", active);
+      if (active) button.setAttribute("aria-current", "page");
+      else button.removeAttribute("aria-current");
     });
     const titles = {
       home: ["Knowledge Gacha", "知识扭蛋机"],
@@ -591,7 +597,7 @@
     }
     state.discoveryLoading = true;
     state.discoveryOpeningId = candidateId;
-    state.discoveryScrollTop = window.scrollY;
+    state.discoveryScrollTop = pageViewport.scrollTop;
     renderDiscovery();
     showLoader("正在打开发现扭蛋并凝练知识卡");
     try {
@@ -1967,7 +1973,7 @@
     state.observabilityTraceItems = [];
     state.observabilityTraceHasMore = false;
     renderObservability();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    pageViewport.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "instant" : "smooth" });
     try {
       const response = await agentApi.getAgentTrace(run.id, 0, 200);
       state.observabilityTraceItems = Array.isArray(response.items) ? response.items : [];
@@ -1992,7 +1998,7 @@
       state.observabilityRun = null;
       state.observabilityTraceItems = [];
       renderObservability();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      pageViewport.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "instant" : "smooth" });
     });
     const retry = document.getElementById("retry-observability-trace");
     if (retry) retry.addEventListener("click", function () { void loadObservabilityTrace(run); });
@@ -3190,13 +3196,17 @@
       if (event.pointerType !== "mouse" || event.button !== 0) return;
       if (event.target.closest("input, textarea, select, label, [contenteditable='true'], .nav-dock")) return;
       const horizontal = event.target.closest(".sample-list, .recent-card-list");
-      const vertical = event.target.closest(".modal-panel");
+      let vertical = event.target;
+      while (vertical && !(vertical.scrollHeight > vertical.clientHeight && /auto|scroll/.test(window.getComputedStyle(vertical).overflowY))) {
+        vertical = vertical.parentElement;
+      }
+      vertical = vertical || pageViewport;
       drag = {
         pointerId: event.pointerId,
         startX: event.clientX,
         startY: event.clientY,
         startLeft: horizontal ? horizontal.scrollLeft : 0,
-        startTop: vertical ? vertical.scrollTop : window.scrollY,
+        startTop: vertical.scrollTop,
         horizontal: horizontal,
         vertical: vertical,
         axis: "",
@@ -3220,10 +3230,8 @@
       event.preventDefault();
       if (drag.axis === "x") {
         drag.horizontal.scrollLeft = drag.startLeft - deltaX;
-      } else if (drag.vertical) {
-        drag.vertical.scrollTop = drag.startTop - deltaY;
       } else {
-        window.scrollTo(0, drag.startTop - deltaY);
+        drag.vertical.scrollTop = drag.startTop - deltaY;
       }
     }, { passive: false });
 

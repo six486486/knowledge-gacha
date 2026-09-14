@@ -21,6 +21,8 @@ npm run release:browsers
 
 `check` 执行文档、Skill、源码、单元与发布契约检查。E2E 使用隔离浏览器档案和 Mock Provider，无需真实 API Key；默认使用系统 Chrome。`release:browsers` 使用隔离 Edge 验证真实 MV3 扩展。
 
+前端布局回归可单独运行 `node extension/e2e/run-e2e.mjs frontend-layout.spec.ts`，覆盖 320–960 像素宽度、短窗口、导航遮挡、长内容滚动、伴学输入和设置弹层。页面内容在独立视口中滚动，底部导航占据固定的布局空间；伴学消息区单独滚动。
+
 完整工程回归与本地检索评测：
 
 ```bash

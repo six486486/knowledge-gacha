@@ -230,7 +230,7 @@ test("第七步：具体候选、真实理由、打开收下和返回列表形�
   const topic = await target.getByRole("heading", { level: 3 }).innerText();
   const novelty = await target.locator(".discovery-novelty p").innerText();
   await target.scrollIntoViewIfNeeded();
-  await page.evaluate(() => window.scrollBy(0, 160));
+  await page.locator('#page-viewport').evaluate(element => element.scrollBy(0, 160));
   await target.getByRole("button", { name: "打开学习" }).click();
   await expect(page.getByRole("heading", { name: "查看解释和自测" })).toBeVisible();
   await expect(page.locator(".gacha-draft-card")).toContainText(topic);
@@ -240,7 +240,7 @@ test("第七步：具体候选、真实理由、打开收下和返回列表形�
   await expect(page.getByRole("button", { name: "继续这个方向" })).toBeVisible();
   await page.getByRole("button", { name: "返回候选列表", exact: true }).click();
   await expect(page.locator(".discovery-candidate.status-saved")).toContainText(topic);
-  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
+  await expect.poll(() => page.locator('#page-viewport').evaluate(element => element.scrollTop)).toBeGreaterThan(0);
   await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
   const firstOpen = page.locator("[data-discovery-open]").first();
   await firstOpen.focus();

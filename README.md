@@ -25,6 +25,7 @@
 
 <p align="center"><img src="docs/assets/product-preview.png" alt="真实界面预览：知识制卡、伴学对话与发现推荐" width="100%"></p>
 <p align="center"><sub>截图来自隔离演示档案，使用固定模拟数据，不包含私人资料。</sub></p>
+<p align="center">查看原尺寸：<a href="docs/assets/preview-card.png">制卡</a> · <a href="docs/assets/preview-companion.png">伴学</a> · <a href="docs/assets/preview-discovery.png">发现</a></p>
 
 <a id="features"></a>
 ## 把阅读接到学习上
@@ -49,7 +50,7 @@
 <a id="quick-start"></a>
 ## 下载与安装
 
-1. 到 [Releases](https://github.com/six486486/knowledge-gacha/releases/latest) 下载 **`knowledge-gacha-1.0.0-extension.zip`**，解压到一个固定目录。
+1. 到 [Releases](https://github.com/six486486/knowledge-gacha/releases/latest) 下载 **`knowledge-gacha-1.0.1-extension.zip`**，解压到一个固定目录。
 2. 打开 Edge 的 `edge://extensions` 或 Chrome 的 `chrome://extensions`，开启**开发者模式**。
 3. 点击**加载解压缩的扩展**，选择解压后包含 `manifest.json` 的目录。
 4. 打开知识扭蛋机侧边栏，进入 **更多 → 我的模型**，填写 Base URL、API Key 和模型名称，保存并测试。
