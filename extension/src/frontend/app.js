@@ -671,7 +671,7 @@
         (state.captureError ? '<div class="capture-feedback is-error" role="alert">' + escapeHtml(state.captureError) + '</div>' : '') +
       '</section>' +
       documentImportsMarkup() + (state.manualInputCollapsed ? "" : captureSourceHtml()) +
-      (sourceVisible ? '<label class="field-label" for="feed-goal">这次想学会什么？（可选）</label><input class="form-input" id="feed-goal" maxlength="600" placeholder="例如：能判断缓存有效期的取舍" value="' + escapeAttr(state.feedGoal || "") + '">' : "") +
+      (sourceVisible ? '<div class="form-section capture-goal"><label class="field-label" for="feed-goal">这次想学会什么？（可选）</label><input class="form-input" id="feed-goal" maxlength="600" placeholder="例如：能判断缓存有效期的取舍" value="' + escapeAttr(state.feedGoal || "") + '"></div>' : "") +
       (sourceVisible ? sourceProductMarkup() : "") +
       (sourceVisible && state.feedText && !state.feedImage ? '<button class="secondary-btn companion-material-entry" id="feed-companion" type="button">先和伴学聊聊这段材料</button>' : '') +
       knowledgePlansMarkup() +
@@ -779,7 +779,7 @@
       : '<span class="capture-source-url">' + escapeHtml(source.type === "manual" ? "由你输入，不读取网页" : source.type === "screenshot" ? "来自你选择的画面" : ["file", "pdf", "docx"].includes(source.type) ? "文件已读取 · " + (source.mimeType || "text/plain") : "本地图片") + '</span>';
     const editor = state.feedImage
       ? '<div class="image-preview capture-preview"><img src="' + escapeAttr(state.feedImage.dataUrl) + '" alt="已捕获的知识素材"><button class="icon-btn image-remove" id="clear-image" type="button" aria-label="移除图片" ' + (state.captureBusy ? "disabled" : "") + '>' + icon("x") + '</button></div>' +
-        '<label class="field-label" for="feed-text">图注或补充说明（可选）</label><textarea class="feed-input capture-editor" id="feed-text" aria-label="图注或补充说明" maxlength="1000000" ' + (state.captureBusy ? "disabled" : "") + ' placeholder="粘贴图片原有图例或相邻段落，补充颜色、符号和状态的含义。">' + escapeHtml(state.feedText) + '</textarea><div class="input-meta"><span id="feed-count">' + state.feedText.length + ' / ' + materialIndex.MAX_CHARACTERS + '</span><span id="feed-ready">图注可选</span></div>'
+        '<div class="form-section"><label class="field-label" for="feed-text">图注或补充说明（可选）</label><textarea class="feed-input capture-editor" id="feed-text" aria-label="图注或补充说明" maxlength="1000000" ' + (state.captureBusy ? "disabled" : "") + ' placeholder="粘贴图片原有图例或相邻段落，补充颜色、符号和状态的含义。">' + escapeHtml(state.feedText) + '</textarea><div class="input-meta"><span id="feed-count">' + state.feedText.length + ' / ' + materialIndex.MAX_CHARACTERS + '</span><span id="feed-ready">图注可选</span></div></div>'
       : '<textarea class="feed-input capture-editor" id="feed-text" aria-label="制卡素材" maxlength="1000000" ' + (source.importRef ? 'readonly ' : '') + (state.captureBusy ? "disabled" : "") + ' placeholder="粘贴一段文章、课堂笔记、视频摘录，或者今天没看懂的概念。">' + escapeHtml(state.feedText) + '</textarea><div class="input-meta"><span id="feed-count">' + state.feedText.length + ' / ' + materialIndex.MAX_CHARACTERS + '</span><span id="feed-ready">' + (state.feedText.length >= 20 ? "可以凝练" : "再多一点点") + '</span></div>';
     const readingNote = source.importRef ? '<p class="capture-reading-note">本次范围：' + escapeHtml(importRangeLabel(source.importRef.ranges)) + '。未选择的范围不会发送给模型。</p>' + (!state.materialDraftId ? '<button class="source-inline-action" id="back-to-import" type="button">返回解析预览选择或校对</button>' : '<p class="meta">已保存选定范围和解析版本；需要其他范围时可重新导入同一文件。</p>') : source.type === "page"
       ? '<p class="capture-reading-note">' + (source.extractionMethod === "article" ? "已提取文章正文，请检查并删去不需要的内容。" : "未识别到独立文章，已读取页面可见文字，请检查后制卡。") + (source.truncated ? '<strong>正文较长，仅读取前 256K 字符；可选择更小的章节范围。</strong>' : '') + '</p>'
@@ -1375,16 +1375,16 @@
     const isDiscovery = Boolean(session.discoveryContext || session.source?.type === "discovery");
     const discoveryUnavailable = isDiscovery && !ready;
     const labels = { needs_split: isDiscovery ? "这个方向需要细化" : "材料待拆分", insufficient_material: isDiscovery ? "这个方向暂时未能成卡" : "需要更多材料", needs_revision: isDiscovery ? "这张卡暂未生成完成" : "草稿待完善", needs_review: "修改后待核验" };
-    function field(id, label, value, limit) { return '<label class="field-label" for="' + id + '">' + label + '</label><textarea class="feed-input draft-field" id="' + id + '" maxlength="' + limit + '">' + escapeHtml(value || "") + '</textarea>'; }
+    function field(id, label, value, limit) { return '<div><label class="field-label" for="' + id + '">' + label + '</label><textarea class="feed-input draft-field" id="' + id + '" maxlength="' + limit + '">' + escapeHtml(value || "") + '</textarea></div>'; }
     page.innerHTML = '<section class="draft-reveal-head"><span class="capture-step">2</span><h2 class="section-title">查看解释和自测</h2></section>' +
       '<section class="gacha-draft-card"><div class="draft-card-top"><span class="card-pill">' + (ready || isDiscovery ? "知识卡草稿" : labels[session.status] || "待核验草稿") + '</span>' + (!isDiscovery ? '<span class="card-pill">' + escapeHtml(session.model || "用户模型") + '</span>' : '') + '</div>' +
       discoveryProvenanceMarkup(isDiscovery ? session.discoveryContext || {} : null) +
       (!ready ? '<div class="quality-issues" role="status"><strong>' + escapeHtml(labels[session.status] || "需要核验") + '</strong><ul>' + Array.from(new Set(issues.map(draftIssueMessage))).map(function (message) { return '<li>' + escapeHtml(message) + '</li>'; }).join("") + '</ul></div>' : '') +
       (card ? '<h2 class="result-title">' + escapeHtml(card.title || "未完成草稿") + '</h2>' + teachingMarkup(card) + exerciseMarkup(session.exercise) +
         '<div class="draft-revision-actions"><button class="secondary-btn" data-revise="summary" type="button">讲清楚一点</button><button class="secondary-btn" data-revise="example" type="button">换个例子</button><button class="secondary-btn" data-revise="exercise" type="button">题目太简单</button></div>' +
-        '<details class="draft-editor"><summary>手动修改内容</summary><label class="field-label" for="draft-title">标题</label><input class="form-input" id="draft-title" maxlength="80" value="' + escapeAttr(card.title || "") + '">' +
+        '<details class="draft-editor"><summary>手动修改内容</summary><div class="form-section form-grid"><div><label class="field-label" for="draft-title">标题</label><input class="form-input" id="draft-title" maxlength="80" value="' + escapeAttr(card.title || "") + '"></div>' +
         field("draft-objective", "学习目标", card.learningObjective, 300) + field("draft-summary", "核心解释", card.summary, 2000) + field("draft-example", "示例或过程", card.example && card.example.text, 2000) + field("draft-boundaries", "适用边界（可选）", card.boundaries, 1000) + field("draft-analogy", "类比（可选）", card.analogy, 1000) +
-        '<p class="meta">修改后重新核验依据与答案；如果答案失效，可重做题目。</p><button class="secondary-btn" data-revise="review" type="button">核验修改</button></details>' : '') +
+        '</div><p class="meta">修改后重新核验依据与答案；如果答案失效，可重做题目。</p><button class="secondary-btn" data-revise="review" type="button">核验修改</button></details>' : '') +
       draftEvidenceMarkup(session) + (!isDiscovery ? generationMetrics(session) : '') + '</section>' +
       (merging ? '<p class="draft-merge-note">收下后补充到所选原卡，保留收藏和复习记录。</p>' : '') +
       '<p class="meta">' + (ready ? isDiscovery ? "看完解释和自测，可以收下这张卡。" : "草稿已生成，等待你确认。模型检查已完成，仍可对照原文判断。" : discoveryUnavailable ? "可以重试生成，或返回发现换个方向。" : "尚未写入卡册，可调整材料或重试。") + '</p>' +
@@ -2340,9 +2340,9 @@
     modalContent.innerHTML =
       '<p class="eyebrow">' + escapeHtml(preferenceCategoryLabel(memory.category)) + '</p><h2 class="modal-title">编辑偏好</h2>' +
       '<p class="privacy-note">适用于：' + escapeHtml(preferenceScopeLabel(memory)) + ' · ' + escapeHtml(preferenceImpactLabel(memory)) + '</p>' +
-      '<label class="field-label" for="preference-value">偏好内容</label>' + (memory.category === "difficulty_preference" ? '<select class="form-input" id="preference-value">' +
+      '<div class="form-section"><label class="field-label" for="preference-value">偏好内容</label>' + (memory.category === "difficulty_preference" ? '<select class="form-input" id="preference-value">' +
         [['foundational', '基础一些'], ['balanced', '难度适中'], ['advanced', '进阶一些']].map(function (entry) { return '<option value="' + entry[0] + '" ' + (memory.value === entry[0] ? 'selected' : '') + '>' + entry[1] + '</option>'; }).join('') + '</select>' :
-        '<textarea class="feed-input memory-editor" id="preference-value" maxlength="240">' + escapeHtml(memory.value) + '</textarea>') +
+        '<textarea class="feed-input memory-editor" id="preference-value" maxlength="240">' + escapeHtml(memory.value) + '</textarea>') + '</div>' +
       '<div class="modal-actions"><button class="secondary-btn" id="preference-cancel" type="button">取消</button><button class="primary-btn" id="preference-save" type="button">保存</button></div>';
     openModal();
     document.getElementById("preference-cancel").addEventListener("click", closeModal);
@@ -2884,8 +2884,8 @@
 
   function openReviewCauseCorrection(eventId) {
     modalContent.innerHTML = '<h2 class="modal-title">纠正本次错因</h2><p class="meta">纠正会追加一条记录，原复习事件和原判分保持可回查。</p>' +
-      '<label class="field-label" for="review-cause-type">更符合的错因</label><select class="select-input" id="review-cause-type"><option value="unknown">暂时无法确定</option><option value="missing_prerequisite">缺少前提</option><option value="concept_confusion">混淆概念</option><option value="step_order">步骤顺序错误</option><option value="supported_misconception">其他有依据的误区</option></select>' +
-      '<label class="field-label" for="review-cause-note">补充说明（可选）</label><textarea class="feed-input" id="review-cause-note" maxlength="500" placeholder="例如：我漏看了题干中的适用条件"></textarea>' +
+      '<div class="form-section form-grid"><div><label class="field-label" for="review-cause-type">更符合的错因</label><select class="select" id="review-cause-type"><option value="unknown">暂时无法确定</option><option value="missing_prerequisite">缺少前提</option><option value="concept_confusion">混淆概念</option><option value="step_order">步骤顺序错误</option><option value="supported_misconception">其他有依据的误区</option></select></div>' +
+      '<div><label class="field-label" for="review-cause-note">补充说明（可选）</label><textarea class="feed-input" id="review-cause-note" maxlength="500" placeholder="例如：我漏看了题干中的适用条件"></textarea></div></div>' +
       '<div class="modal-actions"><button class="secondary-btn" id="review-cause-cancel" type="button">取消</button><button class="primary-btn" id="review-cause-save" type="button">追加纠正</button></div>';
     document.getElementById("review-cause-cancel").addEventListener("click", closeModal);
     document.getElementById("review-cause-save").addEventListener("click", async function () {

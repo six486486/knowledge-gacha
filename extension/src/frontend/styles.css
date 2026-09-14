@@ -530,6 +530,13 @@ body.is-drag-scrolling, body.is-drag-scrolling * { cursor: grabbing !important; 
 .status-board.ready { background: var(--mint); }
 .status-main { display: flex; align-items: center; gap: 7px; }
 .form-grid { display: grid; gap: 13px; }
+.form-section { min-width: 0; margin-top: 16px; }
+.form-section + .meta { margin-top: 10px; }
+.form-section.form-grid { gap: 16px; }
+.form-grid > div { min-width: 0; }
+.form-section .feed-input { display: block; margin-bottom: 0; }
+.form-section .memory-editor { margin-top: 0; }
+.capture-goal { margin-top: 18px; }
 .field-label { margin-bottom: 6px; }
 .input-with-action { display: grid; grid-template-columns: minmax(0, 1fr) 44px; gap: 7px; }
 .field-action { width: 44px; height: 44px; background: var(--paper); }
@@ -811,6 +818,7 @@ body.is-drag-scrolling, body.is-drag-scrolling * { cursor: grabbing !important; 
 
 .draft-reveal-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
 .gacha-draft-card { padding: 13px; border: 3px solid var(--ink); border-radius: 19px; background: linear-gradient(145deg, rgba(255,216,77,.36), var(--paper) 34%); box-shadow: 5px 5px 0 var(--ink); }
+.gacha-draft-card + .meta { margin-top: 14px; }
 .draft-card-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 7px; margin-bottom: 13px; }
 .draft-title-input { margin-bottom: 11px; font-size: 20px; font-weight: 900; }
 .draft-field { min-height: 96px; margin-bottom: 11px; resize: vertical; }

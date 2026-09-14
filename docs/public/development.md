@@ -23,6 +23,8 @@ npm run release:browsers
 
 前端布局回归可单独运行 `node extension/e2e/run-e2e.mjs frontend-layout.spec.ts`，覆盖 320–960 像素宽度、短窗口、导航遮挡、长内容滚动、伴学输入和设置弹层。页面内容在独立视口中滚动，底部导航占据固定的布局空间；伴学消息区单独滚动。
 
+表单回归可运行 `node extension/e2e/run-e2e.mjs frontend-forms.spec.ts document-import.spec.ts`，检查手动输入、图片图注、学习目标、展开草稿、偏好编辑、错因纠正、文档校对和原文件弹窗。用例同时验证分组间距、窄窗口布局，以及填写、取消、保存和恢复；浏览器报告包含实际界面截图，需逐张复核，不能仅凭操作通过判定视觉质量。
+
 完整工程回归与本地检索评测：
 
 ```bash

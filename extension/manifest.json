@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "知识扭蛋机",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAx1N7Le8nHfiGTPHU33dcgj2aiBmGB0Dzzi0yyNfi5rdEoehtyRry41LCcXbdn2Slv5REPt9Qo1HMGs6C8DHd7J0U9j5LCWst5QQizboovv9JkV29LWS0orn3rOFX+knGg2FvBGBUIICuZ3HrGNGaVsGfhNpimlm+87fShVHDDAg4FaCM9Jr6gVAN2q7qjlhDcFCnz6tC5OzWr0Iou3B6FFdA1B5nekYqK4LlUQQj4CRpUzazc3lPWB6KvFukWj9hc5cBhpX/BlilGTZw4+DtujDzN2mxBj0ycu1MokOIzlCivILVBETv59OzV81MURhA66txVQYpd3i87f0QslxXxQIDAQAB",
   "description": "把文章、笔记和截图变成一张能理解、能复习的知识卡。",
   "minimum_chrome_version": "114",

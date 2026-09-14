@@ -1,6 +1,6 @@
 {
   "name": "@knowledge-gacha/extension",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "description": "知识扭蛋机 Manifest V3 浏览器侧边栏",
   "scripts": {

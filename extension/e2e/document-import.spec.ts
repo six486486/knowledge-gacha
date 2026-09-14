@@ -63,6 +63,9 @@ test('第四步：中文 PDF 目录、选页、本地解析与未选范围隔离
   await page.locator('#citation-original').click();
   await expect(page.locator('.import-original-image')).toBeVisible();
   await expect(page.locator('.original-region')).toBeVisible();
+  const originalActions = (await page.locator('#original-reuse').locator('..').boundingBox())!;
+  const pageLabel = (await page.locator('label[for="original-page-number"]').boundingBox())!;
+  expect(pageLabel.y - originalActions.y - originalActions.height).toBeGreaterThanOrEqual(12);
   await page.screenshot({ path: artifactPath('test-results/step04-original-320.png'), fullPage: true });
   const db = await readTestDatabase(page, 'profile_step04_pdf');
   expect(db.documents).toHaveLength(1);

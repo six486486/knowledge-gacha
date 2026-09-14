@@ -173,7 +173,7 @@
       const text = page.ocr ? page.ocr.correctedText || page.ocr.text : page.blocks.map(function (block) { return block.text; }).join('\n\n');
       options.modalContent.innerHTML = '<h2 class="modal-title">第 ' + number + ' 页 · 预览与校对</h2><div id="import-page-image"><button class="secondary-btn" id="import-show-page" type="button">显示原始页面</button></div>' +
         (page.ocr?.uncertain?.length ? '<p class="citation-error">待核对：' + escape(page.ocr.uncertain.join('；')) + '</p>' : '') +
-        '<label class="field-label" for="import-correction">本页文字（可修改或补充）</label><textarea class="feed-input import-correction" id="import-correction" maxlength="30000">' + escape(text) + '</textarea>' +
+        '<div class="form-section"><label class="field-label" for="import-correction">本页文字（可修改或补充）</label><textarea class="feed-input import-correction" id="import-correction" maxlength="30000">' + escape(text) + '</textarea></div>' +
         '<p class="meta">校对后保存一个新解析版本，引用仍指向这一原始页面。</p><div class="modal-actions"><button class="secondary-btn" id="import-preview-close" type="button">返回</button><button class="primary-btn" id="import-correct" type="button" ' + (page.status === 'failed' ? 'disabled' : '') + '>确认本页文字</button></div>';
       options.modalContent.querySelector('#import-preview-close').onclick = options.closeModal;
       options.modalContent.querySelector('#import-show-page').onclick = async function () {
@@ -199,7 +199,7 @@
         const isPdf = original.mimeType === 'application/pdf';
         let current = pageNumber || 1;
         options.modalContent.innerHTML = '<h2 class="modal-title">' + escape(original.name) + '</h2><p class="meta">已保留原始文件' + (isPdf ? ' · 共 ' + original.pageCount + ' 页' : ' · 按段落或单元格定位') + '</p><div class="import-page-actions"><button class="secondary-btn" id="original-download" type="button">下载原始文件</button><button class="secondary-btn" id="original-reuse" type="button">从原文件继续制卡</button></div>' +
-          (isPdf ? '<label class="field-label" for="original-page-number">页码</label><div class="import-page-actions"><input class="form-input" id="original-page-number" type="number" min="1" max="' + original.pageCount + '" value="' + current + '"><button class="secondary-btn" id="original-go" type="button">查看</button></div><div id="original-image"></div>' : '') +
+          (isPdf ? '<div class="form-section"><label class="field-label" for="original-page-number">页码</label><div class="import-page-actions"><input class="form-input" id="original-page-number" type="number" min="1" max="' + original.pageCount + '" value="' + current + '"><button class="secondary-btn" id="original-go" type="button">查看</button></div></div><div id="original-image"></div>' : '') +
           '<div class="modal-actions"><button class="secondary-btn" id="original-back" type="button">返回</button></div>';
         options.modalContent.querySelector('#original-download').onclick = function () { const url = URL.createObjectURL(original.blob); const link = document.createElement('a'); link.href = url; link.download = original.name; link.click(); setTimeout(function () { URL.revokeObjectURL(url); }, 1000); };
         options.modalContent.querySelector('#original-back').onclick = returnTo || options.closeModal;
