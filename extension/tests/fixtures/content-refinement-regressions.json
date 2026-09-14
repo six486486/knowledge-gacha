@@ -1,0 +1,1557 @@
+[
+  {
+    "id": "short-08",
+    "context": {
+      "userGoal": "能区分事务原子性与硬件同时写入",
+      "evidence": [
+        {
+          "id": "material",
+          "kind": "text",
+          "text": "原子提交使一个事务中的修改表现为全部发生或全部不发生。SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。"
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "事务原子性：逻辑上的全有或全无，不等于硬件同时写入",
+        "learningObjective": "能区分事务原子性与硬件同时写入",
+        "knowledgeType": "concept",
+        "summary": "原子提交使一个事务中的修改表现为全部发生或全部不发生。这种表现可由日志和恢复步骤提供，例如 SQLite 即如此；但不能据此认为硬件真的在同一瞬间完成了所有磁盘写入。",
+        "example": {
+          "type": "contrast",
+          "text": "某数据库在事务提交后，查询看到该事务的全部修改，另一事务看不到其中任何一条修改；这体现的是原子提交所要求的全有或全无表现。即使如此，也不能由这一表现推出磁盘上的各次写入是在同一瞬间完成的。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "某系统使用日志和恢复步骤来实现事务提交。提交后，其他事务只能看到该事务的全部修改或完全看不到其修改。根据材料，能否由此判断该系统的硬件是在同一瞬间完成所有磁盘写入？请说明理由。",
+        "answer": "不能。材料说明的是原子提交使事务中的修改表现为全部发生或全部不发生，日志和恢复步骤可以提供这种表现；但这不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+        "answerExplanation": "原子性描述的是事务修改对外表现出的全有或全无；日志和恢复步骤可以实现这种表现。材料明确指出，不能由这种表现推断硬件在同一瞬间完成所有磁盘写入。",
+        "rubric": [
+          "指出不能由该表现判断硬件同时写入",
+          "说明原子提交的表现是全有或全无",
+          "说明日志和恢复步骤可提供这种表现"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "material",
+          "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "卡片与练习的断言均可由材料原文直接支持：原子提交的全有或全无表现、日志与恢复步骤提供该表现、不能据此推断硬件同时写入。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "摘要、示例与练习一致：示例中查询看到全部修改而另一事务看不到任何修改，正是全有或全无表现，且未推出硬件同时写入。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习要求判断能否由日志与恢复步骤实现的全有或全无表现推断硬件同时写入，直接检验“区分事务原子性与硬件同时写入”这一目标。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案“不能”及理由与材料一致；独立解题结论相同，comparison 判定等价且遵守题设。",
+          "comparison": {
+            "equivalent": true,
+            "followsQuestion": true,
+            "reason": "独立答案与标准答案均为“不能”，理由均基于原子提交的全有或全无表现及日志恢复步骤，未改变题设条件。"
+          }
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "卡片保留了材料中的限定：原子性是逻辑表现，日志和恢复步骤可提供该表现，不能据此推断硬件同时写入；未遗漏必要前提。"
+        }
+      ],
+      "issues": [],
+      "quality": {
+        "passed": true,
+        "issues": [],
+        "evidence": [
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 27
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+            "occurrence": 0,
+            "startCharacter": 27,
+            "endCharacter": 73
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 27
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+            "occurrence": 0,
+            "startCharacter": 27,
+            "endCharacter": 73
+          }
+        ],
+        "checks": [
+          {
+            "rule": "grounding",
+            "passed": true,
+            "reason": "卡片与练习的断言均可由材料原文直接支持：原子提交的全有或全无表现、日志与恢复步骤提供该表现、不能据此推断硬件同时写入。"
+          },
+          {
+            "rule": "coherence",
+            "passed": true,
+            "reason": "摘要、示例与练习一致：示例中查询看到全部修改而另一事务看不到任何修改，正是全有或全无表现，且未推出硬件同时写入。"
+          },
+          {
+            "rule": "objectiveAlignment",
+            "passed": true,
+            "reason": "练习要求判断能否由日志与恢复步骤实现的全有或全无表现推断硬件同时写入，直接检验“区分事务原子性与硬件同时写入”这一目标。"
+          },
+          {
+            "rule": "answerCorrectness",
+            "passed": true,
+            "reason": "答案“不能”及理由与材料一致；独立解题结论相同，comparison 判定等价且遵守题设。",
+            "comparison": {
+              "equivalent": true,
+              "followsQuestion": true,
+              "reason": "独立答案与标准答案均为“不能”，理由均基于原子提交的全有或全无表现及日志恢复步骤，未改变题设条件。"
+            }
+          },
+          {
+            "rule": "conditions",
+            "passed": true,
+            "reason": "卡片保留了材料中的限定：原子性是逻辑表现，日志和恢复步骤可提供该表现，不能据此推断硬件同时写入；未遗漏必要前提。"
+          }
+        ]
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.6.0+skill.1.0.0",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-flash",
+        "materialLength": 73,
+        "elapsedMs": 5742,
+        "calls": [
+          {
+            "operation": "generate",
+            "model": "deepseek-flash",
+            "latencyMs": 2701,
+            "usage": {
+              "inputTokens": 2683,
+              "outputTokens": 475,
+              "totalTokens": 3158,
+              "cachedInputTokens": 2432
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-flash",
+            "latencyMs": 992,
+            "usage": {
+              "inputTokens": 785,
+              "outputTokens": 58,
+              "totalTokens": 843,
+              "cachedInputTokens": 640
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-flash",
+            "latencyMs": 2036,
+            "usage": {
+              "inputTokens": 1781,
+              "outputTokens": 281,
+              "totalTokens": 2062,
+              "cachedInputTokens": 1024
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1600
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "卡片与练习的断言均可由材料原文直接支持：原子提交的全有或全无表现、日志与恢复步骤提供该表现、不能据此推断硬件同时写入。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "摘要、示例与练习一致：示例中查询看到全部修改而另一事务看不到任何修改，正是全有或全无表现，且未推出硬件同时写入。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "练习要求判断能否由日志与恢复步骤实现的全有或全无表现推断硬件同时写入，直接检验“区分事务原子性与硬件同时写入”这一目标。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "答案“不能”及理由与材料一致；独立解题结论相同，comparison 判定等价且遵守题设。",
+                "comparison": {
+                  "equivalent": true,
+                  "followsQuestion": true,
+                  "reason": "独立答案与标准答案均为“不能”，理由均基于原子提交的全有或全无表现及日志恢复步骤，未改变题设条件。"
+                }
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "卡片保留了材料中的限定：原子性是逻辑表现，日志和恢复步骤可提供该表现，不能据此推断硬件同时写入；未遗漏必要前提。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": null,
+        "answerVerification": {
+          "answerable": true,
+          "answer": "不能。",
+          "basis": "材料指出原子提交只要求修改表现为全部发生或全部不发生，SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  },
+  {
+    "id": "image-01",
+    "context": {
+      "userGoal": "能区分图中的用户内存、系统缓冲区和磁盘",
+      "evidence": [
+        {
+          "id": "image",
+          "kind": "image",
+          "observations": [
+            "顶部左侧文字为“User Space”",
+            "顶部中间文字为“OS Buffers”",
+            "顶部右侧文字为“Disk”",
+            "图中存在两条垂直虚线，将画面分为三个区域",
+            "中间区域“OS Buffers”下方有一个由8个水平矩形格组成的垂直堆叠图形",
+            "右侧区域“Disk”下方有一个由8个水平矩形格组成的垂直堆叠图形，矩形填充为浅蓝色"
+          ],
+          "text": ""
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "按区域标签区分用户内存、系统缓冲区与磁盘",
+        "learningObjective": "能区分图中用户内存（User Space）、系统缓冲区（OS Buffers）和磁盘（Disk）三个区域",
+        "knowledgeType": "concept",
+        "summary": "该图用两条垂直虚线把画面分为三个区域，从左到右依次标注为“User Space”“OS Buffers”“Disk”。因此，标有“User Space”的左侧区域对应用户内存，标有“OS Buffers”的中间区域对应系统缓冲区，标有“Disk”的右侧区域对应磁盘。图中“OS Buffers”和“Disk”下方各有一个由8个水平矩形格组成的垂直堆叠图形。",
+        "example": {
+          "type": "example",
+          "text": "在一张同样用两条垂直虚线分成三个区域的图中，若最左侧区域顶部标注为“User Space”，中间区域顶部标注为“OS Buffers”，最右侧区域顶部标注为“Disk”，则最左侧区域是用户内存，中间区域是系统缓冲区，最右侧区域是磁盘。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "一张图用两条垂直虚线把画面分成三个区域，从左到右的顶部标签依次为“User Space”“OS Buffers”“Disk”。请指出这三个区域分别对应用户内存、系统缓冲区还是磁盘。",
+        "answer": "最左侧标有“User Space”的区域是用户内存；中间标有“OS Buffers”的区域是系统缓冲区；最右侧标有“Disk”的区域是磁盘。",
+        "answerExplanation": "图中两条垂直虚线把画面分为三个区域，顶部标签从左到右依次为“User Space”“OS Buffers”“Disk”，据此把左侧区域判为用户内存、中间区域判为系统缓冲区、右侧区域判为磁盘。",
+        "rubric": [
+          "指出左侧“User Space”区域是用户内存",
+          "指出中间“OS Buffers”区域是系统缓冲区",
+          "指出右侧“Disk”区域是磁盘"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "顶部左侧文字为“User Space”",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "顶部中间文字为“OS Buffers”",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "顶部右侧文字为“Disk”",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "图中存在两条垂直虚线，将画面分为三个区域",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "顶部左侧文字为“User Space”",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "顶部中间文字为“OS Buffers”",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "顶部右侧文字为“Disk”",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "图中存在两条垂直虚线，将画面分为三个区域",
+          "claim": "exercise"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "卡片与练习的断言均由图片观察记录直接支持：顶部三个标签及两条垂直虚线分区。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "摘要、示例、题干与答案一致，均按左中右标签对应三个区域。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习要求指出三个区域分别对应的内存/缓冲区/磁盘，直接检验学习目标。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案与题干标签顺序一致，独立解题结果相同。",
+          "comparison": {
+            "equivalent": true,
+            "followsQuestion": true,
+            "reason": "两者均按左到右 User Space→用户内存、OS Buffers→系统缓冲区、Disk→磁盘，结果与顺序一致，且未改变题设。"
+          }
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "题干已限定两条垂直虚线分三区及从左到右标签，答案未引入额外条件。"
+        }
+      ],
+      "issues": [],
+      "quality": {
+        "passed": true,
+        "issues": [],
+        "evidence": [
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "顶部左侧文字为“User Space”",
+            "claim": "summary",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "顶部中间文字为“OS Buffers”",
+            "claim": "summary",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "顶部右侧文字为“Disk”",
+            "claim": "summary",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "图中存在两条垂直虚线，将画面分为三个区域",
+            "claim": "summary",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "顶部左侧文字为“User Space”",
+            "claim": "exercise",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "顶部中间文字为“OS Buffers”",
+            "claim": "exercise",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "顶部右侧文字为“Disk”",
+            "claim": "exercise",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "图中存在两条垂直虚线，将画面分为三个区域",
+            "claim": "exercise",
+            "kind": "image"
+          }
+        ],
+        "checks": [
+          {
+            "rule": "grounding",
+            "passed": true,
+            "reason": "卡片与练习的断言均由图片观察记录直接支持：顶部三个标签及两条垂直虚线分区。"
+          },
+          {
+            "rule": "coherence",
+            "passed": true,
+            "reason": "摘要、示例、题干与答案一致，均按左中右标签对应三个区域。"
+          },
+          {
+            "rule": "objectiveAlignment",
+            "passed": true,
+            "reason": "练习要求指出三个区域分别对应的内存/缓冲区/磁盘，直接检验学习目标。"
+          },
+          {
+            "rule": "answerCorrectness",
+            "passed": true,
+            "reason": "答案与题干标签顺序一致，独立解题结果相同。",
+            "comparison": {
+              "equivalent": true,
+              "followsQuestion": true,
+              "reason": "两者均按左到右 User Space→用户内存、OS Buffers→系统缓冲区、Disk→磁盘，结果与顺序一致，且未改变题设。"
+            }
+          },
+          {
+            "rule": "conditions",
+            "passed": true,
+            "reason": "题干已限定两条垂直虚线分三区及从左到右标签，答案未引入额外条件。"
+          }
+        ]
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.6.0+skill.1.0.0",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-flash",
+        "materialLength": 0,
+        "elapsedMs": 7057,
+        "calls": [
+          {
+            "operation": "observe_image",
+            "model": "deepseek-flash",
+            "latencyMs": 1041,
+            "usage": {
+              "inputTokens": 657,
+              "outputTokens": 95,
+              "totalTokens": 752,
+              "cachedInputTokens": 512
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "generate",
+            "model": "deepseek-flash",
+            "latencyMs": 3464,
+            "usage": {
+              "inputTokens": 2739,
+              "outputTokens": 689,
+              "totalTokens": 3428,
+              "cachedInputTokens": 2560
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-flash",
+            "latencyMs": 841,
+            "usage": {
+              "inputTokens": 835,
+              "outputTokens": 72,
+              "totalTokens": 907,
+              "cachedInputTokens": 640
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-flash",
+            "latencyMs": 1688,
+            "usage": {
+              "inputTokens": 1975,
+              "outputTokens": 212,
+              "totalTokens": 2187,
+              "cachedInputTokens": 1024
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1600
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "卡片与练习的断言均由图片观察记录直接支持：顶部三个标签及两条垂直虚线分区。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "摘要、示例、题干与答案一致，均按左中右标签对应三个区域。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "练习要求指出三个区域分别对应的内存/缓冲区/磁盘，直接检验学习目标。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "答案与题干标签顺序一致，独立解题结果相同。",
+                "comparison": {
+                  "equivalent": true,
+                  "followsQuestion": true,
+                  "reason": "两者均按左到右 User Space→用户内存、OS Buffers→系统缓冲区、Disk→磁盘，结果与顺序一致，且未改变题设。"
+                }
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "题干已限定两条垂直虚线分三区及从左到右标签，答案未引入额外条件。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": {
+          "observations": [
+            "顶部左侧文字为“User Space”",
+            "顶部中间文字为“OS Buffers”",
+            "顶部右侧文字为“Disk”",
+            "图中存在两条垂直虚线，将画面分为三个区域",
+            "中间区域“OS Buffers”下方有一个由8个水平矩形格组成的垂直堆叠图形",
+            "右侧区域“Disk”下方有一个由8个水平矩形格组成的垂直堆叠图形，矩形填充为浅蓝色"
+          ],
+          "legend": []
+        },
+        "answerVerification": {
+          "answerable": true,
+          "answer": "从左到右依次为：用户内存（User Space）、系统缓冲区（OS Buffers）、磁盘（Disk）。",
+          "basis": "观察记录显示顶部标签依次为“User Space”“OS Buffers”“Disk”，两条垂直虚线将其分为三个区域；按标签直接对应即可。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  },
+  {
+    "id": "sensitivity",
+    "context": {
+      "userGoal": "能解释在给定先验、灵敏度和假阳性率时,后验概率为何可能远低于检测准确率,并说明其成立条件\n必须新增：原卡只给出贝叶斯公式的推导与先验、后验的关系;本候选新增对基率忽视的定量解释:当先验 P(A) 很小时,即使 P(B|A) 高,分母中 P(B|A^c)P(A^c) 仍可能占主导,使后验 P(A|B) 很小。成立条件是 A 与 A^c 互斥完备、P(B)>0,且假阳性率与先验基数共同决定分母大小。\n目标难度：标准；按这个难度选择前置知识、解释步骤和例子，不得只改难度标签。\n不得复述关联卡摘要。",
+      "materialLength": 530,
+      "evidence": [
+        {
+          "id": "discovery_outline",
+          "kind": "text",
+          "origin": "discovery_outline",
+          "title": "发现候选：基率忽视:为什么高灵敏检测下小概率事件的后验仍可能很低",
+          "text": "主题：基率忽视:为什么高灵敏检测下小概率事件的后验仍可能很低\n学习目标：能解释在给定先验、灵敏度和假阳性率时,后验概率为何可能远低于检测准确率,并说明其成立条件\n必须新增：原卡只给出贝叶斯公式的推导与先验、后验的关系;本候选新增对基率忽视的定量解释:当先验 P(A) 很小时,即使 P(B|A) 高,分母中 P(B|A^c)P(A^c) 仍可能占主导,使后验 P(A|B) 很小。成立条件是 A 与 A^c 互斥完备、P(B)>0,且假阳性率与先验基数共同决定分母大小。\n与已有知识的关系：从《由条件概率定义推导贝叶斯公式：先验与后验的关系》向前延伸，不重复原卡解释\n依据状态：已有卡片延伸\n知识说明（模型生成，未经外部来源验证）：设 A 为患病,B 为检测阳性,A 与 A^c 互斥完备且 P(B)>0,则 P(A|B)=P(B|A)P(A)/[P(B|A)P(A)+P(B|A^c)P(A^c)]。当患病率 P(A) 很低时,即使灵敏度 P(B|A) 很高,假阳性项 P(B|A^c)P(A^c) 仍可能主导分母,使后验远小于灵敏度。例如 P(A)=0.001、灵敏度 0.99、假阳性率 0.05 时,后验约为 0.019,说明检测准确率不等于后验概率。",
+          "startCharacter": 0,
+          "version": 1
+        }
+      ],
+      "image": null,
+      "relatedCards": [],
+      "learningContext": {
+        "version": 1,
+        "generatedAt": 1789365476678,
+        "profileScope": "current_profile",
+        "taskScope": {
+          "mode": "generation",
+          "topicId": "topic_fc9c0e19fc9c0e19",
+          "learningUnitId": "unit_discovery_17933869179338691793"
+        },
+        "explicitPreferences": [],
+        "appliedPreferenceIds": [],
+        "interests": [],
+        "downrankedTopics": [],
+        "excludedUnits": [],
+        "recentFacts": [
+          {
+            "eventId": "exposure:discovery_pool_0bfa6eb004ff488f8d4031012b05158f:discovery_candidate_7429146e6c0c40428a0ab2ee04adb044",
+            "type": "recommendation_exposure",
+            "cardId": null,
+            "learningUnitId": "unit_discovery_17933869179338691793",
+            "topicId": "topic_fc9c0e19fc9c0e19",
+            "topicLabel": "基率忽视:为什么高灵敏检测下小概率事件的后验仍可能很低",
+            "action": null,
+            "occurredAt": 1789365467361
+          }
+        ],
+        "learnedUnits": [],
+        "reviewSummary": {
+          "observedUnitCount": 0,
+          "legacyUnitCount": 0,
+          "reviewEventCount": 0,
+          "incorrectCount": 0,
+          "errorCause": "unknown"
+        },
+        "recentWindowDays": 30
+      },
+      "companionReferencesOnly": false
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "基率忽视：为什么高灵敏检测下小概率事件的后验仍可能很低",
+        "learningObjective": "能解释在给定先验、灵敏度和假阳性率时，后验概率为何可能远低于检测准确率，并说明其成立条件",
+        "knowledgeType": "mechanism",
+        "summary": "设 A 为患病、B 为检测阳性，A 与 A^c 互斥完备且 P(B)>0，则 P(A|B)=P(B|A)P(A)/[P(B|A)P(A)+P(B|A^c)P(A^c)]。分母由两部分相加：真阳性项 P(B|A)P(A) 与假阳性项 P(B|A^c)P(A^c)。当患病率 P(A) 很低时，即使灵敏度 P(B|A) 很高，假阳性项仍可能主导分母，使后验 P(A|B) 远小于灵敏度。因此检测准确率（灵敏度）不等于后验概率，后验由假阳性率与先验基数共同决定。",
+        "example": {
+          "type": "example",
+          "text": "某病患病率 P(A)=0.001，检测灵敏度 P(B|A)=0.99，假阳性率 P(B|A^c)=0.05。代入公式：分子 0.99×0.001=0.00099；分母 0.00099+0.05×0.999=0.00099+0.04995=0.05094；后验 P(A|B)≈0.019。可见灵敏度 0.99 很高，但阳性者真正患病的后验概率仍只有约 1.9%。",
+          "origin": "authored"
+        },
+        "boundaries": "公式成立需 A 与 A^c 互斥完备且 P(B)>0；后验远低于灵敏度只在先验 P(A) 很低、假阳性项 P(B|A^c)P(A^c) 主导分母时出现，并非所有先验下都如此。",
+        "analogy": "",
+        "mantra": "",
+        "id": "card_c39b6da284e24cf2b33e2ce706c4e583",
+        "contentVersion": 2,
+        "learningUnitId": "unit_discovery_17933869179338691793",
+        "topicId": "topic_fc9c0e19fc9c0e19",
+        "citations": [],
+        "sourceSnapshot": null
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "某罕见病患病率 P(A)=0.002，检测灵敏度 P(B|A)=0.98，假阳性率 P(B|A^c)=0.04。请用贝叶斯公式判断：检测阳性者真正患病的后验概率大致是多少？并说明为什么它远低于灵敏度 0.98。",
+        "answer": "分子 P(B|A)P(A)=0.98×0.002=0.00196；假阳性项 P(B|A^c)P(A^c)=0.04×0.998=0.03992；分母=0.00196+0.03992=0.04188；后验 P(A|B)=0.00196/0.04188≈0.0468，约 4.7%。它远低于灵敏度，是因为先验 P(A)=0.002 很低，假阳性项 0.03992 远大于真阳性项 0.00196，主导了分母。",
+        "answerExplanation": "按 P(A|B)=P(B|A)P(A)/[P(B|A)P(A)+P(B|A^c)P(A^c)] 代入：真阳性项 0.00196，假阳性项 0.03992，分母 0.04188，后验约 0.0468。先验很低时假阳性项主导分母，故后验远小于灵敏度。",
+        "rubric": [
+          "正确写出贝叶斯公式并代入先验、灵敏度、假阳性率",
+          "算出真阳性项 0.00196 与假阳性项 0.03992，指出假阳性项主导分母",
+          "得出后验约 0.0468（约 4.7%）并说明其远低于灵敏度的原因"
+        ],
+        "id": "exercise_a092655c1cb345a294b1f8561343672a",
+        "version": 1
+      },
+      "evidence": [
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "设 A 为患病,B 为检测阳性,A 与 A^c 互斥完备且 P(B)>0,则 P(A|B)=P(B|A)P(A)/[P(B|A)P(A)+P(B|A^c)P(A^c)]。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "当患病率 P(A) 很低时,即使灵敏度 P(B|A) 很高,假阳性项 P(B|A^c)P(A^c) 仍可能主导分母,使后验远小于灵敏度。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "设 A 为患病,B 为检测阳性,A 与 A^c 互斥完备且 P(B)>0,则 P(A|B)=P(B|A)P(A)/[P(B|A)P(A)+P(B|A^c)P(A^c)]。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "当患病率 P(A) 很低时,即使灵敏度 P(B|A) 很高,假阳性项 P(B|A^c)P(A^c) 仍可能主导分母,使后验远小于灵敏度。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "设 A 为患病,B 为检测阳性,A 与 A^c 互斥完备且 P(B)>0,则 P(A|B)=P(B|A)P(A)/[P(B|A)P(A)+P(B|A^c)P(A^c)]。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "boundaries"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "设 A 为患病,B 为检测阳性,A 与 A^c 互斥完备且 P(B)>0,则 P(A|B)=P(B|A)P(A)/[P(B|A)P(A)+P(B|A^c)P(A^c)]。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "例如 P(A)=0.001、灵敏度 0.99、假阳性率 0.05 时,后验约为 0.019,说明检测准确率不等于后验概率。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        }
+      ],
+      "generation": {
+        "promptVersion": "concept-card-v2.6.0+skill.1.0.0",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-flash",
+        "materialLength": 530,
+        "elapsedMs": 8297,
+        "calls": [
+          {
+            "operation": "generate",
+            "model": "deepseek-flash",
+            "latencyMs": 4635,
+            "usage": {
+              "inputTokens": 3469,
+              "outputTokens": 1092,
+              "totalTokens": 4561,
+              "cachedInputTokens": 2560
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-flash",
+            "latencyMs": 1000,
+            "usage": {
+              "inputTokens": 1164,
+              "outputTokens": 172,
+              "totalTokens": 1336,
+              "cachedInputTokens": 640
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-flash",
+            "latencyMs": 2602,
+            "usage": {
+              "inputTokens": 2880,
+              "outputTokens": 289,
+              "totalTokens": 3169,
+              "cachedInputTokens": 1024
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1600
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "卡片公式、示例数值与边界条件均与来源 discovery_outline 的模型生成内容一致，引用实际支持相应断言。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例计算 0.00099/(0.00099+0.04995)≈0.019 与公式一致，练习计算 0.00196/0.04188≈0.0468 也一致。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "练习要求用贝叶斯公式计算后验并解释其远低于灵敏度的原因，直接检验学习目标。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "答案数值、公式代入和解释均正确；独立解题结果与标准答案一致。",
+                "comparison": {
+                  "equivalent": true,
+                  "followsQuestion": true,
+                  "reason": "独立答案与标准答案均为约0.0468（约4.7%），真阳性项、假阳性项、分母及低先验导致假阳性项主导的解释一致，且未改变题设条件。"
+                }
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "卡片明确给出 A 与 A^c 互斥完备、P(B)>0 以及后验远低于灵敏度需低先验且假阳性项主导分母的成立条件。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": null,
+        "answerVerification": {
+          "answerable": true,
+          "answer": "后验概率约为0.047（约4.7%）。因为患病率极低，分母中假阳性项 P(B|A^c)P(A^c)=0.04×0.998≈0.03992 远大于真阳性项 P(B|A)P(A)=0.98×0.002=0.00196，使后验远低于灵敏度0.98。",
+          "basis": "贝叶斯公式：P(A|B)=P(B|A)P(A)/[P(B|A)P(A)+P(B|A^c)P(A^c)]。代入得0.00196/(0.00196+0.03992)≈0.0468。低先验下假阳性项主导分母。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  },
+  {
+    "id": "iso",
+    "context": {
+      "userGoal": "能解释光圈、快门、ISO 三者如何共同决定曝光量,并说明改变其中一个时如何补偿\n必须新增：相比“摄影”这一兴趣标签,新增曝光三要素的定量关系:曝光量由进光孔径、曝光时间与感光度共同决定,三者此消彼长\n目标难度：入门；按这个难度选择前置知识、解释步骤和例子，不得只改难度标签。\n不得复述关联卡摘要。",
+      "materialLength": 337,
+      "evidence": [
+        {
+          "id": "discovery_outline",
+          "kind": "text",
+          "origin": "discovery_outline",
+          "title": "发现候选：曝光三角:光圈、快门与感光度的取舍",
+          "text": "主题：曝光三角:光圈、快门与感光度的取舍\n学习目标：能解释光圈、快门、ISO 三者如何共同决定曝光量,并说明改变其中一个时如何补偿\n必须新增：相比“摄影”这一兴趣标签,新增曝光三要素的定量关系:曝光量由进光孔径、曝光时间与感光度共同决定,三者此消彼长\n与已有知识的关系：从你选择的“摄影”兴趣继续探索\n依据状态：模型建议\n知识说明（模型生成，未经外部来源验证）：曝光量由光圈、快门和ISO共同决定。光圈f值越小,通光孔径越大,进光量按面积近似与f值平方成反比;快门时间加倍则进光量加倍;ISO提高则信号被放大,但噪点也增加。因此固定曝光时,开大一档光圈可用加快一档快门补偿。例如f/4、1/125秒与f/2.8、1/250秒在相同ISO下曝光近似相等,但景深与运动模糊不同。",
+          "startCharacter": 0,
+          "version": 1
+        }
+      ],
+      "image": null,
+      "relatedCards": [],
+      "learningContext": {
+        "version": 2,
+        "generatedAt": 1789365393611,
+        "profileScope": "current_profile",
+        "taskScope": {
+          "mode": "generation",
+          "topicId": "topic_8411485684114856",
+          "learningUnitId": "unit_discovery_0036ff7d0036ff7d0036"
+        },
+        "explicitPreferences": [],
+        "appliedPreferenceIds": [],
+        "interests": [],
+        "downrankedTopics": [],
+        "excludedUnits": [],
+        "recentFacts": [
+          {
+            "eventId": "exposure:discovery_pool_b297169972b44d60bd950fede95c9f78:discovery_candidate_e2bf688ca0a443e2beb2314da6fc4f94",
+            "type": "recommendation_exposure",
+            "cardId": null,
+            "learningUnitId": "unit_discovery_0036ff7d0036ff7d0036",
+            "topicId": "topic_8411485684114856",
+            "topicLabel": "曝光三角:光圈、快门与感光度的取舍",
+            "action": null,
+            "occurredAt": 1789365387658
+          }
+        ],
+        "learnedUnits": [],
+        "reviewSummary": {
+          "observedUnitCount": 0,
+          "legacyUnitCount": 0,
+          "reviewEventCount": 0,
+          "incorrectCount": 0,
+          "errorCause": "unknown"
+        },
+        "recentWindowDays": 30
+      },
+      "companionReferencesOnly": false
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "曝光三角：光圈、快门与ISO如何共同决定曝光量",
+        "learningObjective": "能解释光圈、快门与ISO如何共同决定曝光量，并说明改变其中一个时如何补偿",
+        "knowledgeType": "mechanism",
+        "summary": "曝光量由光圈、快门和ISO共同决定。光圈f值越小，通光孔径越大，进光量按面积近似与f值平方成反比；快门时间加倍则进光量加倍；ISO提高则信号被放大，但噪点也增加。因此固定曝光时，开大一档光圈可用加快一档快门补偿，三者此消彼长。",
+        "example": {
+          "type": "example",
+          "text": "在相同ISO下，若把光圈从f/4开大到f/2.8（进光量约加倍），可把快门从1/125秒加快到1/250秒（进光量减半）来补偿，使曝光近似相等；但景深与运动模糊会不同。",
+          "origin": "authored"
+        },
+        "boundaries": "ISO提高在放大信号的同时也会使噪点增加；上述补偿关系是近似相等，且景深与运动模糊等画面效果会随参数改变而不同。",
+        "analogy": "",
+        "mantra": "",
+        "id": "card_6b034cc0202f49f298dc43ce6f5dbc20",
+        "contentVersion": 2,
+        "learningUnitId": "unit_discovery_0036ff7d0036ff7d0036",
+        "topicId": "topic_8411485684114856",
+        "citations": [],
+        "sourceSnapshot": null
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "在相同ISO下，某次拍摄使用f/4、1/125秒。若把光圈改为f/2.8，为保持曝光近似相等，快门应如何调整？并说明依据。",
+        "answer": "应把快门加快到约1/250秒。因为f/4到f/2.8使通光孔径变大、进光量约加倍，快门时间减半可使进光量减半，从而补偿回近似相同的曝光量。",
+        "answerExplanation": "光圈f值越小，通光孔径越大，进光量按面积近似与f值平方成反比，f/4到f/2.8进光量约加倍；快门时间加倍则进光量加倍，因此快门从1/125秒减半到1/250秒可抵消光圈带来的进光量增加，使曝光近似相等。",
+        "rubric": [
+          "指出快门应加快到约1/250秒",
+          "说明光圈开大导致进光量约加倍",
+          "说明快门时间减半使进光量减半，从而补偿"
+        ],
+        "id": "exercise_e60f2325b0634626847dafdaf01040fa",
+        "version": 1
+      },
+      "evidence": [
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "曝光量由光圈、快门和ISO共同决定。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "光圈f值越小,通光孔径越大,进光量按面积近似与f值平方成反比",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "快门时间加倍则进光量加倍",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "ISO提高则信号被放大,但噪点也增加",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "固定曝光时,开大一档光圈可用加快一档快门补偿",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "光圈f值越小,通光孔径越大,进光量按面积近似与f值平方成反比",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "快门时间加倍则进光量加倍",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "固定曝光时,开大一档光圈可用加快一档快门补偿",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "ISO提高则信号被放大,但噪点也增加",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "boundaries"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "f/4、1/125秒与f/2.8、1/250秒在相同ISO下曝光近似相等,但景深与运动模糊不同",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "boundaries"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "光圈f值越小,通光孔径越大,进光量按面积近似与f值平方成反比",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "快门时间加倍则进光量加倍",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "固定曝光时,开大一档光圈可用加快一档快门补偿",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        }
+      ],
+      "generation": {
+        "promptVersion": "concept-card-v2.6.0+skill.1.0.0",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-flash",
+        "materialLength": 337,
+        "elapsedMs": 7041,
+        "calls": [
+          {
+            "operation": "generate",
+            "model": "deepseek-flash",
+            "latencyMs": 4203,
+            "usage": {
+              "inputTokens": 3227,
+              "outputTokens": 850,
+              "totalTokens": 4077,
+              "cachedInputTokens": 2560
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-flash",
+            "latencyMs": 1091,
+            "usage": {
+              "inputTokens": 987,
+              "outputTokens": 86,
+              "totalTokens": 1073,
+              "cachedInputTokens": 640
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-flash",
+            "latencyMs": 1725,
+            "usage": {
+              "inputTokens": 2364,
+              "outputTokens": 249,
+              "totalTokens": 2613,
+              "cachedInputTokens": 1024
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1600
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "卡片与练习的断言均可由来源文本支持；来源为模型建议，未伪装为外部验证。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例与演算一致：f/4到f/2.8进光量约加倍，快门1/125秒减半到1/250秒补偿，曝光近似相等。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "回忆题要求调整快门并说明依据，直接检验曝光三角的补偿关系这一学习目标。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "答案与反馈正确：快门加快到约1/250秒，依据光圈进光量加倍、快门时间减半补偿。",
+                "comparison": {
+                  "equivalent": true,
+                  "followsQuestion": true,
+                  "reason": "独立答案与标准答案结果一致，均为约1/250秒，且遵守相同ISO、f/4到f/2.8的题设。"
+                }
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "已保留相同ISO、近似相等、景深与运动模糊变化等条件，成立条件完整。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": null,
+        "answerVerification": {
+          "answerable": true,
+          "answer": "快门应加快一档，改为约1/250秒。",
+          "basis": "依据材料：光圈f值越小孔径越大，进光量近似与f值平方成反比；f/4到f/2.8进光量约加倍，故快门时间应减半，1/125秒变为约1/250秒。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  },
+  {
+    "id": "rule72",
+    "context": {
+      "userGoal": "能解释72法则如何由对数公式得出并估算翻倍期数",
+      "evidence": [
+        {
+          "id": "outline",
+          "kind": "text",
+          "origin": "discovery_outline",
+          "text": "要估算本金翻倍所需期数,可令(1+r)^n=2,两边取对数得n=ln2/ln(1+r)。当每期利率r较小时,ln(1+r)≈r,且ln2≈0.693,换算成百分数即n≈72/(100r),这就是72法则。成立条件是r为每期利率且利息按期再投资。例如年利率8%时约需72/8=9年翻倍;利率很高时该近似会低估期数,应改用精确公式。"
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "72法则：由对数公式推导的翻倍期数估算",
+        "learningObjective": "能解释72法则如何由对数公式得出并估算翻倍期数",
+        "knowledgeType": "mechanism",
+        "summary": "要估算本金翻倍所需期数，可令(1+r)^n=2，两边取对数得n=ln2/ln(1+r)。当每期利率r较小时，ln(1+r)≈r，且ln2≈0.693，换算成百分数即n≈72/(100r)，这就是72法则。成立条件是r为每期利率且利息按期再投资。",
+        "example": {
+          "type": "example",
+          "text": "假设每期利率为8%且利息按期再投资，用72法则估算翻倍期数：n≈72/8=9，即约需9期。",
+          "origin": "authored"
+        },
+        "boundaries": "成立条件是r为每期利率且利息按期再投资；利率很高时该近似会低估期数，应改用精确公式。",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "某投资每期利率为6%，利息按期再投资。请用72法则估算本金翻倍所需期数，并说明该估算成立所依赖的近似条件。",
+        "answer": "n≈72/6=12，即约需12期。该估算成立依赖r较小，此时ln(1+r)≈r，且ln2≈0.693，换算成百分数后得到72/(100r)。",
+        "answerExplanation": "由(1+r)^n=2取对数得n=ln2/ln(1+r)。当r较小时ln(1+r)≈r，ln2≈0.693，换算成百分数即n≈72/(100r)。代入r=6%得n≈72/6=12。成立条件是r为每期利率且利息按期再投资。",
+        "rubric": [
+          "写出n≈72/6=12，即约需12期",
+          "说明依赖r较小时ln(1+r)≈r且ln2≈0.693的近似",
+          "指出成立条件是r为每期利率且利息按期再投资"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "outline",
+          "quote": "可令(1+r)^n=2,两边取对数得n=ln2/ln(1+r)。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "outline",
+          "quote": "当每期利率r较小时,ln(1+r)≈r,且ln2≈0.693,换算成百分数即n≈72/(100r),这就是72法则。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "outline",
+          "quote": "成立条件是r为每期利率且利息按期再投资。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "outline",
+          "quote": "当每期利率r较小时,ln(1+r)≈r,且ln2≈0.693,换算成百分数即n≈72/(100r),这就是72法则。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "outline",
+          "quote": "成立条件是r为每期利率且利息按期再投资。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "outline",
+          "quote": "成立条件是r为每期利率且利息按期再投资。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "boundaries"
+        },
+        {
+          "evidenceId": "outline",
+          "quote": "例如年利率8%时约需72/8=9年翻倍;利率很高时该近似会低估期数,应改用精确公式。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "boundaries"
+        },
+        {
+          "evidenceId": "outline",
+          "quote": "当每期利率r较小时,ln(1+r)≈r,且ln2≈0.693,换算成百分数即n≈72/(100r),这就是72法则。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "outline",
+          "quote": "成立条件是r为每期利率且利息按期再投资。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "卡片、练习与边界中的对数推导、72法则近似、成立条件及高利率低估期数的说法均与outline来源一致，引用实际支持相应结论。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "从(1+r)^n=2取对数到n≈72/(100r)的推导、8%与6%的代入计算及边界说明前后一致，无自相矛盾。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习要求用72法则估算翻倍期数并说明近似条件，与学习目标“解释72法则如何由对数公式得出并估算翻倍期数”一致。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "n≈72/6=12正确，近似条件与成立条件说明正确；独立解题结果与标准答案在数值、条件和结论上一致。",
+          "comparison": {
+            "equivalent": true,
+            "followsQuestion": true,
+            "reason": "独立答案给出约12期，并说明依赖r较小、ln(1+r)≈r、ln2≈0.693及利息按期再投资，与标准答案的最终结果、条件和结论一致，且未改变题设。"
+          }
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "已明确r为每期利率、利息按期再投资、r较小时使用近似，并指出高利率时应改用精确公式，成立条件完整。"
+        }
+      ],
+      "issues": [],
+      "quality": {
+        "passed": true,
+        "issues": [],
+        "evidence": [
+          {
+            "evidenceId": "outline",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "可令(1+r)^n=2,两边取对数得n=ln2/ln(1+r)。",
+            "occurrence": 0,
+            "startCharacter": 12,
+            "endCharacter": 44
+          },
+          {
+            "evidenceId": "outline",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "当每期利率r较小时,ln(1+r)≈r,且ln2≈0.693,换算成百分数即n≈72/(100r),这就是72法则。",
+            "occurrence": 0,
+            "startCharacter": 44,
+            "endCharacter": 102
+          },
+          {
+            "evidenceId": "outline",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "成立条件是r为每期利率且利息按期再投资。",
+            "occurrence": 0,
+            "startCharacter": 102,
+            "endCharacter": 122
+          },
+          {
+            "evidenceId": "outline",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "当每期利率r较小时,ln(1+r)≈r,且ln2≈0.693,换算成百分数即n≈72/(100r),这就是72法则。",
+            "occurrence": 0,
+            "startCharacter": 44,
+            "endCharacter": 102
+          },
+          {
+            "evidenceId": "outline",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "成立条件是r为每期利率且利息按期再投资。",
+            "occurrence": 0,
+            "startCharacter": 102,
+            "endCharacter": 122
+          },
+          {
+            "evidenceId": "outline",
+            "kind": "text",
+            "claim": "boundaries",
+            "quote": "成立条件是r为每期利率且利息按期再投资。",
+            "occurrence": 0,
+            "startCharacter": 102,
+            "endCharacter": 122
+          },
+          {
+            "evidenceId": "outline",
+            "kind": "text",
+            "claim": "boundaries",
+            "quote": "例如年利率8%时约需72/8=9年翻倍;利率很高时该近似会低估期数,应改用精确公式。",
+            "occurrence": 0,
+            "startCharacter": 122,
+            "endCharacter": 164
+          },
+          {
+            "evidenceId": "outline",
+            "kind": "text",
+            "claim": "example",
+            "quote": "当每期利率r较小时,ln(1+r)≈r,且ln2≈0.693,换算成百分数即n≈72/(100r),这就是72法则。",
+            "occurrence": 0,
+            "startCharacter": 44,
+            "endCharacter": 102
+          },
+          {
+            "evidenceId": "outline",
+            "kind": "text",
+            "claim": "example",
+            "quote": "成立条件是r为每期利率且利息按期再投资。",
+            "occurrence": 0,
+            "startCharacter": 102,
+            "endCharacter": 122
+          }
+        ],
+        "checks": [
+          {
+            "rule": "grounding",
+            "passed": true,
+            "reason": "卡片、练习与边界中的对数推导、72法则近似、成立条件及高利率低估期数的说法均与outline来源一致，引用实际支持相应结论。"
+          },
+          {
+            "rule": "coherence",
+            "passed": true,
+            "reason": "从(1+r)^n=2取对数到n≈72/(100r)的推导、8%与6%的代入计算及边界说明前后一致，无自相矛盾。"
+          },
+          {
+            "rule": "objectiveAlignment",
+            "passed": true,
+            "reason": "练习要求用72法则估算翻倍期数并说明近似条件，与学习目标“解释72法则如何由对数公式得出并估算翻倍期数”一致。"
+          },
+          {
+            "rule": "answerCorrectness",
+            "passed": true,
+            "reason": "n≈72/6=12正确，近似条件与成立条件说明正确；独立解题结果与标准答案在数值、条件和结论上一致。",
+            "comparison": {
+              "equivalent": true,
+              "followsQuestion": true,
+              "reason": "独立答案给出约12期，并说明依赖r较小、ln(1+r)≈r、ln2≈0.693及利息按期再投资，与标准答案的最终结果、条件和结论一致，且未改变题设。"
+            }
+          },
+          {
+            "rule": "conditions",
+            "passed": true,
+            "reason": "已明确r为每期利率、利息按期再投资、r较小时使用近似，并指出高利率时应改用精确公式，成立条件完整。"
+          }
+        ]
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.6.1+skill.1.0.0",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-flash",
+        "materialLength": 0,
+        "elapsedMs": 8619,
+        "calls": [
+          {
+            "operation": "generate",
+            "model": "deepseek-flash",
+            "latencyMs": 4771,
+            "usage": {
+              "inputTokens": 2849,
+              "outputTokens": 874,
+              "totalTokens": 3723,
+              "cachedInputTokens": 2432
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-flash",
+            "latencyMs": 1990,
+            "usage": {
+              "inputTokens": 849,
+              "outputTokens": 111,
+              "totalTokens": 960,
+              "cachedInputTokens": 640
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-flash",
+            "latencyMs": 1846,
+            "usage": {
+              "inputTokens": 2249,
+              "outputTokens": 311,
+              "totalTokens": 2560,
+              "cachedInputTokens": 1152
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1600
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "卡片、练习与边界中的对数推导、72法则近似、成立条件及高利率低估期数的说法均与outline来源一致，引用实际支持相应结论。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "从(1+r)^n=2取对数到n≈72/(100r)的推导、8%与6%的代入计算及边界说明前后一致，无自相矛盾。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "练习要求用72法则估算翻倍期数并说明近似条件，与学习目标“解释72法则如何由对数公式得出并估算翻倍期数”一致。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "n≈72/6=12正确，近似条件与成立条件说明正确；独立解题结果与标准答案在数值、条件和结论上一致。",
+                "comparison": {
+                  "equivalent": true,
+                  "followsQuestion": true,
+                  "reason": "独立答案给出约12期，并说明依赖r较小、ln(1+r)≈r、ln2≈0.693及利息按期再投资，与标准答案的最终结果、条件和结论一致，且未改变题设。"
+                }
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "已明确r为每期利率、利息按期再投资、r较小时使用近似，并指出高利率时应改用精确公式，成立条件完整。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": null,
+        "answerVerification": {
+          "answerable": true,
+          "answer": "约需12期（72/6=12）；成立依赖每期利率r较小、ln(1+r)≈r且ln2≈0.693的近似，并要求利息按期再投资。",
+          "basis": "72法则由(1+r)^n=2取对数得n=ln2/ln(1+r)，小r时ln(1+r)≈r，故n≈72/(100r)；r=6%时约12期。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  }
+]

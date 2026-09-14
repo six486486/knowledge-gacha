@@ -1,0 +1,3558 @@
+[
+  {
+    "id": "short-07",
+    "expected": "blocked",
+    "provenance": "test-results/2026-09-06-product-fixes-2/full-v2.4.2/outputs.json",
+    "context": {
+      "userGoal": "能判断 Promise.all 的结果顺序和失败行为",
+      "evidence": [
+        {
+          "id": "material",
+          "kind": "text",
+          "text": "Promise.all 等待所有输入成功后成功，结果按输入顺序排列，不按完成先后排列。一旦一个输入拒绝，返回的 Promise 会拒绝；这并不等于取消其他已经启动的任务。",
+          "title": "Promise.all",
+          "startCharacter": 0
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "Promise.all 的结果顺序与失败行为",
+        "learningObjective": "能判断 Promise.all 的结果顺序和失败行为",
+        "knowledgeType": "concept",
+        "summary": "Promise.all 接收一组 Promise，等待所有输入成功后，返回一个 Promise，其成功结果按输入顺序排列，而不是按完成先后排列。一旦任何一个输入拒绝，返回的 Promise 立即拒绝，但不会取消其他已经启动的任务。",
+        "example": {
+          "type": "example",
+          "text": "假设有三个 Promise，分别在不同时间完成：p1 在 10ms 后 resolve('a')，p2 在 5ms 后 resolve('b')，p3 在 20ms 后 resolve('c')。Promise.all([p1, p2, p3]) 成功后的结果是 ['a', 'b', 'c']，尽管 p2 最先完成。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "给定三个 Promise：p1 在 100ms 后 resolve('x')，p2 在 50ms 后 resolve('y')，p3 在 200ms 后 reject(new Error('fail'))。调用 Promise.all([p1, p2, p3])，请判断该调用返回的 Promise 最终是成功还是失败？如果成功，结果是什么？如果失败，原因是什么？同时说明其他任务是否被取消。",
+        "answer": "返回的 Promise 会失败，原因是 p3 拒绝。结果顺序无关，因为失败时没有成功结果。其他任务（p1 和 p2）不会被取消，它们仍会继续执行。",
+        "answerExplanation": "根据材料，Promise.all 一旦一个输入拒绝，返回的 Promise 就会拒绝。这里 p3 拒绝，所以整体失败。失败时没有成功结果，因此不涉及结果顺序。材料明确说明拒绝并不等于取消其他已经启动的任务，所以 p1 和 p2 仍会继续执行。",
+        "rubric": [
+          "判断出返回的 Promise 会失败",
+          "说明失败原因是 p3 拒绝",
+          "说明其他任务不会被取消"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "material",
+          "quote": "Promise.all 等待所有输入成功后成功，结果按输入顺序排列，不按完成先后排列。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "一旦一个输入拒绝，返回的 Promise 会拒绝；这并不等于取消其他已经启动的任务。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "Promise.all 等待所有输入成功后成功，结果按输入顺序排列，不按完成先后排列。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "一旦一个输入拒绝，返回的 Promise 会拒绝；这并不等于取消其他已经启动的任务。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "Promise.all 等待所有输入成功后成功，结果按输入顺序排列，不按完成先后排列。",
+          "occurrence": 0,
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "引用材料支持总结和练习，示例基于材料规则，无事实错误。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例中结果顺序与材料一致，练习中失败行为与材料一致。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习直接检验结果顺序和失败行为，与学习目标一致。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案正确：Promise.all 因 p3 拒绝而失败，其他任务不被取消。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "成立条件完整：输入为 Promise 数组，成功时按输入顺序，失败时立即拒绝且不取消其他任务。"
+        }
+      ],
+      "issues": [],
+      "quality": {
+        "passed": true,
+        "issues": [],
+        "evidence": [
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "Promise.all 等待所有输入成功后成功，结果按输入顺序排列，不按完成先后排列。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 43
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "一旦一个输入拒绝，返回的 Promise 会拒绝；这并不等于取消其他已经启动的任务。",
+            "occurrence": 0,
+            "startCharacter": 43,
+            "endCharacter": 85
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "Promise.all 等待所有输入成功后成功，结果按输入顺序排列，不按完成先后排列。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 43
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "一旦一个输入拒绝，返回的 Promise 会拒绝；这并不等于取消其他已经启动的任务。",
+            "occurrence": 0,
+            "startCharacter": 43,
+            "endCharacter": 85
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "Promise.all 等待所有输入成功后成功，结果按输入顺序排列，不按完成先后排列。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 43
+          }
+        ],
+        "checks": [
+          {
+            "rule": "grounding",
+            "passed": true,
+            "reason": "引用材料支持总结和练习，示例基于材料规则，无事实错误。"
+          },
+          {
+            "rule": "coherence",
+            "passed": true,
+            "reason": "示例中结果顺序与材料一致，练习中失败行为与材料一致。"
+          },
+          {
+            "rule": "objectiveAlignment",
+            "passed": true,
+            "reason": "练习直接检验结果顺序和失败行为，与学习目标一致。"
+          },
+          {
+            "rule": "answerCorrectness",
+            "passed": true,
+            "reason": "答案正确：Promise.all 因 p3 拒绝而失败，其他任务不被取消。"
+          },
+          {
+            "rule": "conditions",
+            "passed": true,
+            "reason": "成立条件完整：输入为 Promise 数组，成功时按输入顺序，失败时立即拒绝且不取消其他任务。"
+          }
+        ]
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.4.2",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-v4-flash-vision-exp",
+        "materialLength": 85,
+        "elapsedMs": 8434,
+        "calls": [
+          {
+            "operation": "generate",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 5379,
+            "usage": {
+              "inputTokens": 1646,
+              "outputTokens": 575,
+              "totalTokens": 2221,
+              "cachedInputTokens": 1408
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1294,
+            "usage": {
+              "inputTokens": 438,
+              "outputTokens": 94,
+              "totalTokens": 532,
+              "cachedInputTokens": 256
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1753,
+            "usage": {
+              "inputTokens": 1205,
+              "outputTokens": 161,
+              "totalTokens": 1366,
+              "cachedInputTokens": 512
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1600
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "引用材料支持总结和练习，示例基于材料规则，无事实错误。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例中结果顺序与材料一致，练习中失败行为与材料一致。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "练习直接检验结果顺序和失败行为，与学习目标一致。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "答案正确：Promise.all 因 p3 拒绝而失败，其他任务不被取消。"
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "成立条件完整：输入为 Promise 数组，成功时按输入顺序，失败时立即拒绝且不取消其他任务。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": null,
+        "answerVerification": {
+          "answerable": true,
+          "answer": "失败，原因是p3的拒绝原因Error('fail')；其他任务不会被取消。",
+          "basis": "根据Promise.all规则：任一输入拒绝则返回的Promise拒绝，拒绝原因即为该拒绝原因；其他已启动的任务不会被取消。p3在200ms后拒绝，因此最终失败，原因Error('fail')，p1和p2继续执行但结果被忽略。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  },
+  {
+    "id": "image-01",
+    "expected": "blocked",
+    "provenance": "test-results/2026-09-06-product-fixes-2/full-v2.4.2/outputs.json",
+    "context": {
+      "userGoal": "能区分图中的用户内存、系统缓冲区和磁盘",
+      "evidence": [
+        {
+          "id": "image",
+          "kind": "image",
+          "title": "SQLite 原子提交图：初始状态",
+          "observations": [
+            "图像顶部左侧有文字'User Space'",
+            "图像顶部中间有文字'OS Buffers'",
+            "图像顶部右侧有文字'Disk'",
+            "图像中有两条垂直虚线分隔三个区域",
+            "左侧区域没有图形元素",
+            "中间区域有一个由8个白色矩形组成的垂直堆叠",
+            "右侧区域有一个由8个浅蓝色矩形组成的垂直堆叠"
+          ],
+          "legend": []
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "区分用户内存、系统缓冲区和磁盘",
+        "learningObjective": "能区分图中的用户内存、系统缓冲区和磁盘",
+        "knowledgeType": "concept",
+        "summary": "图中用三个区域表示不同的存储层次：左侧是用户空间（User Space），中间是操作系统缓冲区（OS Buffers），右侧是磁盘（Disk）。用户空间通常没有图形元素，表示应用程序直接访问的内存；系统缓冲区包含白色矩形，表示操作系统管理的缓存；磁盘包含浅蓝色矩形，表示持久化存储。这些区域由垂直虚线分隔，表明它们是独立的部分。",
+        "example": {
+          "type": "illustration",
+          "text": "在SQLite原子提交的初始状态图中，左侧的用户空间没有图形，中间的OS缓冲区有8个白色矩形，右侧的磁盘有8个浅蓝色矩形。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "根据图中所示，用户空间、系统缓冲区和磁盘分别位于哪个区域？请描述每个区域中可见的图形元素。",
+        "answer": "用户空间位于左侧，没有图形元素；系统缓冲区位于中间，有8个白色矩形；磁盘位于右侧，有8个浅蓝色矩形。",
+        "answerExplanation": "图中明确标注了三个区域：左侧为User Space，中间为OS Buffers，右侧为Disk。观察可见，左侧区域没有图形元素，中间区域有8个白色矩形，右侧区域有8个浅蓝色矩形。",
+        "rubric": [
+          "正确指出用户空间在左侧且无图形元素",
+          "正确指出系统缓冲区在中间且有8个白色矩形",
+          "正确指出磁盘在右侧且有8个浅蓝色矩形"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "图像顶部左侧有文字'User Space'",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "图像顶部中间有文字'OS Buffers'",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "图像顶部右侧有文字'Disk'",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "左侧区域没有图形元素",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "中间区域有一个由8个白色矩形组成的垂直堆叠",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "右侧区域有一个由8个浅蓝色矩形组成的垂直堆叠",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "图像顶部左侧有文字'User Space'",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "图像顶部中间有文字'OS Buffers'",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "图像顶部右侧有文字'Disk'",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "左侧区域没有图形元素",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "中间区域有一个由8个白色矩形组成的垂直堆叠",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "右侧区域有一个由8个浅蓝色矩形组成的垂直堆叠",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "图像顶部左侧有文字'User Space'",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "图像顶部中间有文字'OS Buffers'",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "图像顶部右侧有文字'Disk'",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "左侧区域没有图形元素",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "中间区域有一个由8个白色矩形组成的垂直堆叠",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "右侧区域有一个由8个浅蓝色矩形组成的垂直堆叠",
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "所有断言均直接来自图像观察，无额外推断。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例、总结和练习描述一致，无矛盾。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习直接检验区分三个区域及其图形元素的目标。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案准确描述了三个区域的位置和图形元素，与图像一致。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "题目未要求额外条件，描述完整。"
+        }
+      ],
+      "issues": [],
+      "quality": {
+        "passed": true,
+        "issues": [],
+        "evidence": [
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "图像顶部左侧有文字'User Space'",
+            "claim": "summary",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "图像顶部中间有文字'OS Buffers'",
+            "claim": "summary",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "图像顶部右侧有文字'Disk'",
+            "claim": "summary",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "左侧区域没有图形元素",
+            "claim": "summary",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "中间区域有一个由8个白色矩形组成的垂直堆叠",
+            "claim": "summary",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "右侧区域有一个由8个浅蓝色矩形组成的垂直堆叠",
+            "claim": "summary",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "图像顶部左侧有文字'User Space'",
+            "claim": "exercise",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "图像顶部中间有文字'OS Buffers'",
+            "claim": "exercise",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "图像顶部右侧有文字'Disk'",
+            "claim": "exercise",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "左侧区域没有图形元素",
+            "claim": "exercise",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "中间区域有一个由8个白色矩形组成的垂直堆叠",
+            "claim": "exercise",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "右侧区域有一个由8个浅蓝色矩形组成的垂直堆叠",
+            "claim": "exercise",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "图像顶部左侧有文字'User Space'",
+            "claim": "example",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "图像顶部中间有文字'OS Buffers'",
+            "claim": "example",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "图像顶部右侧有文字'Disk'",
+            "claim": "example",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "左侧区域没有图形元素",
+            "claim": "example",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "中间区域有一个由8个白色矩形组成的垂直堆叠",
+            "claim": "example",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "右侧区域有一个由8个浅蓝色矩形组成的垂直堆叠",
+            "claim": "example",
+            "kind": "image"
+          }
+        ],
+        "checks": [
+          {
+            "rule": "grounding",
+            "passed": true,
+            "reason": "所有断言均直接来自图像观察，无额外推断。"
+          },
+          {
+            "rule": "coherence",
+            "passed": true,
+            "reason": "示例、总结和练习描述一致，无矛盾。"
+          },
+          {
+            "rule": "objectiveAlignment",
+            "passed": true,
+            "reason": "练习直接检验区分三个区域及其图形元素的目标。"
+          },
+          {
+            "rule": "answerCorrectness",
+            "passed": true,
+            "reason": "答案准确描述了三个区域的位置和图形元素，与图像一致。"
+          },
+          {
+            "rule": "conditions",
+            "passed": true,
+            "reason": "题目未要求额外条件，描述完整。"
+          }
+        ]
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.4.2",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-v4-flash-vision-exp",
+        "materialLength": 0,
+        "elapsedMs": 10773,
+        "calls": [
+          {
+            "operation": "observe_image",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1290,
+            "usage": {
+              "inputTokens": 279,
+              "outputTokens": 82,
+              "totalTokens": 361,
+              "cachedInputTokens": 0
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "generate",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 5322,
+            "usage": {
+              "inputTokens": 1684,
+              "outputTokens": 606,
+              "totalTokens": 2290,
+              "cachedInputTokens": 1408
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "repair",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1123,
+            "usage": {
+              "inputTokens": 2255,
+              "outputTokens": 80,
+              "totalTokens": 2335,
+              "cachedInputTokens": 1280
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1800
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1652,
+            "usage": {
+              "inputTokens": 406,
+              "outputTokens": 113,
+              "totalTokens": 519,
+              "cachedInputTokens": 256
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1365,
+            "usage": {
+              "inputTokens": 1283,
+              "outputTokens": 127,
+              "totalTokens": 1410,
+              "cachedInputTokens": 512
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1600
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [
+              {
+                "code": "image_claim_unverified",
+                "field": "card.example.text",
+                "message": "card.example.text中的“写入”没有出现在独立图像观察或附加文字依据中。只凭颜色、布局不能建立该状态；请移除无依据结论，目标无法完成时返回insufficient_material并请求图注。"
+              }
+            ],
+            "checks": []
+          },
+          {
+            "attempt": 2,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "所有断言均直接来自图像观察，无额外推断。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例、总结和练习描述一致，无矛盾。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "练习直接检验区分三个区域及其图形元素的目标。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "答案准确描述了三个区域的位置和图形元素，与图像一致。"
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "题目未要求额外条件，描述完整。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": {
+          "observations": [
+            "图像顶部左侧有文字'User Space'",
+            "图像顶部中间有文字'OS Buffers'",
+            "图像顶部右侧有文字'Disk'",
+            "图像中有两条垂直虚线分隔三个区域",
+            "左侧区域没有图形元素",
+            "中间区域有一个由8个白色矩形组成的垂直堆叠",
+            "右侧区域有一个由8个浅蓝色矩形组成的垂直堆叠"
+          ],
+          "legend": []
+        },
+        "answerVerification": {
+          "answerable": true,
+          "answer": "用户空间位于左侧区域，系统缓冲区位于中间区域，磁盘位于右侧区域。左侧区域没有图形元素；中间区域有一个由8个白色矩形组成的垂直堆叠；右侧区域有一个由8个浅蓝色矩形组成的垂直堆叠。",
+          "basis": "根据图像观察，顶部标签分别为'User Space'、'OS Buffers'和'Disk'，对应三个区域。左侧无图形，中间有白色矩形堆叠，右侧有浅蓝色矩形堆叠。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  },
+  {
+    "id": "short-05",
+    "expected": "review",
+    "provenance": "test-results/2026-09-06-product-fixes-2/full-v2.4.2/outputs.json",
+    "context": {
+      "userGoal": "能判断默认列表参数为什么跨调用保留内容",
+      "evidence": [
+        {
+          "id": "material",
+          "kind": "text",
+          "text": "Python 的默认参数值只在函数定义时求值一次。把可变列表作为默认值，多个调用可能共享并修改同一个对象；用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+          "title": "默认列表参数",
+          "startCharacter": 0
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "默认列表参数的共享行为",
+        "learningObjective": "能判断默认列表参数为什么跨调用保留内容",
+        "knowledgeType": "mechanism",
+        "summary": "Python 的默认参数值只在函数定义时求值一次。如果默认值是可变列表，那么多次调用会共享同一个列表对象，修改它会导致后续调用看到之前的内容。使用 None 作为默认值，并在函数体内创建新列表，可以避免这种共享。",
+        "example": {
+          "type": "example",
+          "text": "定义 def f(x=[]): x.append(1); return x。第一次调用 f() 返回 [1]，第二次调用 f() 返回 [1,1]，因为两次调用共享同一个默认列表。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "给定函数 def add(item, lst=[]): lst.append(item); return lst。连续调用 add(1) 和 add(2)，第二次调用返回什么？为什么？",
+        "answer": "第二次调用返回 [1,2]。因为默认列表 lst 在函数定义时创建一次，两次调用共享同一个列表对象，第一次添加了 1，第二次又添加了 2。",
+        "answerExplanation": "默认参数值只在函数定义时求值一次，所以 lst 是同一个列表对象。第一次调用 add(1) 将 1 追加到该列表，返回 [1]；第二次调用 add(2) 将 2 追加到同一个列表，返回 [1,2]。",
+        "rubric": [
+          "指出第二次调用返回 [1,2]",
+          "解释默认列表在定义时创建一次，两次调用共享同一对象"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "material",
+          "quote": "Python 的默认参数值只在函数定义时求值一次。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "Python 的默认参数值只在函数定义时求值一次。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "Python 的默认参数值只在函数定义时求值一次。",
+          "occurrence": 0,
+          "claim": "example"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；",
+          "occurrence": 0,
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "所有断言均与来源一致，且来源为可靠知识。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例和练习演算一致，无矛盾。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习和示例均针对默认列表参数共享机制。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案正确，解释清晰。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "成立条件完整，未遗漏必要前提。"
+        }
+      ],
+      "issues": [],
+      "quality": {
+        "passed": true,
+        "issues": [],
+        "evidence": [
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "Python 的默认参数值只在函数定义时求值一次。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 25
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；",
+            "occurrence": 0,
+            "startCharacter": 25,
+            "endCharacter": 53
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+            "occurrence": 0,
+            "startCharacter": 53,
+            "endCharacter": 83
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "Python 的默认参数值只在函数定义时求值一次。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 25
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；",
+            "occurrence": 0,
+            "startCharacter": 25,
+            "endCharacter": 53
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+            "occurrence": 0,
+            "startCharacter": 53,
+            "endCharacter": 83
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "Python 的默认参数值只在函数定义时求值一次。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 25
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；",
+            "occurrence": 0,
+            "startCharacter": 25,
+            "endCharacter": 53
+          }
+        ],
+        "checks": [
+          {
+            "rule": "grounding",
+            "passed": true,
+            "reason": "所有断言均与来源一致，且来源为可靠知识。"
+          },
+          {
+            "rule": "coherence",
+            "passed": true,
+            "reason": "示例和练习演算一致，无矛盾。"
+          },
+          {
+            "rule": "objectiveAlignment",
+            "passed": true,
+            "reason": "练习和示例均针对默认列表参数共享机制。"
+          },
+          {
+            "rule": "answerCorrectness",
+            "passed": true,
+            "reason": "答案正确，解释清晰。"
+          },
+          {
+            "rule": "conditions",
+            "passed": true,
+            "reason": "成立条件完整，未遗漏必要前提。"
+          }
+        ]
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.4.2",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-v4-flash-vision-exp",
+        "materialLength": 83,
+        "elapsedMs": 7389,
+        "calls": [
+          {
+            "operation": "generate",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 4752,
+            "usage": {
+              "inputTokens": 1652,
+              "outputTokens": 506,
+              "totalTokens": 2158,
+              "cachedInputTokens": 1408
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1321,
+            "usage": {
+              "inputTokens": 384,
+              "outputTokens": 121,
+              "totalTokens": 505,
+              "cachedInputTokens": 256
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1309,
+            "usage": {
+              "inputTokens": 1142,
+              "outputTokens": 119,
+              "totalTokens": 1261,
+              "cachedInputTokens": 512
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1600
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "所有断言均与来源一致，且来源为可靠知识。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例和练习演算一致，无矛盾。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "练习和示例均针对默认列表参数共享机制。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "答案正确，解释清晰。"
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "成立条件完整，未遗漏必要前提。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": null,
+        "answerVerification": {
+          "answerable": true,
+          "answer": "[1, 2]；因为默认列表在定义时创建一次，两次调用共享同一列表，第一次append(1)后列表为[1]，第二次append(2)后为[1,2]。",
+          "basis": "依据材料：默认参数值只在函数定义时求值一次，可变列表作为默认值会被多次调用共享并修改。第一次调用add(1)修改默认列表为[1]，第二次调用add(2)在同一个列表上追加，返回[1,2]。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  },
+  {
+    "id": "short-08",
+    "expected": "review",
+    "provenance": "test-results/2026-09-06-product-fixes-2/full-v2.4.2/outputs.json",
+    "context": {
+      "userGoal": "能区分事务原子性与硬件同时写入",
+      "evidence": [
+        {
+          "id": "material",
+          "kind": "text",
+          "text": "原子提交使一个事务中的修改表现为全部发生或全部不发生。SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+          "title": "事务原子性",
+          "startCharacter": 0
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "事务原子性与硬件同时写入的区分",
+        "learningObjective": "能区分事务原子性与硬件同时写入",
+        "knowledgeType": "concept",
+        "summary": "事务原子性是指一个事务中的修改在逻辑上表现为全部发生或全部不发生，这是通过日志和恢复步骤实现的。SQLite 使用日志和恢复步骤来提供这种表现，但这并不意味着硬件真的在同一瞬间完成所有磁盘写入。原子性是一种逻辑保证，而非物理上的同时写入。",
+        "example": {
+          "type": "contrast",
+          "text": "假设一个事务包含两次磁盘写入。从外部观察，事务提交后，两次写入的效果要么都可见，要么都不可见，这体现了原子性。然而，在硬件层面，这两次写入可能并非同时发生，而是先后完成。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "一个事务在 SQLite 中提交后，从外部观察其修改是全部可见还是全部不可见？这是否意味着硬件在同一瞬间完成了所有磁盘写入？请根据材料说明。",
+        "answer": "从外部观察，事务的修改表现为全部发生或全部不发生，即原子性。但这并不意味着硬件在同一瞬间完成了所有磁盘写入，因为原子性是通过日志和恢复步骤实现的，而不是物理上的同时写入。",
+        "answerExplanation": "材料指出，原子提交使事务修改表现为全部发生或全部不发生，这是通过日志和恢复步骤提供的。同时，材料明确说明不能据此认为硬件真的在同一瞬间完成所有磁盘写入。因此，原子性是逻辑上的保证，而非物理同时性。",
+        "rubric": [
+          "指出事务修改表现为全部发生或全部不发生",
+          "说明原子性不是硬件同时写入，而是通过日志和恢复步骤实现"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "material",
+          "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+          "occurrence": 0,
+          "claim": "example"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+          "occurrence": 0,
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "引用材料支持总结和练习，且事实正确。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例与总结一致，无矛盾。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "内容围绕区分原子性与硬件同时写入。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案正确，符合材料。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "条件完整，明确原子性为逻辑保证。"
+        }
+      ],
+      "issues": [],
+      "quality": {
+        "passed": true,
+        "issues": [],
+        "evidence": [
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 27
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+            "occurrence": 0,
+            "startCharacter": 27,
+            "endCharacter": 73
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 27
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+            "occurrence": 0,
+            "startCharacter": 27,
+            "endCharacter": 73
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 27
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+            "occurrence": 0,
+            "startCharacter": 27,
+            "endCharacter": 73
+          }
+        ],
+        "checks": [
+          {
+            "rule": "grounding",
+            "passed": true,
+            "reason": "引用材料支持总结和练习，且事实正确。"
+          },
+          {
+            "rule": "coherence",
+            "passed": true,
+            "reason": "示例与总结一致，无矛盾。"
+          },
+          {
+            "rule": "objectiveAlignment",
+            "passed": true,
+            "reason": "内容围绕区分原子性与硬件同时写入。"
+          },
+          {
+            "rule": "answerCorrectness",
+            "passed": true,
+            "reason": "答案正确，符合材料。"
+          },
+          {
+            "rule": "conditions",
+            "passed": true,
+            "reason": "条件完整，明确原子性为逻辑保证。"
+          }
+        ]
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.4.2",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-v4-flash-vision-exp",
+        "materialLength": 73,
+        "elapsedMs": 6777,
+        "calls": [
+          {
+            "operation": "generate",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 4582,
+            "usage": {
+              "inputTokens": 1641,
+              "outputTokens": 487,
+              "totalTokens": 2128,
+              "cachedInputTokens": 1408
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 799,
+            "usage": {
+              "inputTokens": 378,
+              "outputTokens": 70,
+              "totalTokens": 448,
+              "cachedInputTokens": 256
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1386,
+            "usage": {
+              "inputTokens": 1114,
+              "outputTokens": 114,
+              "totalTokens": 1228,
+              "cachedInputTokens": 512
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1600
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "引用材料支持总结和练习，且事实正确。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例与总结一致，无矛盾。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "内容围绕区分原子性与硬件同时写入。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "答案正确，符合材料。"
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "条件完整，明确原子性为逻辑保证。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": null,
+        "answerVerification": {
+          "answerable": true,
+          "answer": "全部可见或全部不可见；不意味着硬件在同一瞬间完成所有磁盘写入。",
+          "basis": "材料指出原子提交使修改表现为全部发生或全部不发生，且用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  },
+  {
+    "id": "condition-02",
+    "expected": "review",
+    "provenance": "test-results/2026-09-06-product-fixes-2/full-v2.4.2/outputs.json",
+    "context": {
+      "userGoal": "能判断浮点数相等与近似相等的差别",
+      "evidence": [
+        {
+          "id": "material",
+          "kind": "text",
+          "text": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。预先对每个 0.1 调用 round 并不能消除表示误差；math.isclose 可按容差判断两个浮点数是否接近。容差选择依赖具体需求。",
+          "title": "浮点比较",
+          "startCharacter": 0
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "浮点数相等与近似相等",
+        "learningObjective": "能判断浮点数相等与近似相等的差别",
+        "knowledgeType": "concept",
+        "summary": "浮点数运算可能产生表示误差，导致看似相等的表达式比较结果为 False。例如 0.1 + 0.1 + 0.1 == 0.3 为 False。预先对每个操作数调用 round 并不能消除这种误差。math.isclose 函数可以按容差判断两个浮点数是否接近，但容差的选择需要根据具体需求确定。",
+        "example": {
+          "type": "example",
+          "text": "假设需要判断 0.1 + 0.1 + 0.1 是否等于 0.3，直接使用 == 会得到 False；使用 math.isclose(0.1+0.1+0.1, 0.3) 则可能返回 True，但需设置合适的容差。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "在 Python 中，表达式 0.1 + 0.1 + 0.1 == 0.3 的结果是什么？为什么？如果要判断它们是否接近，应该使用什么函数？",
+        "answer": "结果为 False。因为浮点数表示误差导致 0.1+0.1+0.1 与 0.3 不精确相等。要判断是否接近，应使用 math.isclose 函数。",
+        "answerExplanation": "根据材料，0.1 + 0.1 + 0.1 == 0.3 的比较为 False，原因是浮点数表示误差。材料指出 math.isclose 可按容差判断两个浮点数是否接近，因此应使用 math.isclose。",
+        "rubric": [
+          "指出结果为 False",
+          "说明原因是浮点数表示误差",
+          "建议使用 math.isclose 判断接近"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "material",
+          "quote": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "预先对每个 0.1 调用 round 并不能消除表示误差；",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "math.isclose 可按容差判断两个浮点数是否接近。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "容差选择依赖具体需求。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "math.isclose 可按容差判断两个浮点数是否接近。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "math.isclose 可按容差判断两个浮点数是否接近。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "所有断言均直接由来源支持，且来源事实正确。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例与总结一致，无内部矛盾。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "内容聚焦于浮点数相等与近似相等的判断，符合学习目标。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案正确，解释合理，符合材料。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "已提及容差依赖具体需求，条件完整。"
+        }
+      ],
+      "issues": [],
+      "quality": {
+        "passed": true,
+        "issues": [],
+        "evidence": [
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 34
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "预先对每个 0.1 调用 round 并不能消除表示误差；",
+            "occurrence": 0,
+            "startCharacter": 34,
+            "endCharacter": 63
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "math.isclose 可按容差判断两个浮点数是否接近。",
+            "occurrence": 0,
+            "startCharacter": 63,
+            "endCharacter": 92
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "容差选择依赖具体需求。",
+            "occurrence": 0,
+            "startCharacter": 92,
+            "endCharacter": 103
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 34
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "math.isclose 可按容差判断两个浮点数是否接近。",
+            "occurrence": 0,
+            "startCharacter": 63,
+            "endCharacter": 92
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 34
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "math.isclose 可按容差判断两个浮点数是否接近。",
+            "occurrence": 0,
+            "startCharacter": 63,
+            "endCharacter": 92
+          }
+        ],
+        "checks": [
+          {
+            "rule": "grounding",
+            "passed": true,
+            "reason": "所有断言均直接由来源支持，且来源事实正确。"
+          },
+          {
+            "rule": "coherence",
+            "passed": true,
+            "reason": "示例与总结一致，无内部矛盾。"
+          },
+          {
+            "rule": "objectiveAlignment",
+            "passed": true,
+            "reason": "内容聚焦于浮点数相等与近似相等的判断，符合学习目标。"
+          },
+          {
+            "rule": "answerCorrectness",
+            "passed": true,
+            "reason": "答案正确，解释合理，符合材料。"
+          },
+          {
+            "rule": "conditions",
+            "passed": true,
+            "reason": "已提及容差依赖具体需求，条件完整。"
+          }
+        ]
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.4.2",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-v4-flash-vision-exp",
+        "materialLength": 103,
+        "elapsedMs": 8315,
+        "calls": [
+          {
+            "operation": "generate",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 5369,
+            "usage": {
+              "inputTokens": 1664,
+              "outputTokens": 599,
+              "totalTokens": 2263,
+              "cachedInputTokens": 1408
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1425,
+            "usage": {
+              "inputTokens": 403,
+              "outputTokens": 101,
+              "totalTokens": 504,
+              "cachedInputTokens": 384
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1502,
+            "usage": {
+              "inputTokens": 1248,
+              "outputTokens": 127,
+              "totalTokens": 1375,
+              "cachedInputTokens": 512
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1600
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "所有断言均直接由来源支持，且来源事实正确。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例与总结一致，无内部矛盾。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "内容聚焦于浮点数相等与近似相等的判断，符合学习目标。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "答案正确，解释合理，符合材料。"
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "已提及容差依赖具体需求，条件完整。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": null,
+        "answerVerification": {
+          "answerable": true,
+          "answer": "False；因为浮点数表示误差，0.1+0.1+0.1 的结果略大于 0.3；应使用 math.isclose 函数。",
+          "basis": "材料明确指出 0.1+0.1+0.1 == 0.3 为 False，原因是浮点表示误差；并建议使用 math.isclose 按容差判断接近。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  },
+  {
+    "id": "short-07-correct",
+    "expected": "ready",
+    "provenance": "Corrected test control with explicit scope and state; not production knowledge.",
+    "context": {
+      "userGoal": "能判断 Promise.all 的结果顺序和失败行为",
+      "evidence": [
+        {
+          "id": "material",
+          "kind": "text",
+          "text": "Promise.all 等待所有输入成功后成功，结果按输入顺序排列，不按完成先后排列。一旦一个输入拒绝，返回的 Promise 会拒绝；这并不等于取消其他已经启动的任务。",
+          "title": "Promise.all",
+          "startCharacter": 0
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "Promise.all 的结果顺序与失败行为",
+        "learningObjective": "能判断 Promise.all 的结果顺序和失败行为",
+        "knowledgeType": "concept",
+        "summary": "Promise.all 接收一组 Promise，等待所有输入成功后，返回一个 Promise，其成功结果按输入顺序排列，而不是按完成先后排列。一旦任何一个输入拒绝，返回的 Promise 立即拒绝，但不会取消其他已经启动的任务。",
+        "example": {
+          "type": "example",
+          "text": "假设有三个 Promise，分别在不同时间完成：p1 在 10ms 后 resolve('a')，p2 在 5ms 后 resolve('b')，p3 在 20ms 后 resolve('c')。Promise.all([p1, p2, p3]) 成功后的结果是 ['a', 'b', 'c']，尽管 p2 最先完成。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "给定三个 Promise：p1 在 100ms 后 resolve('x')，p2 在 50ms 后 resolve('y')，p3 在 200ms 后 reject(new Error('fail'))。调用 Promise.all([p1, p2, p3])，请判断该调用返回的 Promise 最终是成功还是失败？如果成功，结果是什么？如果失败，原因是什么？同时说明其他任务是否被取消。",
+        "answer": "整体失败，原因是p3拒绝；p1和p2分别已在100ms和50ms完成，到了200ms已经完成，没有被取消。",
+        "answerExplanation": "p3在200ms拒绝使整体拒绝；题设中p1和p2此前已成功完成。一般规则是整体拒绝不会取消其他任务，不能把本例中已完成的任务说成仍在执行。",
+        "rubric": [
+          "判断出返回的 Promise 会失败",
+          "说明失败原因是 p3 拒绝",
+          "说明其他任务不会被取消"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "material",
+          "quote": "Promise.all 等待所有输入成功后成功，结果按输入顺序排列，不按完成先后排列。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "一旦一个输入拒绝，返回的 Promise 会拒绝；这并不等于取消其他已经启动的任务。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "Promise.all 等待所有输入成功后成功，结果按输入顺序排列，不按完成先后排列。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "一旦一个输入拒绝，返回的 Promise 会拒绝；这并不等于取消其他已经启动的任务。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "Promise.all 等待所有输入成功后成功，结果按输入顺序排列，不按完成先后排列。",
+          "occurrence": 0,
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "引用材料支持总结和练习，示例基于材料规则，无事实错误。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例中结果顺序与材料一致，练习中失败行为与材料一致。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习直接检验结果顺序和失败行为，与学习目标一致。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案正确：Promise.all 因 p3 拒绝而失败，其他任务不被取消。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "成立条件完整：输入为 Promise 数组，成功时按输入顺序，失败时立即拒绝且不取消其他任务。"
+        }
+      ],
+      "issues": [],
+      "quality": {
+        "passed": true,
+        "issues": [],
+        "evidence": [
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "Promise.all 等待所有输入成功后成功，结果按输入顺序排列，不按完成先后排列。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 43
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "一旦一个输入拒绝，返回的 Promise 会拒绝；这并不等于取消其他已经启动的任务。",
+            "occurrence": 0,
+            "startCharacter": 43,
+            "endCharacter": 85
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "Promise.all 等待所有输入成功后成功，结果按输入顺序排列，不按完成先后排列。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 43
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "一旦一个输入拒绝，返回的 Promise 会拒绝；这并不等于取消其他已经启动的任务。",
+            "occurrence": 0,
+            "startCharacter": 43,
+            "endCharacter": 85
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "Promise.all 等待所有输入成功后成功，结果按输入顺序排列，不按完成先后排列。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 43
+          }
+        ],
+        "checks": [
+          {
+            "rule": "grounding",
+            "passed": true,
+            "reason": "引用材料支持总结和练习，示例基于材料规则，无事实错误。"
+          },
+          {
+            "rule": "coherence",
+            "passed": true,
+            "reason": "示例中结果顺序与材料一致，练习中失败行为与材料一致。"
+          },
+          {
+            "rule": "objectiveAlignment",
+            "passed": true,
+            "reason": "练习直接检验结果顺序和失败行为，与学习目标一致。"
+          },
+          {
+            "rule": "answerCorrectness",
+            "passed": true,
+            "reason": "答案正确：Promise.all 因 p3 拒绝而失败，其他任务不被取消。"
+          },
+          {
+            "rule": "conditions",
+            "passed": true,
+            "reason": "成立条件完整：输入为 Promise 数组，成功时按输入顺序，失败时立即拒绝且不取消其他任务。"
+          }
+        ]
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.4.2",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-v4-flash-vision-exp",
+        "materialLength": 85,
+        "elapsedMs": 8434,
+        "calls": [
+          {
+            "operation": "generate",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 5379,
+            "usage": {
+              "inputTokens": 1646,
+              "outputTokens": 575,
+              "totalTokens": 2221,
+              "cachedInputTokens": 1408
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1294,
+            "usage": {
+              "inputTokens": 438,
+              "outputTokens": 94,
+              "totalTokens": 532,
+              "cachedInputTokens": 256
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1753,
+            "usage": {
+              "inputTokens": 1205,
+              "outputTokens": 161,
+              "totalTokens": 1366,
+              "cachedInputTokens": 512
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1600
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "引用材料支持总结和练习，示例基于材料规则，无事实错误。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例中结果顺序与材料一致，练习中失败行为与材料一致。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "练习直接检验结果顺序和失败行为，与学习目标一致。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "答案正确：Promise.all 因 p3 拒绝而失败，其他任务不被取消。"
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "成立条件完整：输入为 Promise 数组，成功时按输入顺序，失败时立即拒绝且不取消其他任务。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": null,
+        "answerVerification": {
+          "answerable": true,
+          "answer": "失败，原因是p3的拒绝原因Error('fail')；其他任务不会被取消。",
+          "basis": "根据Promise.all规则：任一输入拒绝则返回的Promise拒绝，拒绝原因即为该拒绝原因；其他已启动的任务不会被取消。p3在200ms后拒绝，因此最终失败，原因Error('fail')，p1和p2继续执行但结果被忽略。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  },
+  {
+    "id": "image-01-correct",
+    "expected": "ready",
+    "provenance": "Corrected test control with explicit scope and state; not production knowledge.",
+    "context": {
+      "userGoal": "能区分图中的用户内存、系统缓冲区和磁盘",
+      "evidence": [
+        {
+          "id": "image",
+          "kind": "image",
+          "title": "SQLite 原子提交图：初始状态",
+          "observations": [
+            "图像顶部左侧有文字'User Space'",
+            "图像顶部中间有文字'OS Buffers'",
+            "图像顶部右侧有文字'Disk'",
+            "图像中有两条垂直虚线分隔三个区域",
+            "左侧区域没有图形元素",
+            "中间区域有一个由8个白色矩形组成的垂直堆叠",
+            "右侧区域有一个由8个浅蓝色矩形组成的垂直堆叠"
+          ],
+          "legend": []
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "区分用户内存、系统缓冲区和磁盘",
+        "learningObjective": "能区分图中的用户内存、系统缓冲区和磁盘",
+        "knowledgeType": "concept",
+        "summary": "图中三个区域由垂直虚线分隔。左侧标注User Space，未画矩形；中间标注OS Buffers，画有8个白色矩形；右侧标注Disk，画有8个浅蓝色矩形。这里仅描述这张图可见的标注与位置。",
+        "example": {
+          "type": "illustration",
+          "text": "在SQLite原子提交的初始状态图中，左侧的用户空间没有图形，中间的OS缓冲区有8个白色矩形，右侧的磁盘有8个浅蓝色矩形。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "根据图中所示，用户空间、系统缓冲区和磁盘分别位于哪个区域？请描述每个区域中可见的图形元素。",
+        "answer": "用户空间位于左侧，没有图形元素；系统缓冲区位于中间，有8个白色矩形；磁盘位于右侧，有8个浅蓝色矩形。",
+        "answerExplanation": "图中明确标注了三个区域：左侧为User Space，中间为OS Buffers，右侧为Disk。观察可见，左侧区域没有图形元素，中间区域有8个白色矩形，右侧区域有8个浅蓝色矩形。",
+        "rubric": [
+          "正确指出用户空间在左侧且无图形元素",
+          "正确指出系统缓冲区在中间且有8个白色矩形",
+          "正确指出磁盘在右侧且有8个浅蓝色矩形"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "图像顶部左侧有文字'User Space'",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "图像顶部中间有文字'OS Buffers'",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "图像顶部右侧有文字'Disk'",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "左侧区域没有图形元素",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "中间区域有一个由8个白色矩形组成的垂直堆叠",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "右侧区域有一个由8个浅蓝色矩形组成的垂直堆叠",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "图像顶部左侧有文字'User Space'",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "图像顶部中间有文字'OS Buffers'",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "图像顶部右侧有文字'Disk'",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "左侧区域没有图形元素",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "中间区域有一个由8个白色矩形组成的垂直堆叠",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "右侧区域有一个由8个浅蓝色矩形组成的垂直堆叠",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "图像顶部左侧有文字'User Space'",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "图像顶部中间有文字'OS Buffers'",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "图像顶部右侧有文字'Disk'",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "左侧区域没有图形元素",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "中间区域有一个由8个白色矩形组成的垂直堆叠",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "image",
+          "quote": "",
+          "occurrence": 0,
+          "observation": "右侧区域有一个由8个浅蓝色矩形组成的垂直堆叠",
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "所有断言均直接来自图像观察，无额外推断。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例、总结和练习描述一致，无矛盾。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习直接检验区分三个区域及其图形元素的目标。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案准确描述了三个区域的位置和图形元素，与图像一致。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "题目未要求额外条件，描述完整。"
+        }
+      ],
+      "issues": [],
+      "quality": {
+        "passed": true,
+        "issues": [],
+        "evidence": [
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "图像顶部左侧有文字'User Space'",
+            "claim": "summary",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "图像顶部中间有文字'OS Buffers'",
+            "claim": "summary",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "图像顶部右侧有文字'Disk'",
+            "claim": "summary",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "左侧区域没有图形元素",
+            "claim": "summary",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "中间区域有一个由8个白色矩形组成的垂直堆叠",
+            "claim": "summary",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "右侧区域有一个由8个浅蓝色矩形组成的垂直堆叠",
+            "claim": "summary",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "图像顶部左侧有文字'User Space'",
+            "claim": "exercise",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "图像顶部中间有文字'OS Buffers'",
+            "claim": "exercise",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "图像顶部右侧有文字'Disk'",
+            "claim": "exercise",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "左侧区域没有图形元素",
+            "claim": "exercise",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "中间区域有一个由8个白色矩形组成的垂直堆叠",
+            "claim": "exercise",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "右侧区域有一个由8个浅蓝色矩形组成的垂直堆叠",
+            "claim": "exercise",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "图像顶部左侧有文字'User Space'",
+            "claim": "example",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "图像顶部中间有文字'OS Buffers'",
+            "claim": "example",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "图像顶部右侧有文字'Disk'",
+            "claim": "example",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "左侧区域没有图形元素",
+            "claim": "example",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "中间区域有一个由8个白色矩形组成的垂直堆叠",
+            "claim": "example",
+            "kind": "image"
+          },
+          {
+            "evidenceId": "image",
+            "quote": "",
+            "occurrence": 0,
+            "observation": "右侧区域有一个由8个浅蓝色矩形组成的垂直堆叠",
+            "claim": "example",
+            "kind": "image"
+          }
+        ],
+        "checks": [
+          {
+            "rule": "grounding",
+            "passed": true,
+            "reason": "所有断言均直接来自图像观察，无额外推断。"
+          },
+          {
+            "rule": "coherence",
+            "passed": true,
+            "reason": "示例、总结和练习描述一致，无矛盾。"
+          },
+          {
+            "rule": "objectiveAlignment",
+            "passed": true,
+            "reason": "练习直接检验区分三个区域及其图形元素的目标。"
+          },
+          {
+            "rule": "answerCorrectness",
+            "passed": true,
+            "reason": "答案准确描述了三个区域的位置和图形元素，与图像一致。"
+          },
+          {
+            "rule": "conditions",
+            "passed": true,
+            "reason": "题目未要求额外条件，描述完整。"
+          }
+        ]
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.4.2",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-v4-flash-vision-exp",
+        "materialLength": 0,
+        "elapsedMs": 10773,
+        "calls": [
+          {
+            "operation": "observe_image",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1290,
+            "usage": {
+              "inputTokens": 279,
+              "outputTokens": 82,
+              "totalTokens": 361,
+              "cachedInputTokens": 0
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "generate",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 5322,
+            "usage": {
+              "inputTokens": 1684,
+              "outputTokens": 606,
+              "totalTokens": 2290,
+              "cachedInputTokens": 1408
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "repair",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1123,
+            "usage": {
+              "inputTokens": 2255,
+              "outputTokens": 80,
+              "totalTokens": 2335,
+              "cachedInputTokens": 1280
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1800
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1652,
+            "usage": {
+              "inputTokens": 406,
+              "outputTokens": 113,
+              "totalTokens": 519,
+              "cachedInputTokens": 256
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1365,
+            "usage": {
+              "inputTokens": 1283,
+              "outputTokens": 127,
+              "totalTokens": 1410,
+              "cachedInputTokens": 512
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1600
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [
+              {
+                "code": "image_claim_unverified",
+                "field": "card.example.text",
+                "message": "card.example.text中的“写入”没有出现在独立图像观察或附加文字依据中。只凭颜色、布局不能建立该状态；请移除无依据结论，目标无法完成时返回insufficient_material并请求图注。"
+              }
+            ],
+            "checks": []
+          },
+          {
+            "attempt": 2,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "所有断言均直接来自图像观察，无额外推断。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例、总结和练习描述一致，无矛盾。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "练习直接检验区分三个区域及其图形元素的目标。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "答案准确描述了三个区域的位置和图形元素，与图像一致。"
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "题目未要求额外条件，描述完整。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": {
+          "observations": [
+            "图像顶部左侧有文字'User Space'",
+            "图像顶部中间有文字'OS Buffers'",
+            "图像顶部右侧有文字'Disk'",
+            "图像中有两条垂直虚线分隔三个区域",
+            "左侧区域没有图形元素",
+            "中间区域有一个由8个白色矩形组成的垂直堆叠",
+            "右侧区域有一个由8个浅蓝色矩形组成的垂直堆叠"
+          ],
+          "legend": []
+        },
+        "answerVerification": {
+          "answerable": true,
+          "answer": "用户空间位于左侧区域，系统缓冲区位于中间区域，磁盘位于右侧区域。左侧区域没有图形元素；中间区域有一个由8个白色矩形组成的垂直堆叠；右侧区域有一个由8个浅蓝色矩形组成的垂直堆叠。",
+          "basis": "根据图像观察，顶部标签分别为'User Space'、'OS Buffers'和'Disk'，对应三个区域。左侧无图形，中间有白色矩形堆叠，右侧有浅蓝色矩形堆叠。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  },
+  {
+    "id": "short-05-correct",
+    "expected": "ready",
+    "provenance": "Corrected test control with explicit scope and state; not production knowledge.",
+    "context": {
+      "userGoal": "能判断默认列表参数为什么跨调用保留内容",
+      "evidence": [
+        {
+          "id": "material",
+          "kind": "text",
+          "text": "Python 的默认参数值只在函数定义时求值一次。把可变列表作为默认值，多个调用可能共享并修改同一个对象；用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+          "title": "默认列表参数",
+          "startCharacter": 0
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "默认列表参数的共享行为",
+        "learningObjective": "能判断默认列表参数为什么跨调用保留内容",
+        "knowledgeType": "mechanism",
+        "summary": "Python默认参数在函数定义时求值一次。当多次调用未显式传入该参数、使用可变列表默认值时，它们复用同一列表对象，对它的修改会在后续同样使用默认值的调用中保留。可用None作为默认值，在函数体内按需创建新列表。",
+        "example": {
+          "type": "example",
+          "text": "定义 def f(x=[]): x.append(1); return x。第一次调用 f() 返回 [1]，第二次调用 f() 返回 [1,1]，因为两次调用共享同一个默认列表。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "给定函数 def add(item, lst=[]): lst.append(item); return lst。连续调用 add(1) 和 add(2)，第二次调用返回什么？为什么？",
+        "answer": "第二次调用返回 [1,2]。因为默认列表 lst 在函数定义时创建一次，两次调用共享同一个列表对象，第一次添加了 1，第二次又添加了 2。",
+        "answerExplanation": "默认参数值只在函数定义时求值一次，所以 lst 是同一个列表对象。第一次调用 add(1) 将 1 追加到该列表，返回 [1]；第二次调用 add(2) 将 2 追加到同一个列表，返回 [1,2]。",
+        "rubric": [
+          "指出第二次调用返回 [1,2]",
+          "解释默认列表在定义时创建一次，两次调用共享同一对象"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "material",
+          "quote": "Python 的默认参数值只在函数定义时求值一次。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "Python 的默认参数值只在函数定义时求值一次。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "Python 的默认参数值只在函数定义时求值一次。",
+          "occurrence": 0,
+          "claim": "example"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；",
+          "occurrence": 0,
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "所有断言均与来源一致，且来源为可靠知识。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例和练习演算一致，无矛盾。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习和示例均针对默认列表参数共享机制。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案正确，解释清晰。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "成立条件完整，未遗漏必要前提。"
+        }
+      ],
+      "issues": [],
+      "quality": {
+        "passed": true,
+        "issues": [],
+        "evidence": [
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "Python 的默认参数值只在函数定义时求值一次。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 25
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；",
+            "occurrence": 0,
+            "startCharacter": 25,
+            "endCharacter": 53
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+            "occurrence": 0,
+            "startCharacter": 53,
+            "endCharacter": 83
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "Python 的默认参数值只在函数定义时求值一次。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 25
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；",
+            "occurrence": 0,
+            "startCharacter": 25,
+            "endCharacter": 53
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+            "occurrence": 0,
+            "startCharacter": 53,
+            "endCharacter": 83
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "Python 的默认参数值只在函数定义时求值一次。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 25
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；",
+            "occurrence": 0,
+            "startCharacter": 25,
+            "endCharacter": 53
+          }
+        ],
+        "checks": [
+          {
+            "rule": "grounding",
+            "passed": true,
+            "reason": "所有断言均与来源一致，且来源为可靠知识。"
+          },
+          {
+            "rule": "coherence",
+            "passed": true,
+            "reason": "示例和练习演算一致，无矛盾。"
+          },
+          {
+            "rule": "objectiveAlignment",
+            "passed": true,
+            "reason": "练习和示例均针对默认列表参数共享机制。"
+          },
+          {
+            "rule": "answerCorrectness",
+            "passed": true,
+            "reason": "答案正确，解释清晰。"
+          },
+          {
+            "rule": "conditions",
+            "passed": true,
+            "reason": "成立条件完整，未遗漏必要前提。"
+          }
+        ]
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.4.2",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-v4-flash-vision-exp",
+        "materialLength": 83,
+        "elapsedMs": 7389,
+        "calls": [
+          {
+            "operation": "generate",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 4752,
+            "usage": {
+              "inputTokens": 1652,
+              "outputTokens": 506,
+              "totalTokens": 2158,
+              "cachedInputTokens": 1408
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1321,
+            "usage": {
+              "inputTokens": 384,
+              "outputTokens": 121,
+              "totalTokens": 505,
+              "cachedInputTokens": 256
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1309,
+            "usage": {
+              "inputTokens": 1142,
+              "outputTokens": 119,
+              "totalTokens": 1261,
+              "cachedInputTokens": 512
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1600
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "所有断言均与来源一致，且来源为可靠知识。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例和练习演算一致，无矛盾。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "练习和示例均针对默认列表参数共享机制。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "答案正确，解释清晰。"
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "成立条件完整，未遗漏必要前提。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": null,
+        "answerVerification": {
+          "answerable": true,
+          "answer": "[1, 2]；因为默认列表在定义时创建一次，两次调用共享同一列表，第一次append(1)后列表为[1]，第二次append(2)后为[1,2]。",
+          "basis": "依据材料：默认参数值只在函数定义时求值一次，可变列表作为默认值会被多次调用共享并修改。第一次调用add(1)修改默认列表为[1]，第二次调用add(2)在同一个列表上追加，返回[1,2]。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  },
+  {
+    "id": "short-08-correct",
+    "expected": "ready",
+    "provenance": "Corrected test control with explicit scope and state; not production knowledge.",
+    "context": {
+      "userGoal": "能区分事务原子性与硬件同时写入",
+      "evidence": [
+        {
+          "id": "material",
+          "kind": "text",
+          "text": "原子提交使一个事务中的修改表现为全部发生或全部不发生。SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+          "title": "事务原子性",
+          "startCharacter": 0
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "事务原子性与硬件同时写入的区分",
+        "learningObjective": "能区分事务原子性与硬件同时写入",
+        "knowledgeType": "concept",
+        "summary": "事务原子性是指一个事务中的修改在逻辑上表现为全部发生或全部不发生，这是通过日志和恢复步骤实现的。SQLite 使用日志和恢复步骤来提供这种表现，但这并不意味着硬件真的在同一瞬间完成所有磁盘写入。原子性是一种逻辑保证，而非物理上的同时写入。",
+        "example": {
+          "type": "contrast",
+          "text": "假设事务尝试修改两项数据：若成功提交，两项修改都保留；若事务失败并回滚，两项修改都不保留。这种逻辑上的整体结果不要求硬件在同一瞬间完成所有写入。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "SQLite事务修改两项数据；假设事务已成功提交，两项修改的逻辑效果应怎样表现？是否要求硬件同时完成所有写入？",
+        "answer": "成功提交时，两项修改都保留；不要求硬件在同一瞬间写入。",
+        "answerExplanation": "原子性保证事务修改作为整体生效或不生效。题设明确成功提交，因此属于整体生效的情况；日志与恢复实现这一逻辑保证，不表示硬件同时写入。",
+        "rubric": [
+          "成功提交时两项修改都保留",
+          "逻辑原子性不等于硬件同时写入"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "material",
+          "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+          "occurrence": 0,
+          "claim": "example"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+          "occurrence": 0,
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "引用材料支持总结和练习，且事实正确。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例与总结一致，无矛盾。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "内容围绕区分原子性与硬件同时写入。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案正确，符合材料。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "条件完整，明确原子性为逻辑保证。"
+        }
+      ],
+      "issues": [],
+      "quality": {
+        "passed": true,
+        "issues": [],
+        "evidence": [
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 27
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+            "occurrence": 0,
+            "startCharacter": 27,
+            "endCharacter": 73
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 27
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+            "occurrence": 0,
+            "startCharacter": 27,
+            "endCharacter": 73
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 27
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+            "occurrence": 0,
+            "startCharacter": 27,
+            "endCharacter": 73
+          }
+        ],
+        "checks": [
+          {
+            "rule": "grounding",
+            "passed": true,
+            "reason": "引用材料支持总结和练习，且事实正确。"
+          },
+          {
+            "rule": "coherence",
+            "passed": true,
+            "reason": "示例与总结一致，无矛盾。"
+          },
+          {
+            "rule": "objectiveAlignment",
+            "passed": true,
+            "reason": "内容围绕区分原子性与硬件同时写入。"
+          },
+          {
+            "rule": "answerCorrectness",
+            "passed": true,
+            "reason": "答案正确，符合材料。"
+          },
+          {
+            "rule": "conditions",
+            "passed": true,
+            "reason": "条件完整，明确原子性为逻辑保证。"
+          }
+        ]
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.4.2",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-v4-flash-vision-exp",
+        "materialLength": 73,
+        "elapsedMs": 6777,
+        "calls": [
+          {
+            "operation": "generate",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 4582,
+            "usage": {
+              "inputTokens": 1641,
+              "outputTokens": 487,
+              "totalTokens": 2128,
+              "cachedInputTokens": 1408
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 799,
+            "usage": {
+              "inputTokens": 378,
+              "outputTokens": 70,
+              "totalTokens": 448,
+              "cachedInputTokens": 256
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1386,
+            "usage": {
+              "inputTokens": 1114,
+              "outputTokens": 114,
+              "totalTokens": 1228,
+              "cachedInputTokens": 512
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1600
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "引用材料支持总结和练习，且事实正确。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例与总结一致，无矛盾。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "内容围绕区分原子性与硬件同时写入。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "答案正确，符合材料。"
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "条件完整，明确原子性为逻辑保证。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": null,
+        "answerVerification": {
+          "answerable": true,
+          "answer": "全部可见或全部不可见；不意味着硬件在同一瞬间完成所有磁盘写入。",
+          "basis": "材料指出原子提交使修改表现为全部发生或全部不发生，且用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  },
+  {
+    "id": "condition-02-correct",
+    "expected": "ready",
+    "provenance": "Corrected test control with explicit scope and state; not production knowledge.",
+    "context": {
+      "userGoal": "能判断浮点数相等与近似相等的差别",
+      "evidence": [
+        {
+          "id": "material",
+          "kind": "text",
+          "text": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。预先对每个 0.1 调用 round 并不能消除表示误差；math.isclose 可按容差判断两个浮点数是否接近。容差选择依赖具体需求。",
+          "title": "浮点比较",
+          "startCharacter": 0
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "浮点数相等与近似相等",
+        "learningObjective": "能判断浮点数相等与近似相等的差别",
+        "knowledgeType": "concept",
+        "summary": "浮点数运算可能产生表示误差，导致看似相等的表达式比较结果为 False。例如 0.1 + 0.1 + 0.1 == 0.3 为 False。预先对每个操作数调用 round 并不能消除这种误差。math.isclose 函数可以按容差判断两个浮点数是否接近，但容差的选择需要根据具体需求确定。",
+        "example": {
+          "type": "example",
+          "text": "在Python中，0.1+0.1+0.1 == 0.3为False；math.isclose(0.1+0.1+0.1, 0.3)按默认容差返回True。其他实际需求应另行选择适合的容差。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "在 Python 中，表达式 0.1 + 0.1 + 0.1 == 0.3 的结果是什么？为什么？如果要判断它们是否接近，应该使用什么函数？",
+        "answer": "结果为 False。因为浮点数表示误差导致 0.1+0.1+0.1 与 0.3 不精确相等。要判断是否接近，应使用 math.isclose 函数。",
+        "answerExplanation": "根据材料，0.1 + 0.1 + 0.1 == 0.3 的比较为 False，原因是浮点数表示误差。材料指出 math.isclose 可按容差判断两个浮点数是否接近，因此应使用 math.isclose。",
+        "rubric": [
+          "指出结果为 False",
+          "说明原因是浮点数表示误差",
+          "建议使用 math.isclose 判断接近"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "material",
+          "quote": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "预先对每个 0.1 调用 round 并不能消除表示误差；",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "math.isclose 可按容差判断两个浮点数是否接近。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "容差选择依赖具体需求。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "math.isclose 可按容差判断两个浮点数是否接近。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "math.isclose 可按容差判断两个浮点数是否接近。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "所有断言均直接由来源支持，且来源事实正确。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例与总结一致，无内部矛盾。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "内容聚焦于浮点数相等与近似相等的判断，符合学习目标。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案正确，解释合理，符合材料。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "已提及容差依赖具体需求，条件完整。"
+        }
+      ],
+      "issues": [],
+      "quality": {
+        "passed": true,
+        "issues": [],
+        "evidence": [
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 34
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "预先对每个 0.1 调用 round 并不能消除表示误差；",
+            "occurrence": 0,
+            "startCharacter": 34,
+            "endCharacter": 63
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "math.isclose 可按容差判断两个浮点数是否接近。",
+            "occurrence": 0,
+            "startCharacter": 63,
+            "endCharacter": 92
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "容差选择依赖具体需求。",
+            "occurrence": 0,
+            "startCharacter": 92,
+            "endCharacter": 103
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 34
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "math.isclose 可按容差判断两个浮点数是否接近。",
+            "occurrence": 0,
+            "startCharacter": 63,
+            "endCharacter": 92
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 34
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "math.isclose 可按容差判断两个浮点数是否接近。",
+            "occurrence": 0,
+            "startCharacter": 63,
+            "endCharacter": 92
+          }
+        ],
+        "checks": [
+          {
+            "rule": "grounding",
+            "passed": true,
+            "reason": "所有断言均直接由来源支持，且来源事实正确。"
+          },
+          {
+            "rule": "coherence",
+            "passed": true,
+            "reason": "示例与总结一致，无内部矛盾。"
+          },
+          {
+            "rule": "objectiveAlignment",
+            "passed": true,
+            "reason": "内容聚焦于浮点数相等与近似相等的判断，符合学习目标。"
+          },
+          {
+            "rule": "answerCorrectness",
+            "passed": true,
+            "reason": "答案正确，解释合理，符合材料。"
+          },
+          {
+            "rule": "conditions",
+            "passed": true,
+            "reason": "已提及容差依赖具体需求，条件完整。"
+          }
+        ]
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.4.2",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-v4-flash-vision-exp",
+        "materialLength": 103,
+        "elapsedMs": 8315,
+        "calls": [
+          {
+            "operation": "generate",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 5369,
+            "usage": {
+              "inputTokens": 1664,
+              "outputTokens": 599,
+              "totalTokens": 2263,
+              "cachedInputTokens": 1408
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1425,
+            "usage": {
+              "inputTokens": 403,
+              "outputTokens": 101,
+              "totalTokens": 504,
+              "cachedInputTokens": 384
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1502,
+            "usage": {
+              "inputTokens": 1248,
+              "outputTokens": 127,
+              "totalTokens": 1375,
+              "cachedInputTokens": 512
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1600
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "所有断言均直接由来源支持，且来源事实正确。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例与总结一致，无内部矛盾。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "内容聚焦于浮点数相等与近似相等的判断，符合学习目标。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "答案正确，解释合理，符合材料。"
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "已提及容差依赖具体需求，条件完整。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": null,
+        "answerVerification": {
+          "answerable": true,
+          "answer": "False；因为浮点数表示误差，0.1+0.1+0.1 的结果略大于 0.3；应使用 math.isclose 函数。",
+          "basis": "材料明确指出 0.1+0.1+0.1 == 0.3 为 False，原因是浮点表示误差；并建议使用 math.isclose 按容差判断接近。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  }
+]

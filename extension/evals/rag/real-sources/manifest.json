@@ -1,0 +1,169 @@
+{
+  "version": "fastapi-zh-0.115.0-v1",
+  "repository": "https://github.com/fastapi/fastapi",
+  "revision": "40e33e492dbf4af6172997f4e3238a32e56cbe26",
+  "license": "MIT",
+  "sourceScope": "20 official Chinese documentation files; queries and answer spans are project-authored, not production user traffic.",
+  "documents": [
+    {
+      "id": "tutorial-path-params",
+      "split": "dev",
+      "path": "documents/tutorial-path-params.md",
+      "sourceUrl": "https://raw.githubusercontent.com/fastapi/fastapi/40e33e492dbf4af6172997f4e3238a32e56cbe26/docs/zh/docs/tutorial/path-params.md",
+      "bytes": 7813,
+      "sha256": "06ff14e12d1c5af886fd8a78ee470a607ffa48525abbbd74ea84563f5cace3ab"
+    },
+    {
+      "id": "tutorial-query-params",
+      "split": "dev",
+      "path": "documents/tutorial-query-params.md",
+      "sourceUrl": "https://raw.githubusercontent.com/fastapi/fastapi/40e33e492dbf4af6172997f4e3238a32e56cbe26/docs/zh/docs/tutorial/query-params.md",
+      "bytes": 5136,
+      "sha256": "804e51f8c9bb9a5877f720195e903170e3d855de48880d02118726fb585d94c7"
+    },
+    {
+      "id": "tutorial-body",
+      "split": "dev",
+      "path": "documents/tutorial-body.md",
+      "sourceUrl": "https://raw.githubusercontent.com/fastapi/fastapi/40e33e492dbf4af6172997f4e3238a32e56cbe26/docs/zh/docs/tutorial/body.md",
+      "bytes": 6627,
+      "sha256": "16db7d2ac3d05e01e0e437f3e507119c5bbadd5ab04082b5361f435c3e5a258b"
+    },
+    {
+      "id": "tutorial-response-model",
+      "split": "dev",
+      "path": "documents/tutorial-response-model.md",
+      "sourceUrl": "https://raw.githubusercontent.com/fastapi/fastapi/40e33e492dbf4af6172997f4e3238a32e56cbe26/docs/zh/docs/tutorial/response-model.md",
+      "bytes": 8047,
+      "sha256": "4e37eb98ba4770e2dd96bde5f80aa5dcf63b652b4ba776be579e6447aec2a84f"
+    },
+    {
+      "id": "tutorial-header-params",
+      "split": "dev",
+      "path": "documents/tutorial-header-params.md",
+      "sourceUrl": "https://raw.githubusercontent.com/fastapi/fastapi/40e33e492dbf4af6172997f4e3238a32e56cbe26/docs/zh/docs/tutorial/header-params.md",
+      "bytes": 5429,
+      "sha256": "06ceca2bc9bcb7b0f71825ab30476b495e8bbf7cbad275f80e1d5fd39cd75130"
+    },
+    {
+      "id": "tutorial-cookie-params",
+      "split": "dev",
+      "path": "documents/tutorial-cookie-params.md",
+      "sourceUrl": "https://raw.githubusercontent.com/fastapi/fastapi/40e33e492dbf4af6172997f4e3238a32e56cbe26/docs/zh/docs/tutorial/cookie-params.md",
+      "bytes": 2231,
+      "sha256": "857ec806c148c1a91fdf701aafaab675418f4697ac2e9925e6ef765c81039365"
+    },
+    {
+      "id": "tutorial-response-status-code",
+      "split": "dev",
+      "path": "documents/tutorial-response-status-code.md",
+      "sourceUrl": "https://raw.githubusercontent.com/fastapi/fastapi/40e33e492dbf4af6172997f4e3238a32e56cbe26/docs/zh/docs/tutorial/response-status-code.md",
+      "bytes": 3800,
+      "sha256": "7197a532e54c15881349a1ea8c65ca3a3df5e46f19a1ff49c628f76551afb8e6"
+    },
+    {
+      "id": "tutorial-body-multiple-params",
+      "split": "dev",
+      "path": "documents/tutorial-body-multiple-params.md",
+      "sourceUrl": "https://raw.githubusercontent.com/fastapi/fastapi/40e33e492dbf4af6172997f4e3238a32e56cbe26/docs/zh/docs/tutorial/body-multiple-params.md",
+      "bytes": 7752,
+      "sha256": "4630c945b4ede7bf5e1e6e03af580c0a449bf78fc7ff282b175fbfebb986f0aa"
+    },
+    {
+      "id": "tutorial-dependencies-sub-dependencies",
+      "split": "test",
+      "path": "documents/tutorial-dependencies-sub-dependencies.md",
+      "sourceUrl": "https://raw.githubusercontent.com/fastapi/fastapi/40e33e492dbf4af6172997f4e3238a32e56cbe26/docs/zh/docs/tutorial/dependencies/sub-dependencies.md",
+      "bytes": 3310,
+      "sha256": "294303427d601ca74e80178facc3a6e30a7333970fec94a14f0148af99e32d40"
+    },
+    {
+      "id": "tutorial-dependencies-dependencies-with-yield",
+      "split": "test",
+      "path": "documents/tutorial-dependencies-dependencies-with-yield.md",
+      "sourceUrl": "https://raw.githubusercontent.com/fastapi/fastapi/40e33e492dbf4af6172997f4e3238a32e56cbe26/docs/zh/docs/tutorial/dependencies/dependencies-with-yield.md",
+      "bytes": 13646,
+      "sha256": "128d186c83fe79b5e9067e531c73cd2848ce65984f6099e76d7f1c8fcfa0dd75"
+    },
+    {
+      "id": "tutorial-background-tasks",
+      "split": "test",
+      "path": "documents/tutorial-background-tasks.md",
+      "sourceUrl": "https://raw.githubusercontent.com/fastapi/fastapi/40e33e492dbf4af6172997f4e3238a32e56cbe26/docs/zh/docs/tutorial/background-tasks.md",
+      "bytes": 5125,
+      "sha256": "383aa6739457575193007b3672dfd8d122fd390f45575924cfdbf95324b68369"
+    },
+    {
+      "id": "tutorial-cors",
+      "split": "test",
+      "path": "documents/tutorial-cors.md",
+      "sourceUrl": "https://raw.githubusercontent.com/fastapi/fastapi/40e33e492dbf4af6172997f4e3238a32e56cbe26/docs/zh/docs/tutorial/cors.md",
+      "bytes": 4591,
+      "sha256": "dfc724eb9f7d1db037d84ce8e6743e16fd9d56d1649f1b7d3657de0f1976cf76"
+    },
+    {
+      "id": "tutorial-request-files",
+      "split": "test",
+      "path": "documents/tutorial-request-files.md",
+      "sourceUrl": "https://raw.githubusercontent.com/fastapi/fastapi/40e33e492dbf4af6172997f4e3238a32e56cbe26/docs/zh/docs/tutorial/request-files.md",
+      "bytes": 7060,
+      "sha256": "958ec524ee0d65cc3d7218ae50fc8da1e138aa99f30d345d16265d56d9b6eb50"
+    },
+    {
+      "id": "tutorial-handling-errors",
+      "split": "test",
+      "path": "documents/tutorial-handling-errors.md",
+      "sourceUrl": "https://raw.githubusercontent.com/fastapi/fastapi/40e33e492dbf4af6172997f4e3238a32e56cbe26/docs/zh/docs/tutorial/handling-errors.md",
+      "bytes": 8624,
+      "sha256": "1a563f8f491a2cc981294ec69ea5d7f6545849870817e0a5775441447d7cc6d1"
+    },
+    {
+      "id": "tutorial-middleware",
+      "split": "test",
+      "path": "documents/tutorial-middleware.md",
+      "sourceUrl": "https://raw.githubusercontent.com/fastapi/fastapi/40e33e492dbf4af6172997f4e3238a32e56cbe26/docs/zh/docs/tutorial/middleware.md",
+      "bytes": 2760,
+      "sha256": "dc587a32e84826d3b68f3745ddf7d75b0e2997f5fc6e031b40ee8b022a3cd186"
+    },
+    {
+      "id": "tutorial-sql-databases",
+      "split": "test",
+      "path": "documents/tutorial-sql-databases.md",
+      "sourceUrl": "https://raw.githubusercontent.com/fastapi/fastapi/40e33e492dbf4af6172997f4e3238a32e56cbe26/docs/zh/docs/tutorial/sql-databases.md",
+      "bytes": 27880,
+      "sha256": "e1af5783692e195d9e5c0604683f09fac3ce605713bdc4773262e1482585e133"
+    },
+    {
+      "id": "tutorial-security-oauth2-jwt",
+      "split": "test",
+      "path": "documents/tutorial-security-oauth2-jwt.md",
+      "sourceUrl": "https://raw.githubusercontent.com/fastapi/fastapi/40e33e492dbf4af6172997f4e3238a32e56cbe26/docs/zh/docs/tutorial/security/oauth2-jwt.md",
+      "bytes": 11331,
+      "sha256": "ff11297d148850f8091991c0eaf03f06c53919661531961139eb2a4dce935594"
+    },
+    {
+      "id": "advanced-custom-response",
+      "split": "test",
+      "path": "documents/advanced-custom-response.md",
+      "sourceUrl": "https://raw.githubusercontent.com/fastapi/fastapi/40e33e492dbf4af6172997f4e3238a32e56cbe26/docs/zh/docs/advanced/custom-response.md",
+      "bytes": 7957,
+      "sha256": "ce82eafc7560543a8b80647c41154c15f1a39af0ce500952e539d568a255515c"
+    },
+    {
+      "id": "advanced-testing-dependencies",
+      "split": "test",
+      "path": "documents/advanced-testing-dependencies.md",
+      "sourceUrl": "https://raw.githubusercontent.com/fastapi/fastapi/40e33e492dbf4af6172997f4e3238a32e56cbe26/docs/zh/docs/advanced/testing-dependencies.md",
+      "bytes": 1929,
+      "sha256": "7e58da0d5b19f2b5f9fb0e8eee32767d38a1827bc809ab937246f1150d29d57c"
+    },
+    {
+      "id": "advanced-websockets",
+      "split": "test",
+      "path": "documents/advanced-websockets.md",
+      "sourceUrl": "https://raw.githubusercontent.com/fastapi/fastapi/40e33e492dbf4af6172997f4e3238a32e56cbe26/docs/zh/docs/advanced/websockets.md",
+      "bytes": 6120,
+      "sha256": "d1edecafe71538259421432fa4eb24a4b1f5a380f903c4c0c8d5eece5e8c67f1"
+    }
+  ]
+}

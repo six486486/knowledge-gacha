@@ -1,0 +1,13 @@
+{
+  "model": "Xenova/bge-small-zh-v1.5",
+  "upstream": "BAAI/bge-small-zh-v1.5",
+  "revision": "75c43b069aac4d136ba6bc1122f995fedcfd2781",
+  "sha256": "15b717c382bcb518ba457b93ea6850ede7f4f1cd8937454aa06972366cd19bcc",
+  "license": "MIT",
+  "transformers": "4.2.0",
+  "onnxruntime": "1.26.0-dev.20260416-b7804b056c",
+  "dimensions": 512,
+  "dtype": "q8",
+  "pooling": "cls",
+  "maxLength": 512
+}

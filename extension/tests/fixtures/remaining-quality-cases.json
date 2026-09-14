@@ -1,0 +1,855 @@
+[
+  {
+    "id": "short-03",
+    "expected": "ready",
+    "context": {
+      "userGoal": "能判断多级稳定排序的执行顺序",
+      "evidence": [
+        {
+          "id": "material",
+          "kind": "text",
+          "text": "Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。因此可以先按次要键排序，再按主要键排序，实现多级排序。"
+        }
+      ],
+      "materialLength": 62
+    },
+    "candidate": {
+      "status": "needs_revision",
+      "card": {
+        "title": "多级稳定排序的执行顺序",
+        "learningObjective": "能判断多级稳定排序的执行顺序",
+        "knowledgeType": "concept",
+        "summary": "Python 的排序是稳定的，即具有相同排序键的记录会保留它们在输入中的相对顺序。因此，要实现多级排序，可以先按次要键排序，再按主要键排序。这样，当主要键相同时，记录的顺序会保持之前按次要键排序的结果。",
+        "example": {
+          "type": "example",
+          "text": "假设有记录 [(1, 'b'), (2, 'a'), (1, 'a')]，先按第二个元素（次要键）排序得到 [(2, 'a'), (1, 'a'), (1, 'b')]，再按第一个元素（主要键）排序，由于稳定性，相同主要键的记录保持相对顺序，最终得到 [(1, 'a'), (1, 'b'), (2, 'a')]。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "给定列表 [(2, 'x'), (1, 'y'), (2, 'a')]，若先按第二个元素排序，再按第一个元素排序，最终顺序是什么？",
+        "answer": "先按第二个元素排序：[(2, 'a'), (2, 'x'), (1, 'y')]；再按第一个元素排序，稳定排序保持相同第一个元素的相对顺序，最终为 [(1, 'y'), (2, 'a'), (2, 'x')]。",
+        "answerExplanation": "根据稳定排序的性质，先按次要键（第二个元素）排序，得到 [(2, 'a'), (2, 'x'), (1, 'y')]。然后按主要键（第一个元素）排序，由于稳定性，相同主要键的记录保持之前的相对顺序，因此 (2, 'a') 在 (2, 'x') 之前，最终顺序为 [(1, 'y'), (2, 'a'), (2, 'x')]。",
+        "rubric": [
+          "正确说出先按次要键排序的结果",
+          "正确应用稳定性得到最终顺序"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "material",
+          "quote": "Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "因此可以先按次要键排序，再按主要键排序，实现多级排序。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "因此可以先按次要键排序，再按主要键排序，实现多级排序。",
+          "occurrence": 0,
+          "claim": "exercise"
+        }
+      ],
+      "checks": [],
+      "issues": [],
+      "quality": {
+        "passed": false,
+        "issues": [
+          {
+            "code": "generated_trace_unverified",
+            "field": "card.example.text",
+            "message": "新编多步列表排序轨迹没有可执行的校验依据，模型互审不能保证中间状态正确。请改成新情境下选择排序方法或执行次序的应用题，并移除自拟列表追踪示例；保留原学习目标。"
+          },
+          {
+            "code": "generated_trace_unverified",
+            "field": "exercise.question",
+            "message": "新编多步列表排序轨迹没有可执行的校验依据，模型互审不能保证中间状态正确。请改成新情境下选择排序方法或执行次序的应用题，并移除自拟列表追踪示例；保留原学习目标。"
+          },
+          {
+            "code": "generated_trace_unverified",
+            "field": "exercise.answerExplanation",
+            "message": "新编多步列表排序轨迹没有可执行的校验依据，模型互审不能保证中间状态正确。请改成新情境下选择排序方法或执行次序的应用题，并移除自拟列表追踪示例；保留原学习目标。"
+          }
+        ],
+        "evidence": [
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 35
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "因此可以先按次要键排序，再按主要键排序，实现多级排序。",
+            "occurrence": 0,
+            "startCharacter": 35,
+            "endCharacter": 62
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 35
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "因此可以先按次要键排序，再按主要键排序，实现多级排序。",
+            "occurrence": 0,
+            "startCharacter": 35,
+            "endCharacter": 62
+          }
+        ],
+        "checks": []
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.4.6",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-v4-flash-vision-exp",
+        "materialLength": 62,
+        "elapsedMs": 8250,
+        "calls": [
+          {
+            "operation": "generate",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 4964,
+            "usage": {
+              "inputTokens": 1973,
+              "outputTokens": 565,
+              "totalTokens": 2538,
+              "cachedInputTokens": 1792
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "repair",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 3268,
+            "usage": {
+              "inputTokens": 2794,
+              "outputTokens": 371,
+              "totalTokens": 3165,
+              "cachedInputTokens": 1536
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1800
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [
+              {
+                "code": "generated_trace_unverified",
+                "field": "card.example.text",
+                "message": "新编多步列表排序轨迹没有可执行的校验依据，模型互审不能保证中间状态正确。请改成新情境下选择排序方法或执行次序的应用题，并移除自拟列表追踪示例；保留原学习目标。"
+              },
+              {
+                "code": "generated_trace_unverified",
+                "field": "exercise.question",
+                "message": "新编多步列表排序轨迹没有可执行的校验依据，模型互审不能保证中间状态正确。请改成新情境下选择排序方法或执行次序的应用题，并移除自拟列表追踪示例；保留原学习目标。"
+              },
+              {
+                "code": "generated_trace_unverified",
+                "field": "exercise.answerExplanation",
+                "message": "新编多步列表排序轨迹没有可执行的校验依据，模型互审不能保证中间状态正确。请改成新情境下选择排序方法或执行次序的应用题，并移除自拟列表追踪示例；保留原学习目标。"
+              }
+            ],
+            "checks": []
+          },
+          {
+            "attempt": 2,
+            "issues": [
+              {
+                "code": "generated_trace_unverified",
+                "field": "card.example.text",
+                "message": "新编多步列表排序轨迹没有可执行的校验依据，模型互审不能保证中间状态正确。请改成新情境下选择排序方法或执行次序的应用题，并移除自拟列表追踪示例；保留原学习目标。"
+              },
+              {
+                "code": "generated_trace_unverified",
+                "field": "exercise.question",
+                "message": "新编多步列表排序轨迹没有可执行的校验依据，模型互审不能保证中间状态正确。请改成新情境下选择排序方法或执行次序的应用题，并移除自拟列表追踪示例；保留原学习目标。"
+              },
+              {
+                "code": "generated_trace_unverified",
+                "field": "exercise.answerExplanation",
+                "message": "新编多步列表排序轨迹没有可执行的校验依据，模型互审不能保证中间状态正确。请改成新情境下选择排序方法或执行次序的应用题，并移除自拟列表追踪示例；保留原学习目标。"
+              }
+            ],
+            "checks": []
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": null,
+        "answerVerification": null
+      }
+    }
+  },
+  {
+    "id": "short-08",
+    "expected": "blocked",
+    "context": {
+      "userGoal": "能区分事务原子性与硬件同时写入",
+      "evidence": [
+        {
+          "id": "material",
+          "kind": "text",
+          "text": "原子提交使一个事务中的修改表现为全部发生或全部不发生。SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。"
+        }
+      ],
+      "materialLength": 73
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "事务原子性与硬件同时写入的区分",
+        "learningObjective": "能区分事务原子性与硬件同时写入",
+        "knowledgeType": "concept",
+        "summary": "原子提交使一个事务中的修改表现为全部发生或全部不发生。SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+        "example": {
+          "type": "contrast",
+          "text": "在一个事务中，SQLite 通过日志和恢复步骤使修改表现为全部发生或全部不发生。即使系统崩溃后事务被回滚，也不能说明硬件在同一瞬间完成了所有磁盘写入。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "某事务在 SQLite 中执行，提交后系统崩溃，但恢复后事务的修改全部消失。这是否说明硬件在同一瞬间完成了所有磁盘写入？请根据材料判断并说明理由。",
+        "answer": "不能说明。SQLite 通过日志和恢复步骤使事务表现为全部发生或全部不发生，但硬件磁盘写入并非同时完成。",
+        "answerExplanation": "原子提交只保证事务的修改在逻辑上表现为全部发生或全部不发生，这是通过日志和恢复步骤实现的，而不是硬件同时写入。因此，即使事务最终被回滚，也不意味着硬件曾同时写入。",
+        "rubric": [
+          "明确回答“不能说明”",
+          "指出原子性是通过日志和恢复步骤实现的，而非硬件同时写入"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "material",
+          "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "引用材料支持断言，且事实正确。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例与总结一致，无矛盾。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "内容围绕区分原子性与硬件同时写入。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案正确，解释符合材料。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "成立条件明确，无缺失。"
+        }
+      ],
+      "issues": [],
+      "quality": {
+        "passed": true,
+        "issues": [],
+        "evidence": [
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 27
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+            "occurrence": 0,
+            "startCharacter": 27,
+            "endCharacter": 73
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 27
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+            "occurrence": 0,
+            "startCharacter": 27,
+            "endCharacter": 73
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+            "occurrence": 0,
+            "startCharacter": 27,
+            "endCharacter": 73
+          }
+        ],
+        "checks": [
+          {
+            "rule": "grounding",
+            "passed": true,
+            "reason": "引用材料支持断言，且事实正确。"
+          },
+          {
+            "rule": "coherence",
+            "passed": true,
+            "reason": "示例与总结一致，无矛盾。"
+          },
+          {
+            "rule": "objectiveAlignment",
+            "passed": true,
+            "reason": "内容围绕区分原子性与硬件同时写入。"
+          },
+          {
+            "rule": "answerCorrectness",
+            "passed": true,
+            "reason": "答案正确，解释符合材料。"
+          },
+          {
+            "rule": "conditions",
+            "passed": true,
+            "reason": "成立条件明确，无缺失。"
+          }
+        ]
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.4.6",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-v4-flash-vision-exp",
+        "materialLength": 73,
+        "elapsedMs": 8957,
+        "calls": [
+          {
+            "operation": "generate",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 5076,
+            "usage": {
+              "inputTokens": 1977,
+              "outputTokens": 553,
+              "totalTokens": 2530,
+              "cachedInputTokens": 1920
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "repair",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 961,
+            "usage": {
+              "inputTokens": 2415,
+              "outputTokens": 70,
+              "totalTokens": 2485,
+              "cachedInputTokens": 1536
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1800
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1632,
+            "usage": {
+              "inputTokens": 422,
+              "outputTokens": 75,
+              "totalTokens": 497,
+              "cachedInputTokens": 256
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1275,
+            "usage": {
+              "inputTokens": 1056,
+              "outputTokens": 110,
+              "totalTokens": 1166,
+              "cachedInputTokens": 512
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1600
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [
+              {
+                "code": "example_context",
+                "field": "card.example.text",
+                "message": "材料没有提供日志或磁盘的具体执行顺序，自拟示例却补写了先后步骤。请改为仅应用材料所述规则的假设情景，不补充内部实现流程。"
+              }
+            ],
+            "checks": []
+          },
+          {
+            "attempt": 2,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "引用材料支持断言，且事实正确。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例与总结一致，无矛盾。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "内容围绕区分原子性与硬件同时写入。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "答案正确，解释符合材料。"
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "成立条件明确，无缺失。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": null,
+        "answerVerification": {
+          "answerable": true,
+          "answer": "不能。材料指出原子提交是SQLite通过日志和恢复步骤提供的表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+          "basis": "材料明确说明原子提交使修改表现为全部发生或全部不发生，但这是通过日志和恢复步骤实现的，并非硬件同时写入。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  },
+  {
+    "id": "condition-02",
+    "expected": "blocked",
+    "context": {
+      "userGoal": "能判断浮点数相等与近似相等的差别",
+      "evidence": [
+        {
+          "id": "material",
+          "kind": "text",
+          "text": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。预先对每个 0.1 调用 round 并不能消除表示误差；math.isclose 可按容差判断两个浮点数是否接近。容差选择依赖具体需求。"
+        }
+      ],
+      "materialLength": 103
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "浮点数相等与近似相等",
+        "learningObjective": "能判断浮点数相等与近似相等的差别",
+        "knowledgeType": "concept",
+        "summary": "浮点数的相等比较（==）可能因表示误差而返回 False，例如 0.1 + 0.1 + 0.1 == 0.3 为 False。预先对每个 0.1 调用 round 并不能消除表示误差。math.isclose 可按容差判断两个浮点数是否接近，容差选择依赖具体需求。",
+        "example": {
+          "type": "example",
+          "text": "判断 0.1 + 0.1 + 0.1 是否等于 0.3：使用 == 得到 False；使用 math.isclose(0.1+0.1+0.1, 0.3) 可能返回 True，具体取决于容差设置。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "给定浮点数 a = 0.1 + 0.1 + 0.1，b = 0.3。请判断 a == b 的结果，并说明应使用什么函数来按容差判断它们是否接近。",
+        "answer": "a == b 的结果为 False。应使用 math.isclose(a, b) 按容差判断它们是否接近。",
+        "answerExplanation": "根据材料，0.1 + 0.1 + 0.1 == 0.3 的比较为 False，因此 a == b 为 False。材料指出 math.isclose 可按容差判断两个浮点数是否接近，所以应使用 math.isclose(a, b)。",
+        "rubric": [
+          "正确指出 a == b 为 False",
+          "正确指出使用 math.isclose 判断接近"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "material",
+          "quote": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "预先对每个 0.1 调用 round 并不能消除表示误差；",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "math.isclose 可按容差判断两个浮点数是否接近。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "容差选择依赖具体需求。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "math.isclose 可按容差判断两个浮点数是否接近。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。",
+          "occurrence": 0,
+          "claim": "example"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "math.isclose 可按容差判断两个浮点数是否接近。",
+          "occurrence": 0,
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "所有断言均直接由材料支持，无超出材料的事实错误。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例与总结一致，无内部矛盾。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习和示例均围绕浮点相等与近似相等的判断，符合学习目标。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案正确，解释与材料一致。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "已说明容差依赖具体需求，条件完整。"
+        }
+      ],
+      "issues": [],
+      "quality": {
+        "passed": true,
+        "issues": [],
+        "evidence": [
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 34
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "预先对每个 0.1 调用 round 并不能消除表示误差；",
+            "occurrence": 0,
+            "startCharacter": 34,
+            "endCharacter": 63
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "math.isclose 可按容差判断两个浮点数是否接近。",
+            "occurrence": 0,
+            "startCharacter": 63,
+            "endCharacter": 92
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "容差选择依赖具体需求。",
+            "occurrence": 0,
+            "startCharacter": 92,
+            "endCharacter": 103
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 34
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "math.isclose 可按容差判断两个浮点数是否接近。",
+            "occurrence": 0,
+            "startCharacter": 63,
+            "endCharacter": 92
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 34
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "math.isclose 可按容差判断两个浮点数是否接近。",
+            "occurrence": 0,
+            "startCharacter": 63,
+            "endCharacter": 92
+          }
+        ],
+        "checks": [
+          {
+            "rule": "grounding",
+            "passed": true,
+            "reason": "所有断言均直接由材料支持，无超出材料的事实错误。"
+          },
+          {
+            "rule": "coherence",
+            "passed": true,
+            "reason": "示例与总结一致，无内部矛盾。"
+          },
+          {
+            "rule": "objectiveAlignment",
+            "passed": true,
+            "reason": "练习和示例均围绕浮点相等与近似相等的判断，符合学习目标。"
+          },
+          {
+            "rule": "answerCorrectness",
+            "passed": true,
+            "reason": "答案正确，解释与材料一致。"
+          },
+          {
+            "rule": "conditions",
+            "passed": true,
+            "reason": "已说明容差依赖具体需求，条件完整。"
+          }
+        ]
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.4.6",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-v4-flash-vision-exp",
+        "materialLength": 103,
+        "elapsedMs": 7277,
+        "calls": [
+          {
+            "operation": "generate",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 4894,
+            "usage": {
+              "inputTokens": 2000,
+              "outputTokens": 568,
+              "totalTokens": 2568,
+              "cachedInputTokens": 1920
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 911,
+            "usage": {
+              "inputTokens": 452,
+              "outputTokens": 79,
+              "totalTokens": 531,
+              "cachedInputTokens": 384
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1462,
+            "usage": {
+              "inputTokens": 1213,
+              "outputTokens": 129,
+              "totalTokens": 1342,
+              "cachedInputTokens": 512
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1600
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "所有断言均直接由材料支持，无超出材料的事实错误。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例与总结一致，无内部矛盾。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "练习和示例均围绕浮点相等与近似相等的判断，符合学习目标。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "答案正确，解释与材料一致。"
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "已说明容差依赖具体需求，条件完整。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": null,
+        "answerVerification": {
+          "answerable": true,
+          "answer": "a == b 的结果为 False；应使用 math.isclose 函数按容差判断它们是否接近。",
+          "basis": "依据材料：0.1+0.1+0.1 == 0.3 的比较为 False；math.isclose 可按容差判断两个浮点数是否接近。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  }
+]

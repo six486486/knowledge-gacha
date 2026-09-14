@@ -1,0 +1,15 @@
+{
+  "version": "discovery-targets-v1",
+  "cases": [
+    { "id": "cache-expiry-paraphrase", "duplicate": true, "left": ["缓存过期和主动失效的区别", "能区分缓存过期和主动失效的触发方式"], "right": ["主动删除缓存与自然到期有什么不同", "能比较自然到期与显式删除两种失效方式"] },
+    { "id": "idempotency-paraphrase", "duplicate": true, "left": ["网络重试怎样避免重复扣款", "能解释幂等键如何防止同一笔付款执行两次"], "right": ["支付超时后再次提交为什么不会多扣钱", "能说明使用唯一请求标识去重支付操作的方法"] },
+    { "id": "correlation-paraphrase", "duplicate": true, "left": ["相关性为什么不能证明因果关系", "能识别共同原因和反向因果对相关性的影响"], "right": ["两个现象一起变化就意味着一个导致另一个吗", "能用第三变量和因果方向检查相关关系的解释"] },
+    { "id": "aperture-paraphrase", "duplicate": true, "left": ["光圈大小如何影响景深", "能判断调整光圈后清晰范围如何变化"], "right": ["缩小镜头光圈为什么能让前后都更清楚", "能解释光圈与画面中清晰纵深范围的关系"] },
+    { "id": "cache-different-objective", "duplicate": false, "left": ["缓存过期和主动失效的区别", "能区分缓存过期和主动失效的触发方式"], "right": ["缓存容量不足时如何选择淘汰项", "能演示最近最少使用淘汰算法"] },
+    { "id": "aperture-different-objective", "duplicate": false, "left": ["光圈大小如何影响景深", "能判断调整光圈后清晰范围如何变化"], "right": ["快门速度如何影响运动模糊", "能为运动主体选择冻结动作的快门速度"] },
+    { "id": "unrelated-template", "duplicate": false, "anchors": ["摄影", "数学"], "left": ["摄影中的条件与反例", "能解释摄影中结论成立的条件与一个反例"], "right": ["数学中的条件与反例", "能解释数学中结论成立的条件与一个反例"] },
+    { "id": "nearby-statistics", "duplicate": false, "left": ["相关性为什么不能证明因果关系", "能识别共同原因和反向因果对相关性的影响"], "right": ["样本选择为什么会扭曲总体结论", "能识别选择偏差和幸存者偏差"] },
+    { "id": "same-subject-different-boundary", "duplicate": false, "left": ["网络重试怎样避免重复扣款", "能解释幂等键如何防止同一笔付款执行两次"], "right": ["幂等键过期后再次请求会发生什么", "能判断去重记录保留窗口不足时的重复执行风险"] },
+    { "id": "different-subject", "duplicate": false, "left": ["缓存过期和主动失效的区别", "能区分缓存过期和主动失效的触发方式"], "right": ["光圈大小如何影响景深", "能判断调整光圈后清晰范围如何变化"] }
+  ]
+}

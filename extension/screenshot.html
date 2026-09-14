@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>框选截图 · 知识扭蛋机</title>
+  <link rel="stylesheet" href="./src/frontend/browser/screenshot-editor.css">
+</head>
+<body>
+  <header class="editor-header">
+    <div><p>知识扭蛋机 · 区域截图</p><h1>拖拽框选要保留的区域</h1></div>
+    <span class="local-badge">共享已停止</span>
+  </header>
+  <main id="workspace" class="editor-workspace">
+    <div id="capture-canvas" class="capture-canvas" tabindex="0" role="group" aria-label="截图框选画布" aria-describedby="editor-help" hidden>
+      <img id="capture-image" alt="待框选的截图" draggable="false">
+      <div id="selection" class="region-selection" hidden>
+        <i data-handle="nw"></i><i data-handle="n"></i><i data-handle="ne"></i>
+        <i data-handle="w"></i><i data-handle="e"></i>
+        <i data-handle="sw"></i><i data-handle="s"></i><i data-handle="se"></i>
+      </div>
+    </div>
+    <p id="editor-status" class="editor-status" role="status">正在加载截图…</p>
+  </main>
+  <footer class="editor-toolbar">
+    <div class="editor-instructions"><strong id="selection-size" aria-live="polite">尚未选择区域</strong><p id="editor-help">拖动选框可移动，拖动边角可调整大小。Enter 确认 · Esc 取消 · 方向键微调</p></div>
+    <div class="editor-actions">
+      <button id="select-all" type="button" disabled>全选</button>
+      <button id="reset-region" type="button" disabled>重新框选</button>
+      <button id="cancel-region" type="button">取消 <kbd>Esc</kbd></button>
+      <button id="confirm-region" class="primary" type="button" disabled>确认截图 <kbd>Enter</kbd></button>
+    </div>
+  </footer>
+  <script src="./src/frontend/browser/screenshot-region.js"></script>
+  <script src="./src/frontend/browser/screenshot-editor.js"></script>
+</body>
+</html>

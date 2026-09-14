@@ -1,0 +1,38 @@
+{
+  "version": "local-rag-v1",
+  "description": "人工编写的中文小型检索回归集；标签要求命中有答案的正文，不接受只有标题。不是开放域或生产效果基准。",
+  "documents": [
+    { "id": "cache", "title": "缓存说明", "content": "# 缓存\n缓存保存计算结果；过期之后应重新计算。\n\n# 缓存过期时间\n缓存的过期时间需要兼顾新鲜度。有效期结束后，这份结果不能直接当成最新数据。" },
+    { "id": "retry", "title": "幂等约定", "linked": true, "content": "# 幂等\n幂等接口允许重复执行相同业务请求而不增加额外副作用。这里用幂等键识别同一请求。" },
+    { "id": "cost", "title": "成本例题", "content": "# 边际成本\n边际成本是每多生产一个单位额外增加的成本。这里月租不随本次产量改变，不计入这次增量。" },
+    { "id": "parallel", "title": "并发说明", "content": "# 并发\n并发任务可以交替推进；同时执行会带来共享状态的协调问题。" },
+    { "id": "transaction", "title": "事务约定", "content": "# 事务\n本例事务要求两个状态写入全部成功，任一失败则撤销这两个写入。" },
+    { "id": "code", "title": "队列函数", "content": "# popLast\n```js\nfunction popLast(queue) { return queue.pop(); }\n```\n该函数返回并移除队列最后一个元素。" },
+    { "id": "table", "title": "套餐表", "content": "# 套餐额度\n| 套餐 | 配额 |\n| --- | --- |\n| Alpha | 12 |\n| Beta | 30 |" },
+    { "id": "width", "title": "字符宽度示例", "content": "# HTTP 状态\n本练习使用全角标识 ＡＢＣ１２３ 作为样例令牌。原文必须保留全角字形。" },
+    { "id": "poetry", "title": "诗歌", "content": "# 古诗\n古诗常使用押韵和平仄，表达季节变化与个人感受。" },
+    { "id": "header", "title": "未填写提纲", "content": "# placeholdertopic\n" }
+  ],
+  "cases": [
+    { "id": "heading-trap", "query": "缓存", "expected": [{ "documentId": "cache", "contains": "保存计算结果" }] },
+    { "id": "synonym-cn", "query": "快取有效期", "expected": [{ "documentId": "cache", "contains": "过期时间" }] },
+    { "id": "synonym-en", "query": "cache ttl", "expected": [{ "documentId": "cache", "contains": "过期时间" }] },
+    { "id": "idempotent", "query": "重复执行", "expected": [{ "documentId": "retry", "contains": "不增加额外副作用" }] },
+    { "id": "exact-key", "query": "幂等键", "expected": [{ "documentId": "retry", "contains": "识别同一请求" }] },
+    { "id": "marginal", "query": "增量成本", "expected": [{ "documentId": "cost", "contains": "每多生产" }] },
+    { "id": "concurrency", "query": "concurrency", "expected": [{ "documentId": "parallel", "contains": "交替推进" }] },
+    { "id": "transaction", "query": "transaction", "expected": [{ "documentId": "transaction", "contains": "全部成功" }] },
+    { "id": "code", "query": "popLast", "expected": [{ "documentId": "code", "contains": "queue.pop()" }] },
+    { "id": "table", "query": "Beta", "expected": [{ "documentId": "table", "contains": "Beta | 30" }] },
+    { "id": "full-width", "query": "abc123", "expected": [{ "documentId": "width", "contains": "ＡＢＣ１２３" }] },
+    { "id": "unicode-query", "query": "ｔｒａｎｓａｃｔｉｏｎ", "expected": [{ "documentId": "transaction", "contains": "全部成功" }] },
+    { "id": "scope-linked", "query": "幂等", "options": { "onlyLinked": true }, "expected": [{ "documentId": "retry", "contains": "不增加额外副作用" }] },
+    { "id": "scope-unlinked", "query": "缓存", "options": { "onlyLinked": true }, "expected": [] },
+    { "id": "scope-excluded", "query": "幂等", "options": { "excludeDocumentId": "retry" }, "expected": [] },
+    { "id": "no-hit", "query": "quantum entanglement", "expected": [] },
+    { "id": "empty", "query": "", "expected": [] },
+    { "id": "punctuation", "query": "？！", "expected": [] },
+    { "id": "header-only", "query": "placeholdertopic", "expected": [] },
+    { "id": "unlisted-paraphrase", "query": "把上次算好的答案直接拿来用", "probe": true, "expected": [{ "documentId": "cache", "contains": "保存计算结果" }] }
+  ]
+}

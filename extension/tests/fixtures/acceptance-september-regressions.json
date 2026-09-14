@@ -1,0 +1,644 @@
+[
+  {
+    "id": "sorting-answer",
+    "context": {
+      "userGoal": "能判断 Python 排序在相同排序键下是否保留输入相对顺序，并能完成先按次要键、再按主要键的多级排序\n目标标题：Python 稳定排序与多级排序\n本次要求：用清晰的默认讲解方式\n仅生成此目标，保留前提、否定和例外。\n材料概览（仅作组织线索）：本批材料包含三个独立主题：HTTP 缓存新鲜度（age、max-age、新鲜/陈旧响应及验证）、Python 稳定排序（相同键保留输入相对顺序，可用于多级排序）、闭包（函数与词法环境引用组合，外层函数执行完后内层函数仍可访问定义时作用域变量）。三个主题均可形成具体能力目标。\n学习关系：[{\"from\":\"Python 稳定排序与多级排序\",\"to\":\"HTTP 缓存新鲜度与陈旧响应处理\",\"type\":\"comparison\"},{\"from\":\"闭包与词法环境变量访问\",\"to\":\"Python 稳定排序与多级排序\",\"type\":\"comparison\"}]\n新增内容：新增 Python 排序稳定性定义、相同键保留输入相对顺序，以及利用稳定性实现多级排序的操作方法。",
+      "evidence": [
+        {
+          "id": "material_fdeb30c373344284a983b2595a569e8b_chunk_0",
+          "kind": "text",
+          "origin": "current",
+          "materialId": "material_fdeb30c373344284a983b2595a569e8b",
+          "chunkId": "material_fdeb30c373344284a983b2595a569e8b_chunk_0",
+          "title": "跨主题阅读笔记 1.md",
+          "text": "缓存新鲜度：缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。\n\n稳定排序：Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。因此可以先按次要键排序，再按主要键排序，实现多级排序。\n\n闭包：闭包把函数与其词法环境的引用组合在一起。即使外层函数已经执行完，返回的内层函数仍可访问创建它时作用域中的变量。变量访问取决于定义环境，而不只是调用位置。",
+          "startCharacter": 0,
+          "headingPath": [],
+          "pageNumber": null,
+          "version": 1,
+          "documentId": "doc_material_fdeb30c373344284a983b2595a569e8b"
+        }
+      ],
+      "image": null,
+      "materialLength": 246,
+      "relatedCards": [],
+      "learningContext": {
+        "version": 1,
+        "generatedAt": 1789314090407,
+        "profileScope": "current_profile",
+        "taskScope": {
+          "mode": "generation",
+          "topicId": "topic_499d86eb499d86eb",
+          "learningUnitId": "unit_8333ab5bdd9d4d2dbbb9f5894362c8c4"
+        },
+        "explicitPreferences": [],
+        "appliedPreferenceIds": [],
+        "interests": [],
+        "downrankedTopics": [],
+        "excludedUnits": [],
+        "recentFacts": [],
+        "learnedUnits": [],
+        "reviewSummary": {
+          "observedUnitCount": 0,
+          "legacyUnitCount": 0,
+          "reviewEventCount": 0,
+          "incorrectCount": 0,
+          "errorCause": "unknown"
+        },
+        "recentWindowDays": 30
+      }
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "Python 稳定排序与多级排序",
+        "learningObjective": "能判断 Python 排序在相同排序键下是否保留输入相对顺序，并能完成先按次要键、再按主要键的多级排序",
+        "knowledgeType": "concept",
+        "summary": "Python 排序是稳定的：同一个排序键的记录会保留输入中的相对顺序。因此可以先按次要键排序，再按主要键排序，实现多级排序。",
+        "example": {
+          "type": "example",
+          "text": "假设输入记录依次为 (\"b\", 2)、(\"a\", 2)、(\"c\", 1)，先按次要键（第二个元素）排序，再按主要键（第一个元素）排序。第一步按第二个元素排序后，两个键为 2 的记录仍保持输入相对顺序，得到 (\"c\", 1)、(\"b\", 2)、(\"a\", 2)；第二步按第一个元素排序后得到 (\"a\", 2)、(\"b\", 2)、(\"c\", 1)。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": "",
+        "id": "card_ba0548de9d5043dea76415b902edb840",
+        "contentVersion": 2,
+        "learningUnitId": "unit_8333ab5bdd9d4d2dbbb9f5894362c8c4",
+        "batchId": "batch_ac2dcfbc22c14560bcd63c5327d7965d",
+        "citations": [],
+        "sourceSnapshot": null
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "给定输入记录依次为 (\"x\", 3)、(\"y\", 1)、(\"x\", 1)、(\"y\", 3)。若先按第二个元素排序，再按第一个元素排序，最终顺序是什么？请说明其中稳定性起了什么作用。",
+        "answer": "最终顺序为 (\"x\", 1)、(\"y\", 1)、(\"x\", 3)、(\"y\", 3)。第一步按第二个元素排序后得到 (\"y\", 1)、(\"x\", 1)、(\"x\", 3)、(\"y\", 3)；第二步按第一个元素排序时，第一个元素相同的记录保留上一步的相对顺序，因此两个 \"x\" 记录中 (\"x\", 1) 在 (\"x\", 3) 前，两个 \"y\" 记录中 (\"y\", 1) 在 (\"y\", 3) 前。",
+        "answerExplanation": "Python 排序是稳定的，同一个排序键的记录会保留输入中的相对顺序。先按次要键（第二个元素）排序，再按主要键（第一个元素）排序，主要键相同的记录会保留次要键排序后的相对顺序，从而实现多级排序。",
+        "rubric": [
+          "最终顺序正确：(x, 1)、(y, 1)、(x, 3)、(y, 3)",
+          "说明稳定性使主要键相同的记录保留上一步的相对顺序",
+          "说明先次要键、后主要键的顺序"
+        ],
+        "id": "exercise_91fed38addc74db69bd159ce1c51da2e",
+        "version": 1
+      },
+      "evidence": [
+        {
+          "evidenceId": "material_fdeb30c373344284a983b2595a569e8b_chunk_0",
+          "quote": "稳定排序：Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material_fdeb30c373344284a983b2595a569e8b_chunk_0",
+          "quote": "因此可以先按次要键排序，再按主要键排序，实现多级排序。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material_fdeb30c373344284a983b2595a569e8b_chunk_0",
+          "quote": "稳定排序：Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material_fdeb30c373344284a983b2595a569e8b_chunk_0",
+          "quote": "因此可以先按次要键排序，再按主要键排序，实现多级排序。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material_fdeb30c373344284a983b2595a569e8b_chunk_0",
+          "quote": "稳定排序：Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "material_fdeb30c373344284a983b2595a569e8b_chunk_0",
+          "quote": "因此可以先按次要键排序，再按主要键排序，实现多级排序。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "卡片与练习的稳定性、多级排序断言均由来源 c1、c2 直接支持，示例为自拟但符合规则。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例与练习的排序步骤和最终顺序均与稳定排序规则一致，无矛盾。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习要求判断相同键下相对顺序并完成先次要键后主要键的多级排序，与学习目标一致。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "最终顺序 (x,1)、(y,1)、(x,3)、(y,3) 正确，稳定性解释与多级排序说明均正确。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "已说明稳定排序保留相同排序键记录的相对顺序，以及先次要键后主要键的前提，条件完整。"
+        }
+      ]
+    }
+  },
+  {
+    "id": "fixed-distance",
+    "context": {
+      "userGoal": "能解释光圈、焦距和物距如何共同决定景深,并说明在保持曝光不变时如何取舍景深\n必须新增：原卡只提到光圈过大景深变浅,本候选新增景深的三个控制变量及其联动:光圈越小、焦距越短、拍摄距离越远,景深越大;反之景深越浅。并说明在曝光不变前提下,缩小光圈需用更慢快门或更高ISO补偿,从而带来抖动或噪点代价。\n目标难度：标准；按这个难度选择前置知识、解释步骤和例子，不得只改难度标签。\n不得复述关联卡摘要。",
+      "materialLength": 403,
+      "evidence": [
+        {
+          "id": "discovery_outline",
+          "kind": "text",
+          "origin": "discovery_outline",
+          "title": "发现候选：景深:光圈、焦距与拍摄距离如何共同决定清晰范围",
+          "text": "主题：景深:光圈、焦距与拍摄距离如何共同决定清晰范围\n学习目标：能解释光圈、焦距和物距如何共同决定景深,并说明在保持曝光不变时如何取舍景深\n必须新增：原卡只提到光圈过大景深变浅,本候选新增景深的三个控制变量及其联动:光圈越小、焦距越短、拍摄距离越远,景深越大;反之景深越浅。并说明在曝光不变前提下,缩小光圈需用更慢快门或更高ISO补偿,从而带来抖动或噪点代价。\n与已有知识的关系：从你选择的“摄影”兴趣继续探索\n依据状态：模型建议\n知识说明（模型生成，未经外部来源验证）：景深指照片中看起来清晰的前后范围。它由光圈、焦距和拍摄距离共同决定:光圈越小(数值越大)、焦距越短、相机离被摄体越远,景深越大;反之景深越浅。成立条件是同一构图与对焦距离下比较。应用上,拍人像常用大光圈和长焦获得背景虚化,拍风景则缩小光圈并拉远距离让远近都清晰;但缩小光圈会减少进光,需用更慢快门或更高ISO补偿,可能引入抖动或噪点。",
+          "startCharacter": 0,
+          "version": 1
+        }
+      ],
+      "image": null,
+      "relatedCards": [],
+      "learningContext": {
+        "version": 2,
+        "generatedAt": 1789313837181,
+        "profileScope": "current_profile",
+        "taskScope": {
+          "mode": "generation",
+          "topicId": "topic_d8a155e6d8a155e6",
+          "learningUnitId": "unit_discovery_359fb769359fb769359f"
+        },
+        "explicitPreferences": [],
+        "appliedPreferenceIds": [],
+        "interests": [],
+        "downrankedTopics": [],
+        "excludedUnits": [],
+        "recentFacts": [
+          {
+            "eventId": "exposure:discovery_pool_c9c51d0e8c584b66863a20b67f0e6c20:discovery_candidate_5cf3316bb5ff4689bccc446d34fcbdc6",
+            "type": "recommendation_exposure",
+            "cardId": null,
+            "learningUnitId": "unit_discovery_359fb769359fb769359f",
+            "topicId": "topic_d8a155e6d8a155e6",
+            "topicLabel": "景深:光圈、焦距与拍摄距离如何共同决定清晰范围",
+            "action": null,
+            "occurredAt": 1789313828582
+          }
+        ],
+        "learnedUnits": [],
+        "reviewSummary": {
+          "observedUnitCount": 0,
+          "legacyUnitCount": 0,
+          "reviewEventCount": 0,
+          "incorrectCount": 0,
+          "errorCause": "unknown"
+        },
+        "recentWindowDays": 30
+      },
+      "companionReferencesOnly": false
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "景深的三个控制变量与曝光不变时的取舍",
+        "learningObjective": "能解释光圈、焦距和拍摄距离如何共同决定景深，并说明在保持曝光不变时如何取舍景深",
+        "knowledgeType": "mechanism",
+        "summary": "景深指照片中看起来清晰的前后范围，它由光圈、焦距和拍摄距离共同决定：光圈越小（数值越大）、焦距越短、相机离被摄体越远，景深越大；反之景深越浅。这一比较成立的条件是同一构图与对焦距离下比较。应用上，拍人像常用大光圈和长焦获得背景虚化，拍风景则缩小光圈并拉远距离让远近都清晰；但缩小光圈会减少进光，需用更慢快门或更高ISO补偿，可能引入抖动或噪点。",
+        "example": {
+          "type": "example",
+          "text": "在同一构图与对焦距离下拍摄风景：把光圈从f/2.8缩小到f/11，同时用更慢的快门速度补偿进光，使曝光不变。此时景深变大，远近景物更清晰，但更慢的快门可能带来抖动风险。",
+          "origin": "authored"
+        },
+        "boundaries": "上述光圈、焦距与拍摄距离对景深的影响，需在同一构图与对焦距离下比较。",
+        "analogy": "",
+        "mantra": "",
+        "id": "card_52ebc6ee787b48e4a55918aec6a56568",
+        "contentVersion": 2,
+        "learningUnitId": "unit_discovery_359fb769359fb769359f",
+        "topicId": "topic_d8a155e6d8a155e6",
+        "citations": [],
+        "sourceSnapshot": null
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "在同一构图与对焦距离下拍摄人像，希望背景更虚化，同时保持曝光不变。你会如何调整光圈、焦距或拍摄距离？并说明为保持曝光不变需要付出什么代价。",
+        "answer": "可增大光圈（数值变小）、使用更长焦距，或让相机离被摄体更近，使景深变浅、背景更虚化。为保持曝光不变，增大光圈会增加进光，需用更快快门或更低ISO补偿；若改用更长焦距或更近拍摄距离而不改变光圈，进光不变，但构图会变化，需重新调整。",
+        "answerExplanation": "景深由光圈、焦距和拍摄距离共同决定：光圈越大（数值越小）、焦距越长、相机离被摄体越近，景深越浅。要在同一构图与对焦距离下比较，调整焦距或距离会改变构图。保持曝光不变时，增大光圈会增多进光，需用更快快门或更低ISO补偿。",
+        "rubric": [
+          "指出增大光圈（数值变小）、更长焦距或更近拍摄距离可使景深变浅",
+          "说明保持曝光不变时增大光圈需用更快快门或更低ISO补偿",
+          "提到调整焦距或拍摄距离会改变构图，需在同一构图与对焦距离下比较"
+        ],
+        "id": "exercise_e54a601b83c24036be558270f42762ff",
+        "version": 1
+      },
+      "evidence": [
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "景深指照片中看起来清晰的前后范围。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "它由光圈、焦距和拍摄距离共同决定:光圈越小(数值越大)、焦距越短、相机离被摄体越远,景深越大;反之景深越浅。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "成立条件是同一构图与对焦距离下比较。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "但缩小光圈会减少进光,需用更慢快门或更高ISO补偿,可能引入抖动或噪点。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "它由光圈、焦距和拍摄距离共同决定:光圈越小(数值越大)、焦距越短、相机离被摄体越远,景深越大;反之景深越浅。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "但缩小光圈会减少进光,需用更慢快门或更高ISO补偿,可能引入抖动或噪点。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "成立条件是同一构图与对焦距离下比较。",
+          "occurrence": 0,
+          "claim": "boundaries"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "它由光圈、焦距和拍摄距离共同决定:光圈越小(数值越大)、焦距越短、相机离被摄体越远,景深越大;反之景深越浅。",
+          "occurrence": 0,
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "卡片与练习的断言均可由来源c1-c4支持，来源为模型建议但内容与摄影常识一致。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例、答案与解释一致：缩小光圈需更慢快门补偿，增大光圈需更快快门或更低ISO补偿。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习要求解释三变量联动并说明曝光不变时的取舍，与学习目标一致。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案正确：增大光圈、更长焦距或更近拍摄距离使景深变浅；曝光补偿方向正确。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "已说明同一构图与对焦距离下比较，并指出调整焦距或距离会改变构图。"
+        }
+      ]
+    }
+  },
+  {
+    "id": "finite-clt",
+    "context": {
+      "userGoal": "能解释中心极限定理成立的条件,并说明样本均值标准化后为何近似服从标准正态分布\n必须新增：相比大数定律只说明样本均值收敛到期望,中心极限定理进一步刻画收敛的波动形态:标准化后的样本均值依分布收敛到标准正态分布,从而给出近似区间估计的依据\n目标难度：标准；按这个难度选择前置知识、解释步骤和例子，不得只改难度标签。\n不得复述关联卡摘要。",
+      "materialLength": 375,
+      "evidence": [
+        {
+          "id": "discovery_outline",
+          "kind": "text",
+          "origin": "discovery_outline",
+          "title": "发现候选：中心极限定理:为什么大量独立随机变量之和近似正态分布",
+          "text": "主题：中心极限定理:为什么大量独立随机变量之和近似正态分布\n学习目标：能解释中心极限定理成立的条件,并说明样本均值标准化后为何近似服从标准正态分布\n必须新增：相比大数定律只说明样本均值收敛到期望,中心极限定理进一步刻画收敛的波动形态:标准化后的样本均值依分布收敛到标准正态分布,从而给出近似区间估计的依据\n与已有知识的关系：从你选择的“概率数学”兴趣继续探索\n依据状态：模型建议\n知识说明（模型生成，未经外部来源验证）：中心极限定理指出:若随机变量独立同分布且方差有限,当样本量n足够大时,样本均值的标准化形式(样本均值减期望)除以(标准差除以根号n)依分布收敛到标准正态分布。它要求独立同分布与有限方差,不要求原始分布本身正态。例如掷骰子多次求平均,单次结果均匀分布,但样本均值分布随n增大越来越接近钟形,因此可用正态近似估计均值落在某区间的概率。",
+          "startCharacter": 0,
+          "version": 1
+        }
+      ],
+      "image": null,
+      "relatedCards": [],
+      "learningContext": {
+        "version": 2,
+        "generatedAt": 1789314033634,
+        "profileScope": "current_profile",
+        "taskScope": {
+          "mode": "generation",
+          "topicId": "topic_a032e20ea032e20e",
+          "learningUnitId": "unit_discovery_fb5e9761fb5e9761fb5e"
+        },
+        "explicitPreferences": [],
+        "appliedPreferenceIds": [],
+        "interests": [],
+        "downrankedTopics": [],
+        "excludedUnits": [],
+        "recentFacts": [
+          {
+            "eventId": "exposure:discovery_pool_b651c45be20c4ec2a8b5d1de46052e6c:discovery_candidate_b413599a9f2946b18c4de53aa146e36e",
+            "type": "recommendation_exposure",
+            "cardId": null,
+            "learningUnitId": "unit_discovery_fb5e9761fb5e9761fb5e",
+            "topicId": "topic_a032e20ea032e20e",
+            "topicLabel": "中心极限定理:为什么大量独立随机变量之和近似正态分布",
+            "action": null,
+            "occurredAt": 1789314029575
+          }
+        ],
+        "learnedUnits": [],
+        "reviewSummary": {
+          "observedUnitCount": 0,
+          "legacyUnitCount": 0,
+          "reviewEventCount": 0,
+          "incorrectCount": 0,
+          "errorCause": "unknown"
+        },
+        "recentWindowDays": 30
+      },
+      "companionReferencesOnly": false
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "中心极限定理：条件与标准化样本均值的近似正态性",
+        "learningObjective": "能解释中心极限定理成立的条件，并说明样本均值标准化后为何近似服从标准正态分布",
+        "knowledgeType": "concept",
+        "summary": "中心极限定理指出：若随机变量独立同分布且方差有限，当样本量 n 足够大时，样本均值的标准化形式（样本均值减期望）除以（标准差除以根号 n）依分布收敛到标准正态分布。它要求独立同分布与有限方差，不要求原始分布本身正态。因此可用正态近似估计均值落在某区间的概率。",
+        "example": {
+          "type": "example",
+          "text": "掷一枚均匀骰子多次并求平均。单次结果是均匀分布，不是正态分布；但随着掷的次数 n 增大，样本均值的分布越来越接近钟形，于是可以用正态近似估计样本均值落在某个区间的概率。",
+          "origin": "authored"
+        },
+        "boundaries": "中心极限定理要求随机变量独立同分布且方差有限；它不要求原始分布本身正态。",
+        "analogy": "",
+        "mantra": "",
+        "id": "card_93abadba351f4e4b874b7ca340d988d5",
+        "contentVersion": 2,
+        "learningUnitId": "unit_discovery_fb5e9761fb5e9761fb5e",
+        "topicId": "topic_a032e20ea032e20e",
+        "citations": [],
+        "sourceSnapshot": null
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "某工厂生产的零件长度是独立同分布的随机变量，期望为 10 cm，标准差为 2 cm，但长度分布本身不是正态分布。现随机抽取 n=100 个零件，计算样本均值。请说明：根据中心极限定理，样本均值的标准化形式 (样本均值 − 10) / (2 / √100) 近似服从什么分布？并指出本题中满足中心极限定理的哪两个条件。",
+        "answer": "标准化形式近似服从标准正态分布。满足的条件是：各零件长度独立同分布，且方差有限（标准差 2 cm 有限）。",
+        "answerExplanation": "中心极限定理要求随机变量独立同分布且方差有限。本题中零件长度独立同分布，标准差为 2 cm，方差有限，n=100 足够大，因此样本均值的标准化形式 (样本均值 − 期望) / (标准差 / √n) 依分布收敛到标准正态分布。原始分布不是正态分布不影响结论。",
+        "rubric": [
+          "答出标准化形式近似服从标准正态分布",
+          "指出独立同分布这一条件",
+          "指出方差有限这一条件"
+        ],
+        "id": "exercise_fb1358d90e84489987c4ecb479a4b5b0",
+        "version": 1
+      },
+      "evidence": [
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "若随机变量独立同分布且方差有限,当样本量n足够大时,样本均值的标准化形式(样本均值减期望)除以(标准差除以根号n)依分布收敛到标准正态分布",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "它要求独立同分布与有限方差,不要求原始分布本身正态",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "若随机变量独立同分布且方差有限,当样本量n足够大时,样本均值的标准化形式(样本均值减期望)除以(标准差除以根号n)依分布收敛到标准正态分布",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "它要求独立同分布与有限方差,不要求原始分布本身正态",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "例如掷骰子多次求平均,单次结果均匀分布,但样本均值分布随n增大越来越接近钟形,因此可用正态近似估计均值落在某区间的概率",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "它要求独立同分布与有限方差,不要求原始分布本身正态",
+          "occurrence": 0,
+          "claim": "boundaries"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "例如掷骰子多次求平均,单次结果均匀分布,但样本均值分布随n增大越来越接近钟形,因此可用正态近似估计均值落在某区间的概率",
+          "occurrence": 0,
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "卡片与练习的断言均可由来源c1、c2、c3支持，且符合中心极限定理的标准表述。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "摘要、边界、示例与练习一致，标准化公式与条件表述无矛盾。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习要求说明标准化形式近似分布并指出两个条件，直接检验学习目标。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案正确：标准化形式近似标准正态，条件为独立同分布与方差有限；解释无误。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "已完整给出独立同分布、方差有限、n足够大等成立条件，并说明不要求原始分布正态。"
+        }
+      ]
+    }
+  },
+  {
+    "id": "cache-boundary",
+    "context": {
+      "userGoal": "能区分“缓存响应陈旧”与“缓存内容已错误”这两种判断。\n目标标题：区分缓存陈旧与内容错误\n本次要求：用清晰的默认讲解方式\n仅生成此目标，保留前提、否定和例外。\n材料概览（仅作组织线索）：本批材料包含三个独立主题：HTTP 缓存新鲜度、浮点数二进制表示与舍入误差、事务原子性及 SQLite 的实现表现。材料均以概念解释和常见误解澄清为主，适合按可判断、可区分的具体能力制卡。\n学习关系：[{\"from\":\"缓存新鲜度：age 与 max-age 的作用\",\"to\":\"区分缓存陈旧与内容错误\",\"type\":\"comparison\"}]\n新增内容：材料明确不能把“陈旧”直接理解为“内容已错误”，陈旧响应可以向源站验证。",
+      "evidence": [
+        {
+          "id": "material_294c60f3fda449f1bcccf3e36c76484f_chunk_0",
+          "kind": "text",
+          "origin": "current",
+          "materialId": "material_294c60f3fda449f1bcccf3e36c76484f",
+          "chunkId": "material_294c60f3fda449f1bcccf3e36c76484f_chunk_0",
+          "title": "跨主题阅读笔记 4.md",
+          "text": "缓存新鲜度：缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。\n\n浮点数：多数十进制小数不能表示为有限的二进制小数。例如 0.1 只能用接近它的二进制分数存储；打印看起来简洁不代表存储精确。累积计算可能出现舍入误差。\n\n事务原子性：原子提交使一个事务中的修改表现为全部发生或全部不发生。SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+          "startCharacter": 0,
+          "headingPath": [],
+          "pageNumber": null,
+          "version": 1,
+          "documentId": "doc_material_294c60f3fda449f1bcccf3e36c76484f"
+        }
+      ],
+      "image": null,
+      "materialLength": 254,
+      "relatedCards": [],
+      "learningContext": {
+        "version": 1,
+        "generatedAt": 1789313721936,
+        "profileScope": "current_profile",
+        "taskScope": {
+          "mode": "generation",
+          "topicId": "topic_af5df099af5df099",
+          "learningUnitId": "unit_d5c624aa26e64d63a3f12649507fa1ee"
+        },
+        "explicitPreferences": [],
+        "appliedPreferenceIds": [],
+        "interests": [],
+        "downrankedTopics": [],
+        "excludedUnits": [],
+        "recentFacts": [],
+        "learnedUnits": [],
+        "reviewSummary": {
+          "observedUnitCount": 0,
+          "legacyUnitCount": 0,
+          "reviewEventCount": 0,
+          "incorrectCount": 0,
+          "errorCause": "unknown"
+        },
+        "recentWindowDays": 30
+      }
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "区分缓存陈旧与内容错误",
+        "learningObjective": "能区分“缓存响应陈旧”与“缓存内容已错误”这两种判断",
+        "knowledgeType": "concept",
+        "summary": "缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+        "example": {
+          "type": "contrast",
+          "text": "情景A：某响应的 age 未超过其 max-age，按材料规则它仍属新鲜，通常可直接复用，此时不涉及“内容已错误”的判断。情景B：另一响应的 age 已超过其 max-age，它属于陈旧响应，可以向源站验证；陈旧本身只说明新鲜度条件不再满足，并不等于该响应的内容已经错误。两个情景各自独立判断，互不影响。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": "",
+        "id": "card_4a40c36dda0148269bf8ce82d21b6bba",
+        "contentVersion": 2,
+        "learningUnitId": "unit_d5c624aa26e64d63a3f12649507fa1ee",
+        "batchId": "batch_07a02f75f0604c449300b0446d3a9445",
+        "citations": [],
+        "sourceSnapshot": null
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "某缓存保存的响应，其 age 已超过 max-age。仅根据这一情况，能否判定该响应的内容已经错误？应如何判断它是否陈旧，以及可以采取什么做法？",
+        "answer": "不能判定内容已错误。age 超过 max-age 说明该响应已不再新鲜，属于陈旧响应；陈旧响应可以向源站验证，而不是直接认定内容错误。",
+        "answerExplanation": "材料指出：age 是响应生成后经过的时间，max-age 指定其可视为新鲜的时长。age 超过 max-age 时该响应为陈旧；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。因此仅凭超过 max-age 只能得出“陈旧”这一新鲜度判断，不能得出内容错误的结论。",
+        "rubric": [
+          "指出 age 超过 max-age 意味着该响应陈旧（不再新鲜）",
+          "指出不能据此判定内容已错误",
+          "指出陈旧响应可以向源站验证"
+        ],
+        "id": "exercise_7c960629b4d9450887a6fcb60da23633",
+        "version": 1
+      },
+      "evidence": [
+        {
+          "evidenceId": "material_294c60f3fda449f1bcccf3e36c76484f_chunk_0",
+          "quote": "响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material_294c60f3fda449f1bcccf3e36c76484f_chunk_0",
+          "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material_294c60f3fda449f1bcccf3e36c76484f_chunk_0",
+          "quote": "响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material_294c60f3fda449f1bcccf3e36c76484f_chunk_0",
+          "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material_294c60f3fda449f1bcccf3e36c76484f_chunk_0",
+          "quote": "响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+          "occurrence": 0,
+          "claim": "example"
+        },
+        {
+          "evidenceId": "material_294c60f3fda449f1bcccf3e36c76484f_chunk_0",
+          "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+          "occurrence": 0,
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "卡片与练习的断言均可由来源文本直接支持：age、max-age、新鲜/陈旧的区分及陈旧响应可向源站验证均有原文依据。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "两个情景与总结、练习一致，均围绕新鲜度判断与内容错误判断的区分，无自相矛盾。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "回忆题要求判断能否由 age 超过 max-age 推出内容错误，并说明陈旧判断与可采取的做法，直接检验学习目标。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案正确：age 超过 max-age 只说明陈旧，不能判定内容错误，陈旧响应可向源站验证；反馈与材料一致。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "题干明确限定“仅根据这一情况”，答案未超出该前提；陈旧可向源站验证的表述与材料一致，未遗漏必要条件。"
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,1190 @@
+{
+  "outputs": {
+    "format": "card-quality-evaluation-v1",
+    "executedAt": "2026-09-03T11:29:22.921Z",
+    "model": "deepseek-v4-flash-vision-exp",
+    "temperature": 0.3,
+    "promptVersion": "concept-card-v2.2.0",
+    "baselineVersion": "concept-card-v1-step01",
+    "corpus": "[{\"id\":\"short-05\",\"category\":\"short\",\"title\":\"默认列表参数\",\"text\":\"Python 的默认参数值只在函数定义时求值一次。把可变列表作为默认值，多个调用可能共享并修改同一个对象；用 None 作为默认值，在函数体中创建新列表可以避免共享。\",\"userGoal\":\"能判断默认列表参数为什么跨调用保留内容\",\"sourceUrls\":[\"https://docs.python.org/3/tutorial/controlflow.html#default-argument-values\"],\"provenance\":\"官方公开文档的中文摘译与压缩，非逐字原文；2026-09-02 核对\",\"expectedStatus\":\"ready\",\"expectedObjective\":\"能判断默认列表参数为什么跨调用保留内容\",\"keyEvidence\":[\"定义时只求值一次\",\"可变对象共享\"],\"criticalErrors\":[]},{\"id\":\"short-01\",\"category\":\"short\",\"title\":\"缓存新鲜度\",\"text\":\"缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。\",\"userGoal\":\"能判断缓存新鲜度和内容是否改变的区别\",\"sourceUrls\":[\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching\"],\"provenance\":\"官方公开文档的中文摘译与压缩，非逐字原文；2026-09-02 核对\",\"expectedStatus\":\"ready\",\"expectedObjective\":\"能判断缓存新鲜度和内容是否改变的区别\",\"keyEvidence\":[\"age 从响应生成时算起\",\"过期不等于内容发生变化\"],\"criticalErrors\":[]},{\"id\":\"short-03\",\"category\":\"short\",\"title\":\"稳定排序\",\"text\":\"Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。因此可以先按次要键排序，再按主要键排序，实现多级排序。\",\"userGoal\":\"能判断多级稳定排序的执行顺序\",\"sourceUrls\":[\"https://docs.python.org/3/howto/sorting.html\"],\"provenance\":\"官方公开文档的中文摘译与压缩，非逐字原文；2026-09-02 核对\",\"expectedStatus\":\"ready\",\"expectedObjective\":\"能判断多级稳定排序的执行顺序\",\"keyEvidence\":[\"同键保留相对顺序\",\"次要键在先\"],\"criticalErrors\":[]},{\"id\":\"short-08\",\"category\":\"short\",\"title\":\"事务原子性\",\"text\":\"原子提交使一个事务中的修改表现为全部发生或全部不发生。SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。\",\"userGoal\":\"能区分事务原子性与硬件同时写入\",\"sourceUrls\":[\"https://www.sqlite.org/atomiccommit.html\"],\"provenance\":\"官方公开文档的中文摘译与压缩，非逐字原文；2026-09-02 核对\",\"expectedStatus\":\"ready\",\"expectedObjective\":\"能区分事务原子性与硬件同时写入\",\"keyEvidence\":[\"全有或全无\",\"逻辑表现不是物理同时\"],\"criticalErrors\":[]},{\"id\":\"image-02\",\"category\":\"image\",\"title\":\"SQLite 原子提交图：预留锁\",\"text\":\"\",\"imagePath\":\"materials/commit-3.gif\",\"userGoal\":\"能识别图中的锁状态与仍保留原数据的磁盘\",\"sourceUrls\":[\"https://www.sqlite.org/atomiccommit.html\"],\"assetUrl\":\"https://www.sqlite.org/images/ac/commit-3.gif\",\"provenance\":\"SQLite 官方原始 GIF，未编辑；SQLite public domain\",\"expectedStatus\":\"ready\",\"expectedObjective\":\"能识别图中的锁状态与仍保留原数据的磁盘\",\"keyEvidence\":[\"锁标签 reserved\",\"磁盘仍是蓝色原数据\"],\"criticalErrors\":[\"伪造图中不可见的标签或字符偏移\"]}]",
+    "evaluationMode": "targeted",
+    "requestProfile": "bounded-card-v1/non-thinking-v1",
+    "budget": {
+      "maxRequests": 16,
+      "maxTokens": 24000,
+      "requestsUsed": 11,
+      "knownTokens": 18066,
+      "missingUsage": 0
+    },
+    "status": "awaiting_ai_review",
+    "reviewers": [],
+    "learningExperiment": false,
+    "cases": [
+      {
+        "id": "short-05",
+        "category": "short",
+        "expectedStatus": "ready",
+        "old": null,
+        "current": {
+          "status": "needs_revision",
+          "card": {
+            "title": "默认列表参数的共享陷阱",
+            "learningObjective": "能判断默认列表参数为什么跨调用保留内容",
+            "knowledgeType": "concept",
+            "summary": "Python 的默认参数值只在函数定义时求值一次。如果默认值是可变对象（如列表），多次调用会共享同一个对象，修改它会导致后续调用看到之前的内容。使用 None 作为默认值，并在函数体内创建新列表，可以避免这种共享。",
+            "example": {
+              "type": "contrast",
+              "text": "def f(x=[]):\n    x.append(1)\n    return x\n\nprint(f())  # [1]\nprint(f())  # [1, 1]\n\ndef g(x=None):\n    if x is None:\n        x = []\n    x.append(1)\n    return x\n\nprint(g())  # [1]\nprint(g())  # [1]",
+              "origin": "authored"
+            },
+            "boundaries": "默认参数只在定义时求值一次，与调用次数无关；仅当默认值是可变对象时，跨调用共享才可能发生。",
+            "analogy": "",
+            "mantra": ""
+          },
+          "exercise": {
+            "type": "choice",
+            "question": "以下哪个函数在多次调用时会保留列表内容？",
+            "options": [
+              "def f(x=[]):\n    x.append(1)\n    return x",
+              "def f(x=None):\n    if x is None:\n        x = []\n    x.append(1)\n    return x",
+              "def f(x=[]):\n    x = x + [1]\n    return x"
+            ],
+            "correctIndex": 0,
+            "answer": "def f(x=[]):\n    x.append(1)\n    return x",
+            "answerExplanation": "默认列表在定义时创建一次，后续调用共享该列表，append 修改它，因此内容保留。",
+            "rubric": [
+              "能识别默认可变对象被共享",
+              "能区分避免共享的方法"
+            ],
+            "misconceptions": [
+              "",
+              "该选项使用 None 并在函数体内创建新列表，每次调用都是新列表，不会保留。",
+              "该选项虽然默认值是列表，但 x = x + [1] 创建了新列表并重新绑定，不会修改默认列表，因此不会保留。"
+            ]
+          },
+          "evidence": [
+            {
+              "evidenceId": "material",
+              "quote": "Python 的默认参数值只在函数定义时求值一次。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "summary"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "summary"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "Python 的默认参数值只在函数定义时求值一次。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "exercise"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "exercise"
+            },
+            null,
+            null
+          ],
+          "checks": [],
+          "issues": [],
+          "quality": {
+            "passed": false,
+            "issues": [
+              {
+                "code": "evidence_location",
+                "message": "引用不存在、原文不一致或位置无效"
+              },
+              {
+                "code": "evidence_location",
+                "message": "引用不存在、原文不一致或位置无效"
+              },
+              {
+                "code": "evidence_boundaries",
+                "message": "适用边界缺少可定位依据"
+              }
+            ],
+            "evidence": [
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "summary",
+                "quote": "Python 的默认参数值只在函数定义时求值一次。",
+                "occurrence": 0,
+                "startCharacter": 0,
+                "endCharacter": 25
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "summary",
+                "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+                "occurrence": 0,
+                "startCharacter": 25,
+                "endCharacter": 83
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "exercise",
+                "quote": "Python 的默认参数值只在函数定义时求值一次。",
+                "occurrence": 0,
+                "startCharacter": 0,
+                "endCharacter": 25
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "exercise",
+                "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+                "occurrence": 0,
+                "startCharacter": 25,
+                "endCharacter": 83
+              }
+            ],
+            "checks": []
+          },
+          "generation": {
+            "promptVersion": "concept-card-v2.2.0",
+            "requestProfile": "bounded-card-v1/non-thinking-v1",
+            "model": "deepseek-v4-flash-vision-exp",
+            "materialLength": 83,
+            "elapsedMs": 7078,
+            "calls": [
+              {
+                "operation": "generate",
+                "model": "deepseek-v4-flash-vision-exp",
+                "latencyMs": 5196,
+                "usage": {
+                  "inputTokens": 1085,
+                  "outputTokens": 592,
+                  "totalTokens": 1677,
+                  "cachedInputTokens": 0
+                },
+                "finishReason": "stop",
+                "requestOptions": {
+                  "max_tokens": 3000
+                },
+                "thinkingPolicy": "non-thinking-v1"
+              },
+              {
+                "operation": "repair",
+                "model": "deepseek-v4-flash-vision-exp",
+                "latencyMs": 1875,
+                "usage": {
+                  "inputTokens": 1639,
+                  "outputTokens": 160,
+                  "totalTokens": 1799,
+                  "cachedInputTokens": 0
+                },
+                "finishReason": "stop",
+                "requestOptions": {
+                  "max_tokens": 1800
+                },
+                "thinkingPolicy": "non-thinking-v1"
+              }
+            ],
+            "rounds": [
+              {
+                "attempt": 1,
+                "issues": [
+                  {
+                    "code": "evidence_boundaries",
+                    "message": "适用边界缺少可定位依据"
+                  }
+                ],
+                "checks": []
+              },
+              {
+                "attempt": 2,
+                "issues": [
+                  {
+                    "code": "evidence_location",
+                    "message": "引用不存在、原文不一致或位置无效"
+                  },
+                  {
+                    "code": "evidence_location",
+                    "message": "引用不存在、原文不一致或位置无效"
+                  },
+                  {
+                    "code": "evidence_boundaries",
+                    "message": "适用边界缺少可定位依据"
+                  }
+                ],
+                "checks": []
+              }
+            ],
+            "resume": null,
+            "reviewMode": "separate"
+          }
+        },
+        "ratings": null
+      },
+      {
+        "id": "short-01",
+        "category": "short",
+        "expectedStatus": "ready",
+        "old": null,
+        "current": {
+          "status": "ready",
+          "card": {
+            "title": "缓存新鲜度与内容正确性",
+            "learningObjective": "能区分缓存新鲜度和内容是否改变",
+            "knowledgeType": "concept",
+            "summary": "缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+            "example": {
+              "type": "illustration",
+              "text": "一个响应 age 为 5 分钟，max-age 为 10 分钟，它是新鲜的，可直接复用。另一个响应 age 为 15 分钟，max-age 为 10 分钟，它是陈旧的，但内容可能仍然正确，需要向源站验证。",
+              "origin": "authored"
+            },
+            "boundaries": "",
+            "analogy": "",
+            "mantra": ""
+          },
+          "exercise": {
+            "type": "choice",
+            "question": "一个缓存的响应 age 为 20 分钟，max-age 为 10 分钟。关于该响应，以下哪项判断是正确的？",
+            "options": [
+              "该响应是新鲜的，可以直接复用",
+              "该响应是陈旧的，但内容不一定错误",
+              "该响应是陈旧的，所以内容一定已改变",
+              "该响应是新鲜的，但内容可能已改变"
+            ],
+            "correctIndex": 1,
+            "answer": "该响应是陈旧的，但内容不一定错误",
+            "answerExplanation": "根据材料，age 超过 max-age 即为陈旧，但陈旧不能直接理解为内容已错误，需要向源站验证。",
+            "rubric": [
+              "能根据 age 和 max-age 判断新鲜度",
+              "能理解陈旧不等于内容错误"
+            ],
+            "misconceptions": [
+              "将新鲜响应误认为可直接复用，但 age 已超过 max-age",
+              "",
+              "将陈旧直接等同于内容错误",
+              "将新鲜响应误认为内容可能改变，但新鲜度与内容正确性无关"
+            ]
+          },
+          "evidence": [
+            {
+              "evidenceId": "material",
+              "quote": "响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "summary"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "summary"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "exercise"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "exercise"
+            }
+          ],
+          "checks": [
+            {
+              "rule": "grounding",
+              "passed": true,
+              "reason": "解释、边界和示例均被引文支持，自拟数字符合规则。"
+            },
+            {
+              "rule": "coherence",
+              "passed": true,
+              "reason": "示例和答案依据的步骤一致，age与max-age比较正确。"
+            },
+            {
+              "rule": "objectiveAlignment",
+              "passed": true,
+              "reason": "练习要求根据age和max-age判断新鲜度并理解陈旧不等于内容错误，符合目标。"
+            },
+            {
+              "rule": "answerCorrectness",
+              "passed": true,
+              "reason": "题干条件充分，选项1正确，其他选项错误，无歧义。"
+            },
+            {
+              "rule": "conditions",
+              "passed": true,
+              "reason": "条件范围一致，未将‘通常’改为‘必须’或‘总是’。"
+            }
+          ],
+          "issues": [],
+          "quality": {
+            "passed": true,
+            "issues": [],
+            "evidence": [
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "summary",
+                "quote": "响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+                "occurrence": 0,
+                "startCharacter": 10,
+                "endCharacter": 46
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "summary",
+                "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+                "occurrence": 0,
+                "startCharacter": 46,
+                "endCharacter": 90
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "exercise",
+                "quote": "响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+                "occurrence": 0,
+                "startCharacter": 10,
+                "endCharacter": 46
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "exercise",
+                "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+                "occurrence": 0,
+                "startCharacter": 46,
+                "endCharacter": 90
+              }
+            ],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "解释、边界和示例均被引文支持，自拟数字符合规则。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例和答案依据的步骤一致，age与max-age比较正确。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "练习要求根据age和max-age判断新鲜度并理解陈旧不等于内容错误，符合目标。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "题干条件充分，选项1正确，其他选项错误，无歧义。"
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "条件范围一致，未将‘通常’改为‘必须’或‘总是’。"
+              }
+            ]
+          },
+          "generation": {
+            "promptVersion": "concept-card-v2.2.0",
+            "requestProfile": "bounded-card-v1/non-thinking-v1",
+            "model": "deepseek-v4-flash-vision-exp",
+            "materialLength": 90,
+            "elapsedMs": 6257,
+            "calls": [
+              {
+                "operation": "generate",
+                "model": "deepseek-v4-flash-vision-exp",
+                "latencyMs": 4736,
+                "usage": {
+                  "inputTokens": 1086,
+                  "outputTokens": 511,
+                  "totalTokens": 1597,
+                  "cachedInputTokens": 640
+                },
+                "finishReason": "stop",
+                "requestOptions": {
+                  "max_tokens": 3000
+                },
+                "thinkingPolicy": "non-thinking-v1"
+              },
+              {
+                "operation": "review",
+                "model": "deepseek-v4-flash-vision-exp",
+                "latencyMs": 1516,
+                "usage": {
+                  "inputTokens": 1171,
+                  "outputTokens": 151,
+                  "totalTokens": 1322,
+                  "cachedInputTokens": 0
+                },
+                "finishReason": "stop",
+                "requestOptions": {
+                  "max_tokens": 800
+                },
+                "thinkingPolicy": "non-thinking-v1"
+              }
+            ],
+            "rounds": [
+              {
+                "attempt": 1,
+                "issues": [],
+                "checks": [
+                  {
+                    "rule": "grounding",
+                    "passed": true,
+                    "reason": "解释、边界和示例均被引文支持，自拟数字符合规则。"
+                  },
+                  {
+                    "rule": "coherence",
+                    "passed": true,
+                    "reason": "示例和答案依据的步骤一致，age与max-age比较正确。"
+                  },
+                  {
+                    "rule": "objectiveAlignment",
+                    "passed": true,
+                    "reason": "练习要求根据age和max-age判断新鲜度并理解陈旧不等于内容错误，符合目标。"
+                  },
+                  {
+                    "rule": "answerCorrectness",
+                    "passed": true,
+                    "reason": "题干条件充分，选项1正确，其他选项错误，无歧义。"
+                  },
+                  {
+                    "rule": "conditions",
+                    "passed": true,
+                    "reason": "条件范围一致，未将‘通常’改为‘必须’或‘总是’。"
+                  }
+                ]
+              }
+            ],
+            "resume": null,
+            "reviewMode": "separate"
+          }
+        },
+        "ratings": null
+      },
+      {
+        "id": "short-03",
+        "category": "short",
+        "expectedStatus": "ready",
+        "old": null,
+        "current": {
+          "status": "needs_revision",
+          "card": {
+            "title": "多级稳定排序",
+            "learningObjective": "能判断多级稳定排序的执行顺序",
+            "knowledgeType": "concept",
+            "summary": "Python 的排序是稳定的，即当排序键相同时，元素保持它们在输入中的相对顺序。利用这一特性，可以通过先按次要键排序，再按主要键排序，来实现多级排序。最终结果中，主要键优先，次要键在主要键相同时按排序顺序排列。",
+            "example": {
+              "type": "steps",
+              "text": "假设有记录 [(2,'b'), (1,'a'), (2,'a')]，先按次要键（字母）排序得到 [(1,'a'), (2,'a'), (2,'b')]，再按主要键（数字）排序，由于稳定，数字2的两个记录保持相对顺序，得到 [(1,'a'), (2,'a'), (2,'b')]。",
+              "origin": "authored"
+            },
+            "boundaries": "稳定排序的前提是排序算法是稳定的，Python 的 sort 和 sorted 是稳定的。多级排序必须按次要键先排序，再按主要键排序，顺序不能颠倒。",
+            "analogy": "",
+            "mantra": ""
+          },
+          "exercise": {
+            "type": "choice",
+            "question": "给定列表 [(3,'c'), (1,'b'), (3,'a')]，先按字母排序，再按数字排序，最终顺序是什么？",
+            "options": [
+              "[(1,'b'), (3,'a'), (3,'c')]",
+              "[(3,'a'), (3,'c'), (1,'b')]",
+              "[(1,'b'), (3,'c'), (3,'a')]"
+            ],
+            "correctIndex": 0,
+            "answer": "[(1,'b'), (3,'a'), (3,'c')]",
+            "answerExplanation": "先按字母排序得到 [(3,'a'), (1,'b'), (3,'c')]，再按数字排序，数字3的两个元素保持相对顺序，所以最终为 [(1,'b'), (3,'a'), (3,'c')]。",
+            "rubric": [
+              "正确理解先按次要键排序再按主要键排序",
+              "正确应用稳定性保持相对顺序"
+            ],
+            "misconceptions": [
+              "错误地认为主要键排序会打乱次要键顺序，忽略了稳定性",
+              "错误地认为先按主要键排序再按次要键排序，导致次要键优先",
+              "错误地认为稳定性不保留相对顺序，导致顺序错误"
+            ]
+          },
+          "evidence": [
+            {
+              "evidenceId": "material",
+              "quote": "Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。因此可以先按次要键排序，再按主要键排序，实现多级排序。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "summary"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "exercise"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "因此可以先按次要键排序，再按主要键排序，实现多级排序。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "exercise"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "boundaries"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "因此可以先按次要键排序，再按主要键排序，实现多级排序。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "boundaries"
+            }
+          ],
+          "checks": [],
+          "issues": [],
+          "quality": {
+            "passed": false,
+            "issues": [
+              {
+                "code": "correct_option_misconception",
+                "message": "正确选项不能同时标为错误误区，请核对答案与误区说明"
+              }
+            ],
+            "evidence": [
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "summary",
+                "quote": "Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。因此可以先按次要键排序，再按主要键排序，实现多级排序。",
+                "occurrence": 0,
+                "startCharacter": 0,
+                "endCharacter": 62
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "exercise",
+                "quote": "Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。",
+                "occurrence": 0,
+                "startCharacter": 0,
+                "endCharacter": 35
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "exercise",
+                "quote": "因此可以先按次要键排序，再按主要键排序，实现多级排序。",
+                "occurrence": 0,
+                "startCharacter": 35,
+                "endCharacter": 62
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "boundaries",
+                "quote": "Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。",
+                "occurrence": 0,
+                "startCharacter": 0,
+                "endCharacter": 35
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "boundaries",
+                "quote": "因此可以先按次要键排序，再按主要键排序，实现多级排序。",
+                "occurrence": 0,
+                "startCharacter": 35,
+                "endCharacter": 62
+              }
+            ],
+            "checks": []
+          },
+          "generation": {
+            "promptVersion": "concept-card-v2.2.0",
+            "requestProfile": "bounded-card-v1/non-thinking-v1",
+            "model": "deepseek-v4-flash-vision-exp",
+            "materialLength": 62,
+            "elapsedMs": 7633,
+            "calls": [
+              {
+                "operation": "generate",
+                "model": "deepseek-v4-flash-vision-exp",
+                "latencyMs": 5145,
+                "usage": {
+                  "inputTokens": 1070,
+                  "outputTokens": 597,
+                  "totalTokens": 1667,
+                  "cachedInputTokens": 896
+                },
+                "finishReason": "stop",
+                "requestOptions": {
+                  "max_tokens": 3000
+                },
+                "thinkingPolicy": "non-thinking-v1"
+              },
+              {
+                "operation": "repair",
+                "model": "deepseek-v4-flash-vision-exp",
+                "latencyMs": 2481,
+                "usage": {
+                  "inputTokens": 1630,
+                  "outputTokens": 240,
+                  "totalTokens": 1870,
+                  "cachedInputTokens": 640
+                },
+                "finishReason": "stop",
+                "requestOptions": {
+                  "max_tokens": 1800
+                },
+                "thinkingPolicy": "non-thinking-v1"
+              }
+            ],
+            "rounds": [
+              {
+                "attempt": 1,
+                "issues": [
+                  {
+                    "code": "correct_option_misconception",
+                    "message": "正确选项不能同时标为错误误区，请核对答案与误区说明"
+                  },
+                  {
+                    "code": "evidence_boundaries",
+                    "message": "适用边界缺少可定位依据"
+                  }
+                ],
+                "checks": []
+              },
+              {
+                "attempt": 2,
+                "issues": [
+                  {
+                    "code": "correct_option_misconception",
+                    "message": "正确选项不能同时标为错误误区，请核对答案与误区说明"
+                  }
+                ],
+                "checks": []
+              }
+            ],
+            "resume": null,
+            "reviewMode": "separate"
+          }
+        },
+        "ratings": null
+      },
+      {
+        "id": "short-08",
+        "category": "short",
+        "expectedStatus": "ready",
+        "old": null,
+        "current": {
+          "status": "ready",
+          "card": {
+            "title": "事务原子性与硬件同时写入的区分",
+            "learningObjective": "能区分事务原子性与硬件同时写入",
+            "knowledgeType": "concept",
+            "summary": "事务原子性是一种逻辑上的保证：一个事务中的修改要么全部发生，要么全部不发生，这是通过日志和恢复步骤实现的。这种表现并不意味着硬件会在同一瞬间完成所有磁盘写入，实际写入可能分步进行，但系统通过恢复机制确保最终状态的一致性。",
+            "example": {
+              "type": "contrast",
+              "text": "事务原子性：一个转账事务中，扣款和入账要么都成功，要么都失败。硬件同时写入：假设磁盘有两个扇区，事务要求同时写入这两个扇区，但硬件可能先写一个再写另一个，并非真正同时。",
+              "origin": "authored"
+            },
+            "boundaries": "事务原子性不要求硬件同时写入，只要求逻辑上的全部或全不。",
+            "analogy": "",
+            "mantra": ""
+          },
+          "exercise": {
+            "type": "choice",
+            "question": "关于事务原子性与硬件同时写入的关系，以下哪项正确？",
+            "options": [
+              "事务原子性意味着硬件必须同时完成所有磁盘写入",
+              "事务原子性通过日志和恢复步骤实现，不要求硬件同时写入",
+              "事务原子性只保证部分修改发生",
+              "事务原子性不涉及日志和恢复步骤"
+            ],
+            "correctIndex": 1,
+            "answer": "事务原子性通过日志和恢复步骤实现，不要求硬件同时写入",
+            "answerExplanation": "事务原子性是一种逻辑保证，通过日志和恢复步骤实现，并不要求硬件在同一瞬间完成所有磁盘写入。",
+            "rubric": [
+              "能指出事务原子性不要求硬件同时写入",
+              "能说明事务原子性通过日志和恢复实现"
+            ],
+            "misconceptions": [
+              "误以为事务原子性要求硬件同时写入",
+              "",
+              "误以为事务原子性允许部分修改",
+              "误以为事务原子性不涉及日志和恢复"
+            ]
+          },
+          "evidence": [
+            {
+              "evidenceId": "material",
+              "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "summary"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "summary"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "exercise"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "exercise"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "boundaries"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "boundaries"
+            }
+          ],
+          "checks": [
+            {
+              "rule": "grounding",
+              "passed": true,
+              "reason": "解释、边界和示例均被引文支持，引文逐字匹配且支持所提机制。"
+            },
+            {
+              "rule": "coherence",
+              "passed": true,
+              "reason": "示例和答案依据的每一步逻辑一致，从原子性定义到不要求硬件同时写入的结论连贯。"
+            },
+            {
+              "rule": "objectiveAlignment",
+              "passed": true,
+              "reason": "练习要求区分事务原子性与硬件同时写入，符合目标。"
+            },
+            {
+              "rule": "answerCorrectness",
+              "passed": true,
+              "reason": "题干条件充分，选项1正确，其余选项均无效，正确选项误区为空。"
+            },
+            {
+              "rule": "conditions",
+              "passed": true,
+              "reason": "来源中的‘不能据此认为’被正确表述为‘不要求’，未扩大为‘必须’或‘总是’。"
+            }
+          ],
+          "issues": [],
+          "quality": {
+            "passed": true,
+            "issues": [],
+            "evidence": [
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "summary",
+                "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+                "occurrence": 0,
+                "startCharacter": 0,
+                "endCharacter": 27
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "summary",
+                "quote": "不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+                "occurrence": 0,
+                "startCharacter": 49,
+                "endCharacter": 73
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "exercise",
+                "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+                "occurrence": 0,
+                "startCharacter": 0,
+                "endCharacter": 27
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "exercise",
+                "quote": "不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+                "occurrence": 0,
+                "startCharacter": 49,
+                "endCharacter": 73
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "boundaries",
+                "quote": "原子提交使一个事务中的修改表现为全部发生或全部不发生。",
+                "occurrence": 0,
+                "startCharacter": 0,
+                "endCharacter": 27
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "boundaries",
+                "quote": "不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+                "occurrence": 0,
+                "startCharacter": 49,
+                "endCharacter": 73
+              }
+            ],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "解释、边界和示例均被引文支持，引文逐字匹配且支持所提机制。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例和答案依据的每一步逻辑一致，从原子性定义到不要求硬件同时写入的结论连贯。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "练习要求区分事务原子性与硬件同时写入，符合目标。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "题干条件充分，选项1正确，其余选项均无效，正确选项误区为空。"
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "来源中的‘不能据此认为’被正确表述为‘不要求’，未扩大为‘必须’或‘总是’。"
+              }
+            ]
+          },
+          "generation": {
+            "promptVersion": "concept-card-v2.2.0",
+            "requestProfile": "bounded-card-v1/non-thinking-v1",
+            "model": "deepseek-v4-flash-vision-exp",
+            "materialLength": 73,
+            "elapsedMs": 8211,
+            "calls": [
+              {
+                "operation": "generate",
+                "model": "deepseek-v4-flash-vision-exp",
+                "latencyMs": 4531,
+                "usage": {
+                  "inputTokens": 1074,
+                  "outputTokens": 500,
+                  "totalTokens": 1574,
+                  "cachedInputTokens": 896
+                },
+                "finishReason": "stop",
+                "requestOptions": {
+                  "max_tokens": 3000
+                },
+                "thinkingPolicy": "non-thinking-v1"
+              },
+              {
+                "operation": "repair",
+                "model": "deepseek-v4-flash-vision-exp",
+                "latencyMs": 1934,
+                "usage": {
+                  "inputTokens": 1542,
+                  "outputTokens": 159,
+                  "totalTokens": 1701,
+                  "cachedInputTokens": 768
+                },
+                "finishReason": "stop",
+                "requestOptions": {
+                  "max_tokens": 1800
+                },
+                "thinkingPolicy": "non-thinking-v1"
+              },
+              {
+                "operation": "review",
+                "model": "deepseek-v4-flash-vision-exp",
+                "latencyMs": 1737,
+                "usage": {
+                  "inputTokens": 1198,
+                  "outputTokens": 167,
+                  "totalTokens": 1365,
+                  "cachedInputTokens": 0
+                },
+                "finishReason": "stop",
+                "requestOptions": {
+                  "max_tokens": 800
+                },
+                "thinkingPolicy": "non-thinking-v1"
+              }
+            ],
+            "rounds": [
+              {
+                "attempt": 1,
+                "issues": [
+                  {
+                    "code": "correct_option_misconception",
+                    "message": "正确选项不能同时标为错误误区，请核对答案与误区说明"
+                  },
+                  {
+                    "code": "evidence_boundaries",
+                    "message": "适用边界缺少可定位依据"
+                  }
+                ],
+                "checks": []
+              },
+              {
+                "attempt": 2,
+                "issues": [],
+                "checks": [
+                  {
+                    "rule": "grounding",
+                    "passed": true,
+                    "reason": "解释、边界和示例均被引文支持，引文逐字匹配且支持所提机制。"
+                  },
+                  {
+                    "rule": "coherence",
+                    "passed": true,
+                    "reason": "示例和答案依据的每一步逻辑一致，从原子性定义到不要求硬件同时写入的结论连贯。"
+                  },
+                  {
+                    "rule": "objectiveAlignment",
+                    "passed": true,
+                    "reason": "练习要求区分事务原子性与硬件同时写入，符合目标。"
+                  },
+                  {
+                    "rule": "answerCorrectness",
+                    "passed": true,
+                    "reason": "题干条件充分，选项1正确，其余选项均无效，正确选项误区为空。"
+                  },
+                  {
+                    "rule": "conditions",
+                    "passed": true,
+                    "reason": "来源中的‘不能据此认为’被正确表述为‘不要求’，未扩大为‘必须’或‘总是’。"
+                  }
+                ]
+              }
+            ],
+            "resume": null,
+            "reviewMode": "separate"
+          }
+        },
+        "ratings": null
+      },
+      {
+        "id": "image-02",
+        "category": "image",
+        "expectedStatus": "ready",
+        "old": null,
+        "current": {
+          "status": "needs_revision",
+          "card": {
+            "title": "SQLite 原子提交中的预留锁与磁盘数据状态",
+            "learningObjective": "能识别图中的锁状态与仍保留原数据的磁盘",
+            "knowledgeType": "concept",
+            "summary": "在 SQLite 原子提交过程中，当数据库连接持有 RESERVED 锁时，表示该连接打算将来写入数据库，但尚未开始修改数据库文件。此时，修改内容仅存在于用户空间和操作系统缓冲区中，磁盘上的数据库文件仍保留原始数据，未被修改。图中锁图标位于 OS Buffers 区域下方，标注为“reserved”，表明当前处于预留锁状态。",
+            "boundaries": "此状态仅表示预留锁，尚未开始实际写入磁盘；磁盘上的数据仍是原始版本。",
+            "analogy": "",
+            "mantra": ""
+          },
+          "exercise": {
+            "type": "choice",
+            "question": "根据图示，当前数据库处于什么锁状态？磁盘上的数据是否已被修改？",
+            "options": [
+              "RESERVED 锁，磁盘数据未修改",
+              "EXCLUSIVE 锁，磁盘数据已修改",
+              "SHARED 锁，磁盘数据未修改",
+              "PENDING 锁，磁盘数据已修改"
+            ],
+            "correctIndex": 0,
+            "answer": "RESERVED 锁，磁盘数据未修改",
+            "answerExplanation": "图中锁图标标注为“reserved”，表示当前持有 RESERVED 锁。此时修改仅存在于用户空间和缓冲区，磁盘上的原始数据尚未被修改。",
+            "rubric": [
+              "能正确识别锁状态为 RESERVED",
+              "能判断磁盘数据未被修改"
+            ],
+            "misconceptions": [
+              "",
+              "混淆了锁类型，误认为 EXCLUSIVE 锁，但图中明确标注为 reserved。",
+              "误认为 SHARED 锁，但 SHARED 锁用于读取，而图中锁图标为 reserved。",
+              "误认为 PENDING 锁，但 PENDING 锁是等待获取 EXCLUSIVE 锁的中间状态，图中未显示。"
+            ]
+          },
+          "evidence": [
+            {
+              "evidenceId": "image",
+              "quote": "",
+              "occurrence": 0,
+              "observation": "图中显示三个区域：User Space、OS Buffers、Disk。User Space 有三个蓝色矩形；OS Buffers 有多个蓝色矩形，底部有一个黑色锁图标，下方标注“reserved”；Disk 有多个蓝色矩形。",
+              "claim": "summary"
+            },
+            {
+              "evidenceId": "image",
+              "quote": "",
+              "occurrence": 0,
+              "observation": "图中显示三个区域：User Space、OS Buffers、Disk。User Space 有三个蓝色矩形；OS Buffers 有多个蓝色矩形，底部有一个黑色锁图标，下方标注“reserved”；Disk 有多个蓝色矩形。",
+              "claim": "exercise"
+            },
+            {
+              "evidenceId": "image",
+              "quote": "",
+              "occurrence": 0,
+              "observation": "图中显示三个区域：User Space、OS Buffers、Disk。User Space 有三个蓝色矩形；OS Buffers 有多个蓝色矩形，底部有一个黑色锁图标，下方标注“reserved”；Disk 有多个蓝色矩形。",
+              "claim": "boundaries"
+            }
+          ],
+          "checks": [],
+          "issues": [],
+          "quality": {
+            "passed": false,
+            "issues": [
+              {
+                "code": "objective",
+                "message": "学习目标须以能解释、能区分、能判断或能完成开头"
+              },
+              {
+                "code": "example",
+                "message": "需要具体示例、对照或过程"
+              }
+            ],
+            "evidence": [
+              {
+                "evidenceId": "image",
+                "quote": "",
+                "occurrence": 0,
+                "observation": "图中显示三个区域：User Space、OS Buffers、Disk。User Space 有三个蓝色矩形；OS Buffers 有多个蓝色矩形，底部有一个黑色锁图标，下方标注“reserved”；Disk 有多个蓝色矩形。",
+                "claim": "summary",
+                "kind": "image"
+              },
+              {
+                "evidenceId": "image",
+                "quote": "",
+                "occurrence": 0,
+                "observation": "图中显示三个区域：User Space、OS Buffers、Disk。User Space 有三个蓝色矩形；OS Buffers 有多个蓝色矩形，底部有一个黑色锁图标，下方标注“reserved”；Disk 有多个蓝色矩形。",
+                "claim": "exercise",
+                "kind": "image"
+              },
+              {
+                "evidenceId": "image",
+                "quote": "",
+                "occurrence": 0,
+                "observation": "图中显示三个区域：User Space、OS Buffers、Disk。User Space 有三个蓝色矩形；OS Buffers 有多个蓝色矩形，底部有一个黑色锁图标，下方标注“reserved”；Disk 有多个蓝色矩形。",
+                "claim": "boundaries",
+                "kind": "image"
+              }
+            ],
+            "checks": []
+          },
+          "generation": {
+            "promptVersion": "concept-card-v2.2.0",
+            "requestProfile": "bounded-card-v1/non-thinking-v1",
+            "model": "deepseek-v4-flash-vision-exp",
+            "materialLength": 0,
+            "elapsedMs": 7152,
+            "calls": [
+              {
+                "operation": "generate",
+                "model": "deepseek-v4-flash-vision-exp",
+                "latencyMs": 5279,
+                "usage": {
+                  "inputTokens": 1155,
+                  "outputTokens": 501,
+                  "totalTokens": 1656,
+                  "cachedInputTokens": 896
+                },
+                "finishReason": "stop",
+                "requestOptions": {
+                  "max_tokens": 3000
+                },
+                "thinkingPolicy": "non-thinking-v1"
+              },
+              {
+                "operation": "repair",
+                "model": "deepseek-v4-flash-vision-exp",
+                "latencyMs": 1867,
+                "usage": {
+                  "inputTokens": 1643,
+                  "outputTokens": 195,
+                  "totalTokens": 1838,
+                  "cachedInputTokens": 768
+                },
+                "finishReason": "stop",
+                "requestOptions": {
+                  "max_tokens": 1800
+                },
+                "thinkingPolicy": "non-thinking-v1"
+              }
+            ],
+            "rounds": [
+              {
+                "attempt": 1,
+                "issues": [
+                  {
+                    "code": "objective",
+                    "message": "学习目标须以能解释、能区分、能判断或能完成开头"
+                  },
+                  {
+                    "code": "example",
+                    "message": "需要具体示例、对照或过程"
+                  },
+                  {
+                    "code": "evidence_boundaries",
+                    "message": "适用边界缺少可定位依据"
+                  }
+                ],
+                "checks": []
+              },
+              {
+                "attempt": 2,
+                "issues": [
+                  {
+                    "code": "objective",
+                    "message": "学习目标须以能解释、能区分、能判断或能完成开头"
+                  },
+                  {
+                    "code": "example",
+                    "message": "需要具体示例、对照或过程"
+                  }
+                ],
+                "checks": []
+              }
+            ],
+            "resume": null,
+            "reviewMode": "separate"
+          }
+        },
+        "ratings": null
+      }
+    ],
+    "updatedAt": "2026-09-03T11:29:59.259Z"
+  }
+}

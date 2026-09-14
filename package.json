@@ -1,0 +1,51 @@
+{
+  "name": "knowledge-gacha",
+  "version": "1.0.0",
+  "private": true,
+  "description": "知识扭蛋机纯 Manifest V3 侧边栏扩展工作区",
+  "workspaces": [
+    "extension"
+  ],
+  "scripts": {
+    "start": "npm run start --workspace=@knowledge-gacha/extension",
+    "test:e2e": "npm run test:e2e --workspace=@knowledge-gacha/extension",
+    "test:project": "node scripts/acceptance/run-project-tests.mjs",
+    "eval:card-quality": "node extension/evals/card-quality/run.mjs",
+    "build:skills": "npm run build:skills --workspace=@knowledge-gacha/extension",
+    "check:skills": "npm run check:skills --workspace=@knowledge-gacha/extension",
+    "eval:rag": "node extension/evals/rag/run.mjs",
+    "eval:rag:ablation": "node extension/evals/rag/run-ablation.mjs",
+    "eval:rag:prepare-reranker": "node --use-env-proxy extension/evals/rag/prepare-reranker.mjs",
+    "demo:preflight": "node scripts/demo/preflight.mjs",
+    "release:providers": "node scripts/release/provider-compatibility.mjs",
+    "release:browsers": "node scripts/release/extension-browser-smoke.mjs",
+    "release:final": "npm run check && npm run test:e2e && npm run release:browsers && npm run release:providers -- --allow-missing",
+    "check:docs": "node scripts/validate-docs.mjs",
+    "check:extension": "npm run check --workspace=@knowledge-gacha/extension",
+    "check:release": "node --check scripts/release/provider-compatibility.mjs && node --check scripts/release/extension-browser-smoke.mjs && node --test scripts/release/tests/*.test.mjs",
+    "check": "npm run check:docs && npm run check:release && npm run check:extension",
+    "test": "npm run test --workspaces --if-present",
+    "package:embedding": "node extension/tooling/package-embedding.mjs",
+    "eval:semantic": "node extension/evals/rag/run-semantic.mjs",
+    "eval:discovery": "node extension/evals/discovery/run.mjs",
+    "package:release": "node scripts/release/package-public.mjs"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "packageManager": "npm@11.12.1",
+  "overrides": {
+    "sharp": "0.35.4",
+    "adm-zip": "0.6.0"
+  },
+  "devDependencies": {
+    "@huggingface/transformers": "4.2.0",
+    "esbuild": "0.28.2",
+    "fflate": "0.8.3"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/six486486/knowledge-gacha.git"
+  }
+}

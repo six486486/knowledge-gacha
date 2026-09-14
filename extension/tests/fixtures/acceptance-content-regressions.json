@@ -1,0 +1,777 @@
+[
+  {
+    "id": "invalid-python",
+    "sourceFile": "test-results/2026-09-06-product-fixes/v2.3.4-capabilities/results.json",
+    "sourceCase": "plan-multi-03",
+    "context": {
+      "userGoal": "能解释 Python 可变默认参数共享的问题，并判断使用 None 作为默认值来避免共享的做法\n目标标题：Python 可变默认参数陷阱\n本次要求：用清晰的默认讲解方式\n仅生成此目标，保留前提、否定和例外。\n材料概览（仅作组织线索）：本批材料包含三个独立知识点：Python 稳定排序与多级排序、Python 可变默认参数陷阱、SQLite 事务原子性。\n学习关系：[{\"from\":\"Python 稳定排序与多级排序\",\"to\":\"Python 可变默认参数陷阱\",\"type\":\"comparison\"}]\n新增内容：无旧卡对比",
+      "evidence": [
+        {
+          "id": "material_eeb454f989ad428587a96c5d1936ae96_chunk_0",
+          "kind": "text",
+          "origin": "current",
+          "materialId": "material_eeb454f989ad428587a96c5d1936ae96",
+          "chunkId": "material_eeb454f989ad428587a96c5d1936ae96_chunk_0",
+          "title": "跨主题阅读笔记 3.md",
+          "text": "稳定排序：Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。因此可以先按次要键排序，再按主要键排序，实现多级排序。\n\n默认列表参数：Python 的默认参数值只在函数定义时求值一次。把可变列表作为默认值，多个调用可能共享并修改同一个对象；用 None 作为默认值，在函数体中创建新列表可以避免共享。\n\n事务原子性：原子提交使一个事务中的修改表现为全部发生或全部不发生。SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+          "startCharacter": 0,
+          "headingPath": [],
+          "pageNumber": null,
+          "version": 1,
+          "documentId": "doc_material_eeb454f989ad428587a96c5d1936ae96"
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "Python 可变默认参数陷阱",
+        "learningObjective": "能解释 Python 可变默认参数共享的问题，并判断使用 None 作为默认值来避免共享的做法",
+        "knowledgeType": "concept",
+        "summary": "Python 的默认参数值只在函数定义时求值一次。如果默认值是可变对象（如列表），多次调用函数时，这些调用可能共享并修改同一个对象。使用 None 作为默认值，并在函数体内创建新的列表，可以避免这种共享。",
+        "example": {
+          "type": "example",
+          "text": "定义函数 def f(x, lst=[]): lst.append(x); return lst。第一次调用 f(1) 返回 [1]，第二次调用 f(2) 返回 [1,2]，因为两次调用共享同一个列表。改用 def g(x, lst=None): if lst is None: lst = []; lst.append(x); return lst，则每次调用都创建新列表，g(1) 返回 [1]，g(2) 返回 [2]。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": "",
+        "id": "card_da3f65d6f0ca46678a5d5736af0873d1",
+        "contentVersion": 2,
+        "learningUnitId": "unit_9fb92345eaa845738343d11b590aa32f",
+        "batchId": "batch_ad5c7c882ba04b8bba94648bf3af95a1",
+        "citations": [],
+        "sourceSnapshot": null
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "给定函数 def add_item(item, container=[]): container.append(item); return container。第一次调用 add_item('a') 返回什么？第二次调用 add_item('b') 返回什么？为什么？",
+        "answer": "第一次返回 ['a']，第二次返回 ['a', 'b']。因为默认列表在函数定义时创建一次，两次调用共享同一个列表对象，所以第二次调用时列表已经包含 'a'。",
+        "answerExplanation": "Python 的默认参数值只在函数定义时求值一次，因此默认列表是同一个对象。第一次调用 append('a') 后列表变为 ['a']，第二次调用 append('b') 时，同一个列表被追加，结果为 ['a', 'b']。",
+        "rubric": [
+          "第一次调用返回 ['a']",
+          "第二次调用返回 ['a', 'b']",
+          "解释指出默认列表被共享，因为默认值只求值一次"
+        ],
+        "id": "exercise_061dfdfd64d54160bf8291c00a0342cb",
+        "version": 1
+      },
+      "evidence": [
+        {
+          "evidenceId": "material_eeb454f989ad428587a96c5d1936ae96_chunk_0",
+          "quote": "默认列表参数：Python 的默认参数值只在函数定义时求值一次。把可变列表作为默认值，多个调用可能共享并修改同一个对象；用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material_eeb454f989ad428587a96c5d1936ae96_chunk_0",
+          "quote": "默认列表参数：Python 的默认参数值只在函数定义时求值一次。把可变列表作为默认值，多个调用可能共享并修改同一个对象；用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material_eeb454f989ad428587a96c5d1936ae96_chunk_0",
+          "quote": "默认列表参数：Python 的默认参数值只在函数定义时求值一次。把可变列表作为默认值，多个调用可能共享并修改同一个对象；用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "解释、示例和答案均被引文c1支持，且示例中的假设场景和数字属于允许范围。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例和答案的每一步都一致：第一次调用后列表为['a']，第二次调用共享同一列表追加'b'得到['a','b']，中间状态和最终结果均正确。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习要求具体应用可变默认参数共享的规则，并解释结果，符合学习目标。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案与独立解题结果一致，且评分要点覆盖了返回值和共享原因。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "条件范围与材料一致，未出现将‘可能’改为‘必须’等不当强化。"
+        }
+      ]
+    }
+  },
+  {
+    "id": "cache-paraphrase",
+    "sourceFile": "test-results/2026-09-06-product-fixes/v2.3.4-capabilities/results.json",
+    "sourceCase": "plan-multi-04",
+    "context": {
+      "userGoal": "能判断缓存响应是否新鲜以及陈旧响应的处理方式\n目标标题：缓存新鲜度与响应复用\n本次要求：用清晰的默认讲解方式\n仅生成此目标，保留前提、否定和例外。\n材料概览（仅作组织线索）：本批材料包含三个独立主题：缓存新鲜度、浮点数表示、事务原子性。每个主题都涉及核心概念及其边界条件，适合分别建立学习目标。\n学习关系：[{\"from\":\"缓存新鲜度与响应复用\",\"to\":\"浮点数二进制表示与舍入误差\",\"type\":\"comparison\"},{\"from\":\"缓存新鲜度与响应复用\",\"to\":\"事务原子性及其实现机制\",\"type\":\"comparison\"}]",
+      "evidence": [
+        {
+          "id": "material_dc03ef1fec674ebf838271b78eb24c0a_chunk_0",
+          "kind": "text",
+          "origin": "current",
+          "materialId": "material_dc03ef1fec674ebf838271b78eb24c0a",
+          "chunkId": "material_dc03ef1fec674ebf838271b78eb24c0a_chunk_0",
+          "title": "跨主题阅读笔记 4.md",
+          "text": "缓存新鲜度：缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。\n\n浮点数：多数十进制小数不能表示为有限的二进制小数。例如 0.1 只能用接近它的二进制分数存储；打印看起来简洁不代表存储精确。累积计算可能出现舍入误差。\n\n事务原子性：原子提交使一个事务中的修改表现为全部发生或全部不发生。SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+          "startCharacter": 0,
+          "headingPath": [],
+          "pageNumber": null,
+          "version": 1,
+          "documentId": "doc_material_dc03ef1fec674ebf838271b78eb24c0a"
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "缓存新鲜度与响应复用",
+        "learningObjective": "能判断缓存响应是否新鲜以及陈旧响应的处理方式",
+        "knowledgeType": "concept",
+        "summary": "缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+        "example": {
+          "type": "example",
+          "text": "假设某响应生成后经过 10 分钟，其 max-age 为 15 分钟，则 age 10 小于 max-age，该响应是新鲜的，通常可直接复用。若经过 20 分钟，则 age 20 大于 max-age，响应是陈旧的，可以向源站验证，但并不意味着内容已经错误。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": "",
+        "id": "card_dc64951ab0eb45f8a6b54c36567be649",
+        "contentVersion": 2,
+        "learningUnitId": "unit_5945bfeb9e6b410e8025e8567d89566f",
+        "batchId": "batch_d2eff487cc8e4137aaffcc7e1a6edc85",
+        "citations": [],
+        "sourceSnapshot": null
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "一个缓存的响应生成后已经过了 30 分钟，其 max-age 为 20 分钟。请判断该响应是否新鲜，并说明应如何处理。",
+        "answer": "该响应是陈旧的，因为 age 30 大于 max-age 20。陈旧响应可以向源站验证，但不能直接认为内容已错误。",
+        "answerExplanation": "根据材料，响应生成后经过的时间是 age，max-age 指定其可视为新鲜的时长。当 age 超过 max-age 时，响应为陈旧。材料指出陈旧响应可以向源站验证，且不能把“陈旧”直接理解为“内容已错误”。因此，该响应应进行源站验证，而不是直接丢弃或认为内容错误。",
+        "rubric": [
+          "正确判断响应为陈旧（age 30 > max-age 20）",
+          "说明陈旧响应可以向源站验证，且不能认为内容已错误"
+        ],
+        "id": "exercise_1cef976c324d461caf52d8582312a7f3",
+        "version": 1
+      },
+      "evidence": [
+        {
+          "evidenceId": "material_dc03ef1fec674ebf838271b78eb24c0a_chunk_0",
+          "quote": "缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material_dc03ef1fec674ebf838271b78eb24c0a_chunk_0",
+          "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material_dc03ef1fec674ebf838271b78eb24c0a_chunk_0",
+          "quote": "缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material_dc03ef1fec674ebf838271b78eb24c0a_chunk_0",
+          "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material_dc03ef1fec674ebf838271b78eb24c0a_chunk_0",
+          "quote": "缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+          "occurrence": 0,
+          "claim": "example"
+        },
+        {
+          "evidenceId": "material_dc03ef1fec674ebf838271b78eb24c0a_chunk_0",
+          "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+          "occurrence": 0,
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "解释、边界及示例均被引文c1和c2支持，示例中的数字为假设场景，符合origin=authored。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例和答案依据的每一步均一致：age与max-age比较，判断新鲜度，并说明处理方式，中间状态和最终结果正确。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习要求判断缓存响应是否新鲜并说明处理方式，符合学习目标的具体应用。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案依据正确，评分要点覆盖判断和处理方式，且无选择题选项。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "条件范围与材料一致，未改变模态词，阈值比较正确。"
+        }
+      ]
+    }
+  },
+  {
+    "id": "counter-answer",
+    "sourceFile": "test-results/2026-09-06-product-fixes/v2.3.4-capabilities/results.json",
+    "sourceCase": "plan-multi-06",
+    "context": {
+      "userGoal": "能解释闭包如何通过词法环境使内层函数访问外层变量\n目标标题：闭包与词法环境\n本次要求：用清晰的默认讲解方式\n仅生成此目标，保留前提、否定和例外。\n材料概览（仅作组织线索）：本批材料涵盖Python稳定排序、闭包和Promise.all三个独立概念，分别涉及排序算法特性、函数作用域机制和异步并发控制。",
+      "evidence": [
+        {
+          "id": "material_8cc10439dac54b489e4383f46a6fabb2_chunk_0",
+          "kind": "text",
+          "origin": "current",
+          "materialId": "material_8cc10439dac54b489e4383f46a6fabb2",
+          "chunkId": "material_8cc10439dac54b489e4383f46a6fabb2_chunk_0",
+          "title": "跨主题阅读笔记 6.md",
+          "text": "稳定排序：Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。因此可以先按次要键排序，再按主要键排序，实现多级排序。\n\n闭包：闭包把函数与其词法环境的引用组合在一起。即使外层函数已经执行完，返回的内层函数仍可访问创建它时作用域中的变量。变量访问取决于定义环境，而不只是调用位置。\n\nPromise.all：Promise.all 等待所有输入成功后成功，结果按输入顺序排列，不按完成先后排列。一旦一个输入拒绝，返回的 Promise 会拒绝；这并不等于取消其他已经启动的任务。",
+          "startCharacter": 0,
+          "headingPath": [],
+          "pageNumber": null,
+          "version": 1,
+          "documentId": "doc_material_8cc10439dac54b489e4383f46a6fabb2"
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "闭包与词法环境",
+        "learningObjective": "能解释闭包如何通过词法环境使内层函数访问外层变量",
+        "knowledgeType": "concept",
+        "summary": "闭包将函数与其词法环境的引用组合在一起。即使外层函数已经执行完，返回的内层函数仍可访问创建它时作用域中的变量。变量访问取决于定义环境，而不只是调用位置。",
+        "example": {
+          "type": "example",
+          "text": "定义一个外层函数 outer，它声明变量 x=10，并返回内层函数 inner，inner 返回 x。调用 outer() 后得到 inner，此时 outer 已执行完，但调用 inner() 仍返回 10，因为 inner 的词法环境包含 x。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": "",
+        "id": "card_291876492e1b4189a25b3f7925d22656",
+        "contentVersion": 2,
+        "learningUnitId": "unit_f2ae95e924d3413e864a8545b427d7aa",
+        "batchId": "batch_55163440657246bcad45d7afeee87cda",
+        "citations": [],
+        "sourceSnapshot": null
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "给定函数 makeCounter，它声明变量 count=0，并返回一个函数 increment，每次调用 increment 使 count 加 1 并返回新值。在调用 makeCounter() 得到 counter 后，连续调用 counter() 两次，第二次返回什么？为什么？",
+        "answer": "第二次返回 1。因为 increment 的词法环境包含 count，每次调用 increment 都会修改并返回该环境中的 count。",
+        "answerExplanation": "闭包使内层函数 increment 可以访问其定义时所在作用域的变量 count。即使 makeCounter 已经执行完，count 仍存在于 increment 的词法环境中。第一次调用 counter() 将 count 从 0 改为 1 并返回 1，第二次调用将 count 从 1 改为 2 并返回 2。因此第二次返回 2。",
+        "rubric": [
+          "指出第二次调用返回 2",
+          "说明内层函数通过词法环境访问并修改外层变量 count"
+        ],
+        "id": "exercise_a93cf30b642947259617fbda4bdd0e0c",
+        "version": 1
+      },
+      "evidence": [
+        {
+          "evidenceId": "material_8cc10439dac54b489e4383f46a6fabb2_chunk_0",
+          "quote": "闭包把函数与其词法环境的引用组合在一起。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material_8cc10439dac54b489e4383f46a6fabb2_chunk_0",
+          "quote": "即使外层函数已经执行完，返回的内层函数仍可访问创建它时作用域中的变量。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material_8cc10439dac54b489e4383f46a6fabb2_chunk_0",
+          "quote": "变量访问取决于定义环境，而不只是调用位置。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material_8cc10439dac54b489e4383f46a6fabb2_chunk_0",
+          "quote": "即使外层函数已经执行完，返回的内层函数仍可访问创建它时作用域中的变量。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material_8cc10439dac54b489e4383f46a6fabb2_chunk_0",
+          "quote": "变量访问取决于定义环境，而不只是调用位置。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material_8cc10439dac54b489e4383f46a6fabb2_chunk_0",
+          "quote": "即使外层函数已经执行完，返回的内层函数仍可访问创建它时作用域中的变量。",
+          "occurrence": 0,
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "解释、边界及示例均被对应引文支持，示例中的假设场景和数字不涉及真实系统实现事实。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例和答案依据的每一步、中间状态与最终结果均一致，第二次调用返回2。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习要求应用闭包机制解释具体行为，符合目标。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案正确且与独立解题结果一致，回忆题省略optionChecks。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "条件范围与材料一致，未改变模态或阈值。"
+        }
+      ]
+    }
+  },
+  {
+    "id": "discovery-arc",
+    "sourceFile": "test-results/2026-09-06-product-fixes/v2.3.4-capabilities/results.json",
+    "sourceCase": "discovery-recent_cards-3",
+    "context": {
+      "userGoal": "能解释自适应缓存淘汰策略如何根据访问模式动态调整\n必须新增：相比LRU和LFU,自适应策略结合两者优点,根据访问模式动态调整权重,如ARC和LIRS算法,能适应工作负载变化,提高命中率。\n不得复述关联卡摘要。",
+      "evidence": [
+        {
+          "id": "discovery_outline",
+          "kind": "text",
+          "origin": "discovery_outline",
+          "title": "发现候选：自适应缓存淘汰策略",
+          "text": "主题：自适应缓存淘汰策略\n学习目标：能解释自适应缓存淘汰策略如何根据访问模式动态调整\n必须新增：相比LRU和LFU,自适应策略结合两者优点,根据访问模式动态调整权重,如ARC和LIRS算法,能适应工作负载变化,提高命中率。\n与已有知识的关系：从《常见缓存淘汰算法及其适用场景》向前延伸，不重复原卡解释\n依据状态：已有卡片延伸\n知识说明（模型生成，未经外部来源验证）：自适应缓存淘汰策略如ARC(Adaptive Replacement Cache)和LIRS(Low Inter-reference Recency Set)通过动态调整LRU和LFU的权重来适应访问模式变化。ARC维护两个列表,分别跟踪近期访问和频繁访问,根据命中情况自动调整容量分配。LIRS使用重用距离区分热数据和冷数据,优先保留高重用性的数据。这些策略在混合工作负载下通常优于单一策略,但实现复杂度较高。应用时需权衡性能与开销,适合对缓存命中率要求高的场景。",
+          "startCharacter": 0,
+          "version": 1
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "自适应缓存淘汰策略：动态调整LRU与LFU",
+        "learningObjective": "能解释自适应缓存淘汰策略如何根据访问模式动态调整",
+        "knowledgeType": "concept",
+        "summary": "自适应缓存淘汰策略（如ARC和LIRS）通过动态调整LRU和LFU的权重来适应访问模式变化。ARC维护两个列表，分别跟踪近期访问和频繁访问，根据命中情况自动调整容量分配。LIRS使用重用距离区分热数据和冷数据，优先保留高重用性的数据。这些策略在混合工作负载下通常优于单一策略，但实现复杂度较高。",
+        "example": {
+          "type": "example",
+          "text": "假设一个缓存系统采用ARC策略，初始时近期访问列表和频繁访问列表各占一半容量。当工作负载从顺序扫描（近期访问为主）变为重复访问热点数据（频繁访问为主）时，ARC会根据命中情况自动增加频繁访问列表的容量，从而适应访问模式的变化。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": "",
+        "id": "card_3596ae40d391443b8405c9c5cec3878f",
+        "contentVersion": 2,
+        "learningUnitId": "unit_discovery_508fe2d8508fe2d8508f",
+        "topicId": "topic_79cee00d79cee00d",
+        "citations": [],
+        "sourceSnapshot": null
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "某系统采用ARC缓存策略，当前工作负载以重复访问热点数据为主。请说明ARC会如何调整其两个列表的容量分配，并解释这样做的目的。",
+        "answer": "ARC会根据命中情况自动调整容量分配：当频繁访问列表中的命中率较高时，ARC会增加该列表的容量，减少近期访问列表的容量。这样做的目的是为了适应以重复访问为主的工作负载，提高缓存命中率。",
+        "answerExplanation": "ARC维护两个列表，分别跟踪近期访问和频繁访问，并根据命中情况自动调整容量分配。在重复访问热点数据的工作负载下，频繁访问列表的命中率较高，因此ARC会增加其容量，以保留更多热点数据，从而提高整体命中率。",
+        "rubric": [
+          "指出ARC会根据命中情况调整容量分配",
+          "说明会增加频繁访问列表的容量",
+          "解释目的是适应访问模式变化以提高命中率"
+        ],
+        "id": "exercise_b18c6f3a2b8e404280f35bbf9eca2365",
+        "version": 1
+      },
+      "evidence": [
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "自适应缓存淘汰策略如ARC(Adaptive Replacement Cache)和LIRS(Low Inter-reference Recency Set)通过动态调整LRU和LFU的权重来适应访问模式变化。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "ARC维护两个列表,分别跟踪近期访问和频繁访问,根据命中情况自动调整容量分配。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "LIRS使用重用距离区分热数据和冷数据,优先保留高重用性的数据。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "这些策略在混合工作负载下通常优于单一策略,但实现复杂度较高。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "自适应缓存淘汰策略如ARC(Adaptive Replacement Cache)和LIRS(Low Inter-reference Recency Set)通过动态调整LRU和LFU的权重来适应访问模式变化。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "ARC维护两个列表,分别跟踪近期访问和频繁访问,根据命中情况自动调整容量分配。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "LIRS使用重用距离区分热数据和冷数据,优先保留高重用性的数据。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "自适应缓存淘汰策略如ARC(Adaptive Replacement Cache)和LIRS(Low Inter-reference Recency Set)通过动态调整LRU和LFU的权重来适应访问模式变化。",
+          "occurrence": 0,
+          "claim": "example"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "ARC维护两个列表,分别跟踪近期访问和频繁访问,根据命中情况自动调整容量分配。",
+          "occurrence": 0,
+          "claim": "example"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "LIRS使用重用距离区分热数据和冷数据,优先保留高重用性的数据。",
+          "occurrence": 0,
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "解释、边界及示例均被对应引文支持，示例中的假设场景和数字属于合理假设，未引入真实系统实现细节。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例和答案依据的每一步、中间状态与最终结果均连贯，从初始容量分配到命中率变化再到容量调整，逻辑一致。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习要求应用ARC策略在特定工作负载下调整容量分配，符合学习目标中解释动态调整的要求。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案依据充分，评分要点覆盖关键步骤，且独立答案与参考答案一致。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "条件范围与原文一致，未将‘可以’改为‘必须’，未添加未明确的等号归属。"
+        }
+      ]
+    }
+  },
+  {
+    "id": "discovery-consistency",
+    "sourceFile": "test-results/2026-09-06-product-fixes/v2.3.4-capabilities/results.json",
+    "sourceCase": "discovery-difficulty-1",
+    "context": {
+      "userGoal": "能解释缓存失效的常见策略及其适用场景\n必须新增：相比缓存基础,新增了缓存失效的机制,包括TTL、主动失效、写失效和写更新,以及不同策略的优缺点和适用场景。\n不得复述关联卡摘要。",
+      "evidence": [
+        {
+          "id": "discovery_outline",
+          "kind": "text",
+          "origin": "discovery_outline",
+          "title": "发现候选：缓存失效策略",
+          "text": "主题：缓存失效策略\n学习目标：能解释缓存失效的常见策略及其适用场景\n必须新增：相比缓存基础,新增了缓存失效的机制,包括TTL、主动失效、写失效和写更新,以及不同策略的优缺点和适用场景。\n与已有知识的关系：从你选择的“缓存”兴趣继续探索\n依据状态：模型建议\n知识说明（模型生成，未经外部来源验证）：缓存失效是确保缓存数据一致性的关键。常见策略包括:TTL(设置过期时间,简单但可能有过期数据)、主动失效(数据变更时主动删除或更新缓存,保证强一致但增加系统复杂度)、写失效(更新数据库时同时使缓存失效,下次读取时重新加载)和写更新(更新数据库时同步更新缓存,减少读取延迟但可能造成不一致)。选择策略需权衡一致性与性能。例如,对于读多写少且允许短暂不一致的场景,TTL足够;对于金融交易等强一致场景,需采用主动失效或写失效。",
+          "startCharacter": 0,
+          "version": 1
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "缓存失效策略",
+        "learningObjective": "能解释缓存失效的常见策略及其适用场景",
+        "knowledgeType": "concept",
+        "summary": "缓存失效是确保缓存数据一致性的关键。常见策略包括：TTL（设置过期时间，简单但可能有过期数据）、主动失效（数据变更时主动删除或更新缓存，保证强一致但增加系统复杂度）、写失效（更新数据库时同时使缓存失效，下次读取时重新加载）和写更新（更新数据库时同步更新缓存，减少读取延迟但可能造成不一致）。选择策略需权衡一致性与性能。例如，读多写少且允许短暂不一致的场景，TTL足够；金融交易等强一致场景，需采用主动失效或写失效。",
+        "example": {
+          "type": "example",
+          "text": "一个新闻网站，文章更新不频繁，允许短暂不一致，适合使用TTL策略；而银行账户余额查询，要求强一致，适合采用主动失效或写失效策略。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": "",
+        "id": "card_a73216aebe33464694812efce9a5cc48",
+        "contentVersion": 2,
+        "learningUnitId": "unit_discovery_3ba5cae63ba5cae63ba5",
+        "topicId": "topic_b142e16ab142e16a",
+        "citations": [],
+        "sourceSnapshot": null
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "一个电商系统，商品库存信息更新频繁，且要求强一致性，不能出现超卖。请选择一种合适的缓存失效策略，并说明理由。",
+        "answer": "应采用主动失效或写失效策略。理由：主动失效在数据变更时主动删除或更新缓存，保证强一致；写失效在更新数据库时同时使缓存失效，下次读取时重新加载，也能保证强一致。而TTL可能有过期数据，写更新可能造成不一致，不适合强一致场景。",
+        "answerExplanation": "根据材料，主动失效和写失效都能保证强一致，适合金融交易等强一致场景。TTL简单但可能有过期数据，写更新可能造成不一致，因此不适合。",
+        "rubric": [
+          "选择主动失效或写失效",
+          "说明理由：保证强一致，避免过期数据"
+        ],
+        "id": "exercise_31961ccf1ea949bc86754e4619539024",
+        "version": 1
+      },
+      "evidence": [
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "TTL(设置过期时间,简单但可能有过期数据)",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "主动失效(数据变更时主动删除或更新缓存,保证强一致但增加系统复杂度)",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "写失效(更新数据库时同时使缓存失效,下次读取时重新加载)",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "写更新(更新数据库时同步更新缓存,减少读取延迟但可能造成不一致)",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "选择策略需权衡一致性与性能",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "对于读多写少且允许短暂不一致的场景,TTL足够;对于金融交易等强一致场景,需采用主动失效或写失效",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "TTL(设置过期时间,简单但可能有过期数据)",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "主动失效(数据变更时主动删除或更新缓存,保证强一致但增加系统复杂度)",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "写失效(更新数据库时同时使缓存失效,下次读取时重新加载)",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "写更新(更新数据库时同步更新缓存,减少读取延迟但可能造成不一致)",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "选择策略需权衡一致性与性能",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "对于读多写少且允许短暂不一致的场景,TTL足够;对于金融交易等强一致场景,需采用主动失效或写失效",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "对于读多写少且允许短暂不一致的场景,TTL足够;对于金融交易等强一致场景,需采用主动失效或写失效",
+          "occurrence": 0,
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "解释、边界及示例均被对应引文支持，示例中的新闻网站和银行账户场景虽为假设，但基于材料中的策略适用场景，且未引入未提供的机制。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例和答案依据的每一步均与材料一致，中间状态和最终结果可靠。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习要求应用缓存失效策略于具体条件（频繁更新、强一致），符合学习目标。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案依据材料，主动失效和写失效均能保证强一致，TTL和写更新不适合，唯一有效答案与参考答案一致。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "条件范围与材料一致，未改变策略的适用条件或阈值。"
+        }
+      ]
+    }
+  },
+  {
+    "id": "bayes-arithmetic",
+    "sourceFile": "test-results/2026-09-06-product-fixes/v2.3.4-capabilities/results.json",
+    "sourceCase": "discovery-no_review_evidence-1",
+    "context": {
+      "userGoal": "能解释能运用贝叶斯定理从结果反推原因的概率\n必须新增：贝叶斯定理的公式P(A|B)=P(B|A)P(A)/P(B),以及先验概率与后验概率的概念\n不得复述关联卡摘要。",
+      "evidence": [
+        {
+          "id": "discovery_outline",
+          "kind": "text",
+          "origin": "discovery_outline",
+          "title": "发现候选：贝叶斯定理与逆概率",
+          "text": "主题：贝叶斯定理与逆概率\n学习目标：能解释能运用贝叶斯定理从结果反推原因的概率\n必须新增：贝叶斯定理的公式P(A|B)=P(B|A)P(A)/P(B),以及先验概率与后验概率的概念\n与已有知识的关系：从你选择的“概率数学”兴趣继续探索\n依据状态：模型建议\n知识说明（模型生成，未经外部来源验证）：贝叶斯定理描述了在已知结果B时,原因A的概率如何更新:P(A|B)=P(B|A)P(A)/P(B)。其中P(A)为先验概率,P(A|B)为后验概率。例如,某种疾病患病率为1%,检测准确率为99%,若检测阳性,实际患病概率约为50%,因为假阳性率较高。该定理在医学诊断、垃圾邮件过滤等领域广泛应用,是概率推理的核心工具。",
+          "startCharacter": 0,
+          "version": 1
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "贝叶斯定理与逆概率",
+        "learningObjective": "能解释并运用贝叶斯定理从结果反推原因的概率",
+        "knowledgeType": "concept",
+        "summary": "贝叶斯定理用于在已知结果B时，反推原因A的概率，公式为P(A|B)=P(B|A)P(A)/P(B)。其中P(A)是先验概率，即在考虑结果前对原因A的初始概率；P(A|B)是后验概率，即在观察到结果B后更新得到的概率。该定理适用于医学诊断、垃圾邮件过滤等场景，但需注意先验概率和检测准确率共同影响后验概率，高假阳性率可能导致后验概率不高。",
+        "example": {
+          "type": "example",
+          "text": "假设某疾病患病率为1%，检测准确率为99%（即患病者检测阳性概率99%，未患病者检测阴性概率99%）。若某人检测阳性，根据贝叶斯定理，实际患病概率P(患病|阳性)=P(阳性|患病)P(患病)/P(阳性)=0.99×0.01/(0.99×0.01+0.01×0.99)=0.5，即约50%。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": "",
+        "id": "card_1803ae1cfd784187b6513718d7b5ab3e",
+        "contentVersion": 2,
+        "learningUnitId": "unit_discovery_52f23a0852f23a0852f2",
+        "topicId": "topic_6dad56146dad5614",
+        "citations": [],
+        "sourceSnapshot": null
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "某地区人群中，某种罕见病的患病率为0.1%。检测方法的灵敏度为99%（患病者检测阳性概率），特异度为95%（未患病者检测阴性概率）。若某人检测结果为阳性，请根据贝叶斯定理计算其实际患病的概率，并说明计算中使用的先验概率和后验概率分别是什么。",
+        "answer": "先验概率P(患病)=0.001，后验概率P(患病|阳性)=P(阳性|患病)P(患病)/P(阳性)=0.99×0.001/(0.99×0.001+0.05×0.999)≈0.0194，即约1.94%。",
+        "answerExplanation": "根据贝叶斯定理，P(患病|阳性)=P(阳性|患病)P(患病)/P(阳性)。已知P(患病)=0.001，P(阳性|患病)=0.99，P(阳性|未患病)=1-0.95=0.05，P(未患病)=0.999。分母P(阳性)=P(阳性|患病)P(患病)+P(阳性|未患病)P(未患病)=0.99×0.001+0.05×0.999≈0.0549。因此P(患病|阳性)≈0.0194。先验概率是检测前患病的概率0.001，后验概率是检测阳性后患病的概率约0.0194。",
+        "rubric": [
+          "正确写出贝叶斯公式并代入数值",
+          "正确计算分母P(阳性)并得出后验概率约1.94%",
+          "明确指出先验概率为0.001，后验概率为计算结果"
+        ],
+        "id": "exercise_f99f49c4e6ef46128749821e9534e531",
+        "version": 1
+      },
+      "evidence": [
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "贝叶斯定理描述了在已知结果B时,原因A的概率如何更新:P(A|B)=P(B|A)P(A)/P(B)。其中P(A)为先验概率,P(A|B)为后验概率。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "贝叶斯定理描述了在已知结果B时,原因A的概率如何更新:P(A|B)=P(B|A)P(A)/P(B)。其中P(A)为先验概率,P(A|B)为后验概率。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "例如,某种疾病患病率为1%,检测准确率为99%,若检测阳性,实际患病概率约为50%,因为假阳性率较高。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "例如,某种疾病患病率为1%,检测准确率为99%,若检测阳性,实际患病概率约为50%,因为假阳性率较高。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "解释、示例和答案依据均被对应引文支持，示例中的数字与引文一致。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例和答案的计算步骤、中间结果与最终结果一致，逻辑连贯。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习要求运用贝叶斯定理计算后验概率，符合学习目标。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案正确，计算无误，评分要点完整。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "条件表述与原文一致，未改变范围。"
+        }
+      ]
+    }
+  }
+]

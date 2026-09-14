@@ -1,0 +1,29 @@
+{
+  "version": "semantic-holdout-v1",
+  "description": "阈值校准后编写的独立措辞回归问题，仍使用同一小型资料库；不是独立语料或生产评测。",
+  "cases": [
+    {"id":"reuse","query":"避免对同一个输入反复计算，有什么办法？","expected":[{"documentId":"cache","contains":"保存计算结果"}]},
+    {"id":"stale","query":"之前存下来的结果多久以后不能继续相信？","expected":[{"documentId":"cache","contains":"最新数据"}]},
+    {"id":"fresh","query":"怎样权衡数据的新旧和存储结果的保留时长？","expected":[{"documentId":"cache","contains":"新鲜度"}]},
+    {"id":"resubmit","query":"同一个操作提交多次，也只产生一次效果","expected":[{"documentId":"retry","contains":"不增加额外副作用"}]},
+    {"id":"duplicate","query":"请求发送了两遍，怎样避免第二次又生效？","expected":[{"documentId":"retry","contains":"幂等键"}]},
+    {"id":"extra-unit","query":"再做一件产品会额外花多少钱？","expected":[{"documentId":"cost","contains":"每多生产"}]},
+    {"id":"rent","query":"房租固定不变，决定加产一件时需要算进去吗？","expected":[{"documentId":"cost","contains":"月租"}]},
+    {"id":"interleave","query":"几项工作轮流往前做，而不是先全部做完一项","expected":[{"documentId":"parallel","contains":"交替推进"}]},
+    {"id":"shared","query":"多个任务碰到同一份状态时会有什么问题？","expected":[{"documentId":"parallel","contains":"协调问题"}]},
+    {"id":"rollback","query":"两次修改要么一起生效，要么都撤回","expected":[{"documentId":"transaction","contains":"撤销"}]},
+    {"id":"atomic","query":"第二个状态更新失败，第一个也不能保留","expected":[{"documentId":"transaction","contains":"全部成功"}]},
+    {"id":"queue-tail","query":"怎么取出数组末尾的值并把它删掉？","expected":[{"documentId":"code","contains":"最后一个元素"}]},
+    {"id":"plan-quota","query":"Beta 套餐能用多少额度？","expected":[{"documentId":"table","contains":"Beta | 30"}]},
+    {"id":"verse","query":"诗句末尾的音韵与声调格律","expected":[{"documentId":"poetry","contains":"押韵和平仄"}]},
+    {"id":"poet-emotion","query":"用古典诗句表达四季更替和自己的心情","expected":[{"documentId":"poetry","contains":"个人感受"}]},
+    {"id":"neg-food","query":"番茄炒鸡蛋怎么做","expected":[]},
+    {"id":"neg-travel","query":"北京到上海的高铁时刻表","expected":[]},
+    {"id":"neg-plants","query":"仙人掌浇水频率","expected":[]},
+    {"id":"neg-weather","query":"明天会不会下雨","expected":[]},
+    {"id":"neg-medical","query":"感冒吃什么药","expected":[]},
+    {"id":"neg-sports","query":"篮球比赛每节几分钟","expected":[]},
+    {"id":"neg-security","query":"AES 加密算法的密钥长度","expected":[]},
+    {"id":"neg-science","query":"太阳为什么会发光","expected":[]}
+  ]
+}

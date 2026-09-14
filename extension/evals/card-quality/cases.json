@@ -1,0 +1,500 @@
+[
+  {
+    "id": "short-01",
+    "category": "short",
+    "title": "缓存新鲜度",
+    "text": "缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+    "userGoal": "能判断缓存新鲜度和内容是否改变的区别",
+    "sourceUrls": [
+      "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching"
+    ],
+    "provenance": "官方公开文档的中文摘译与压缩，非逐字原文；2026-09-02 核对",
+    "expectedStatus": "ready",
+    "expectedObjective": "能判断缓存新鲜度和内容是否改变的区别",
+    "keyEvidence": [
+      "age 从响应生成时算起",
+      "过期不等于内容发生变化"
+    ],
+    "criticalErrors": []
+  },
+  {
+    "id": "short-02",
+    "category": "short",
+    "title": "重新验证",
+    "text": "no-cache 允许存储响应，但再次使用前需要向源站验证；no-store 要求缓存不存储该响应。两者含义不同，不能把 no-cache 当成禁止缓存保存。",
+    "userGoal": "能区分 no-cache 和 no-store",
+    "sourceUrls": [
+      "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control"
+    ],
+    "provenance": "官方公开文档的中文摘译与压缩，非逐字原文；2026-09-02 核对",
+    "expectedStatus": "ready",
+    "expectedObjective": "能区分 no-cache 和 no-store",
+    "keyEvidence": [
+      "可以存储但需验证",
+      "不存储"
+    ],
+    "criticalErrors": []
+  },
+  {
+    "id": "short-03",
+    "category": "short",
+    "title": "稳定排序",
+    "text": "Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。因此可以先按次要键排序，再按主要键排序，实现多级排序。",
+    "userGoal": "能判断多级稳定排序的执行顺序",
+    "sourceUrls": [
+      "https://docs.python.org/3/howto/sorting.html"
+    ],
+    "provenance": "官方公开文档的中文摘译与压缩，非逐字原文；2026-09-02 核对",
+    "expectedStatus": "ready",
+    "expectedObjective": "能判断多级稳定排序的执行顺序",
+    "keyEvidence": [
+      "同键保留相对顺序",
+      "次要键在先"
+    ],
+    "criticalErrors": []
+  },
+  {
+    "id": "short-04",
+    "category": "short",
+    "title": "浮点数",
+    "text": "多数十进制小数不能表示为有限的二进制小数。例如 0.1 只能用接近它的二进制分数存储；打印看起来简洁不代表存储精确。累积计算可能出现舍入误差。",
+    "userGoal": "能解释十进制小数的浮点舍入误差",
+    "sourceUrls": [
+      "https://docs.python.org/3/tutorial/floatingpoint.html"
+    ],
+    "provenance": "官方公开文档的中文摘译与压缩，非逐字原文；2026-09-02 核对",
+    "expectedStatus": "ready",
+    "expectedObjective": "能解释十进制小数的浮点舍入误差",
+    "keyEvidence": [
+      "二进制表示受限",
+      "显示值不代表精确存储"
+    ],
+    "criticalErrors": []
+  },
+  {
+    "id": "short-05",
+    "category": "short",
+    "title": "默认列表参数",
+    "text": "Python 的默认参数值只在函数定义时求值一次。把可变列表作为默认值，多个调用可能共享并修改同一个对象；用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+    "userGoal": "能判断默认列表参数为什么跨调用保留内容",
+    "sourceUrls": [
+      "https://docs.python.org/3/tutorial/controlflow.html#default-argument-values"
+    ],
+    "provenance": "官方公开文档的中文摘译与压缩，非逐字原文；2026-09-02 核对",
+    "expectedStatus": "ready",
+    "expectedObjective": "能判断默认列表参数为什么跨调用保留内容",
+    "keyEvidence": [
+      "定义时只求值一次",
+      "可变对象共享"
+    ],
+    "criticalErrors": []
+  },
+  {
+    "id": "short-06",
+    "category": "short",
+    "title": "闭包",
+    "text": "闭包把函数与其词法环境的引用组合在一起。即使外层函数已经执行完，返回的内层函数仍可访问创建它时作用域中的变量。变量访问取决于定义环境，而不只是调用位置。",
+    "userGoal": "能解释返回的函数如何继续访问外层变量",
+    "sourceUrls": [
+      "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures"
+    ],
+    "provenance": "官方公开文档的中文摘译与压缩，非逐字原文；2026-09-02 核对",
+    "expectedStatus": "ready",
+    "expectedObjective": "能解释返回的函数如何继续访问外层变量",
+    "keyEvidence": [
+      "函数及其词法环境",
+      "定义时环境"
+    ],
+    "criticalErrors": []
+  },
+  {
+    "id": "short-07",
+    "category": "short",
+    "title": "Promise.all",
+    "text": "Promise.all 等待所有输入成功后成功，结果按输入顺序排列，不按完成先后排列。一旦一个输入拒绝，返回的 Promise 会拒绝；这并不等于取消其他已经启动的任务。",
+    "userGoal": "能判断 Promise.all 的结果顺序和失败行为",
+    "sourceUrls": [
+      "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all"
+    ],
+    "provenance": "官方公开文档的中文摘译与压缩，非逐字原文；2026-09-02 核对",
+    "expectedStatus": "ready",
+    "expectedObjective": "能判断 Promise.all 的结果顺序和失败行为",
+    "keyEvidence": [
+      "输入顺序",
+      "拒绝不自动取消其他任务"
+    ],
+    "criticalErrors": []
+  },
+  {
+    "id": "short-08",
+    "category": "short",
+    "title": "事务原子性",
+    "text": "原子提交使一个事务中的修改表现为全部发生或全部不发生。SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+    "userGoal": "能区分事务原子性与硬件同时写入",
+    "sourceUrls": [
+      "https://www.sqlite.org/atomiccommit.html"
+    ],
+    "provenance": "官方公开文档的中文摘译与压缩，非逐字原文；2026-09-02 核对",
+    "expectedStatus": "ready",
+    "expectedObjective": "能区分事务原子性与硬件同时写入",
+    "keyEvidence": [
+      "全有或全无",
+      "逻辑表现不是物理同时"
+    ],
+    "criticalErrors": []
+  },
+  {
+    "id": "multi-01",
+    "category": "multi",
+    "title": "跨主题阅读笔记 1",
+    "text": "缓存新鲜度：缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。\n\n稳定排序：Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。因此可以先按次要键排序，再按主要键排序，实现多级排序。\n\n闭包：闭包把函数与其词法环境的引用组合在一起。即使外层函数已经执行完，返回的内层函数仍可访问创建它时作用域中的变量。变量访问取决于定义环境，而不只是调用位置。",
+    "userGoal": "",
+    "sourceUrls": [
+      "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching",
+      "https://docs.python.org/3/howto/sorting.html",
+      "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures"
+    ],
+    "provenance": "组合已核对的公开资料摘译，模拟连续阅读笔记；不要求强行归并",
+    "expectedStatus": "needs_split",
+    "expectedObjective": "保留待拆分状态，说明多个独立目标",
+    "keyEvidence": [
+      "缓存新鲜度",
+      "稳定排序",
+      "闭包"
+    ],
+    "criticalErrors": [
+      "把不相关机制混成一个目标",
+      "悄悄只保留第一段并宣称完成"
+    ]
+  },
+  {
+    "id": "multi-02",
+    "category": "multi",
+    "title": "跨主题阅读笔记 2",
+    "text": "重新验证：no-cache 允许存储响应，但再次使用前需要向源站验证；no-store 要求缓存不存储该响应。两者含义不同，不能把 no-cache 当成禁止缓存保存。\n\n浮点数：多数十进制小数不能表示为有限的二进制小数。例如 0.1 只能用接近它的二进制分数存储；打印看起来简洁不代表存储精确。累积计算可能出现舍入误差。\n\nPromise.all：Promise.all 等待所有输入成功后成功，结果按输入顺序排列，不按完成先后排列。一旦一个输入拒绝，返回的 Promise 会拒绝；这并不等于取消其他已经启动的任务。",
+    "userGoal": "",
+    "sourceUrls": [
+      "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control",
+      "https://docs.python.org/3/tutorial/floatingpoint.html",
+      "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all"
+    ],
+    "provenance": "组合已核对的公开资料摘译，模拟连续阅读笔记；不要求强行归并",
+    "expectedStatus": "needs_split",
+    "expectedObjective": "保留待拆分状态，说明多个独立目标",
+    "keyEvidence": [
+      "重新验证",
+      "浮点数",
+      "Promise.all"
+    ],
+    "criticalErrors": [
+      "把不相关机制混成一个目标",
+      "悄悄只保留第一段并宣称完成"
+    ]
+  },
+  {
+    "id": "multi-03",
+    "category": "multi",
+    "title": "跨主题阅读笔记 3",
+    "text": "稳定排序：Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。因此可以先按次要键排序，再按主要键排序，实现多级排序。\n\n默认列表参数：Python 的默认参数值只在函数定义时求值一次。把可变列表作为默认值，多个调用可能共享并修改同一个对象；用 None 作为默认值，在函数体中创建新列表可以避免共享。\n\n事务原子性：原子提交使一个事务中的修改表现为全部发生或全部不发生。SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+    "userGoal": "",
+    "sourceUrls": [
+      "https://docs.python.org/3/howto/sorting.html",
+      "https://docs.python.org/3/tutorial/controlflow.html#default-argument-values",
+      "https://www.sqlite.org/atomiccommit.html"
+    ],
+    "provenance": "组合已核对的公开资料摘译，模拟连续阅读笔记；不要求强行归并",
+    "expectedStatus": "needs_split",
+    "expectedObjective": "保留待拆分状态，说明多个独立目标",
+    "keyEvidence": [
+      "稳定排序",
+      "默认列表参数",
+      "事务原子性"
+    ],
+    "criticalErrors": [
+      "把不相关机制混成一个目标",
+      "悄悄只保留第一段并宣称完成"
+    ]
+  },
+  {
+    "id": "multi-04",
+    "category": "multi",
+    "title": "跨主题阅读笔记 4",
+    "text": "缓存新鲜度：缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。\n\n浮点数：多数十进制小数不能表示为有限的二进制小数。例如 0.1 只能用接近它的二进制分数存储；打印看起来简洁不代表存储精确。累积计算可能出现舍入误差。\n\n事务原子性：原子提交使一个事务中的修改表现为全部发生或全部不发生。SQLite 用日志和恢复步骤提供这种表现，不能据此认为硬件真的在同一瞬间完成所有磁盘写入。",
+    "userGoal": "",
+    "sourceUrls": [
+      "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching",
+      "https://docs.python.org/3/tutorial/floatingpoint.html",
+      "https://www.sqlite.org/atomiccommit.html"
+    ],
+    "provenance": "组合已核对的公开资料摘译，模拟连续阅读笔记；不要求强行归并",
+    "expectedStatus": "needs_split",
+    "expectedObjective": "保留待拆分状态，说明多个独立目标",
+    "keyEvidence": [
+      "缓存新鲜度",
+      "浮点数",
+      "事务原子性"
+    ],
+    "criticalErrors": [
+      "把不相关机制混成一个目标",
+      "悄悄只保留第一段并宣称完成"
+    ]
+  },
+  {
+    "id": "multi-05",
+    "category": "multi",
+    "title": "跨主题阅读笔记 5",
+    "text": "重新验证：no-cache 允许存储响应，但再次使用前需要向源站验证；no-store 要求缓存不存储该响应。两者含义不同，不能把 no-cache 当成禁止缓存保存。\n\n默认列表参数：Python 的默认参数值只在函数定义时求值一次。把可变列表作为默认值，多个调用可能共享并修改同一个对象；用 None 作为默认值，在函数体中创建新列表可以避免共享。\n\n闭包：闭包把函数与其词法环境的引用组合在一起。即使外层函数已经执行完，返回的内层函数仍可访问创建它时作用域中的变量。变量访问取决于定义环境，而不只是调用位置。",
+    "userGoal": "",
+    "sourceUrls": [
+      "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control",
+      "https://docs.python.org/3/tutorial/controlflow.html#default-argument-values",
+      "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures"
+    ],
+    "provenance": "组合已核对的公开资料摘译，模拟连续阅读笔记；不要求强行归并",
+    "expectedStatus": "needs_split",
+    "expectedObjective": "保留待拆分状态，说明多个独立目标",
+    "keyEvidence": [
+      "重新验证",
+      "默认列表参数",
+      "闭包"
+    ],
+    "criticalErrors": [
+      "把不相关机制混成一个目标",
+      "悄悄只保留第一段并宣称完成"
+    ]
+  },
+  {
+    "id": "multi-06",
+    "category": "multi",
+    "title": "跨主题阅读笔记 6",
+    "text": "稳定排序：Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。因此可以先按次要键排序，再按主要键排序，实现多级排序。\n\n闭包：闭包把函数与其词法环境的引用组合在一起。即使外层函数已经执行完，返回的内层函数仍可访问创建它时作用域中的变量。变量访问取决于定义环境，而不只是调用位置。\n\nPromise.all：Promise.all 等待所有输入成功后成功，结果按输入顺序排列，不按完成先后排列。一旦一个输入拒绝，返回的 Promise 会拒绝；这并不等于取消其他已经启动的任务。",
+    "userGoal": "",
+    "sourceUrls": [
+      "https://docs.python.org/3/howto/sorting.html",
+      "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures",
+      "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all"
+    ],
+    "provenance": "组合已核对的公开资料摘译，模拟连续阅读笔记；不要求强行归并",
+    "expectedStatus": "needs_split",
+    "expectedObjective": "保留待拆分状态，说明多个独立目标",
+    "keyEvidence": [
+      "稳定排序",
+      "闭包",
+      "Promise.all"
+    ],
+    "criticalErrors": [
+      "把不相关机制混成一个目标",
+      "悄悄只保留第一段并宣称完成"
+    ]
+  },
+  {
+    "id": "image-01",
+    "category": "image",
+    "title": "SQLite 原子提交图：初始状态",
+    "text": "",
+    "imagePath": "materials/commit-0.gif",
+    "userGoal": "能区分图中的用户内存、系统缓冲区和磁盘",
+    "sourceUrls": [
+      "https://www.sqlite.org/atomiccommit.html"
+    ],
+    "assetUrl": "https://www.sqlite.org/images/ac/commit-0.gif",
+    "provenance": "SQLite 官方原始 GIF，未编辑；SQLite public domain",
+    "expectedStatus": "ready",
+    "expectedObjective": "能区分图中的用户内存、系统缓冲区和磁盘",
+    "keyEvidence": [
+      "Disk 有蓝色块",
+      "User Space 和 OS Buffers 尚为空"
+    ],
+    "criticalErrors": [
+      "伪造图中不可见的标签或字符偏移"
+    ]
+  },
+  {
+    "id": "image-02",
+    "category": "image",
+    "title": "SQLite 原子提交图：预留锁",
+    "text": "",
+    "imagePath": "materials/commit-3.gif",
+    "userGoal": "能识别图中的锁状态与仍保留原数据的磁盘",
+    "sourceUrls": [
+      "https://www.sqlite.org/atomiccommit.html"
+    ],
+    "assetUrl": "https://www.sqlite.org/images/ac/commit-3.gif",
+    "provenance": "SQLite 官方原始 GIF，未编辑；SQLite public domain",
+    "expectedStatus": "ready",
+    "expectedObjective": "能识别图中的锁状态与仍保留原数据的磁盘",
+    "keyEvidence": [
+      "锁标签 reserved",
+      "磁盘仍是蓝色原数据"
+    ],
+    "criticalErrors": [
+      "伪造图中不可见的标签或字符偏移"
+    ]
+  },
+  {
+    "id": "image-03",
+    "category": "image",
+    "title": "SQLite 原子提交图：修改用户空间",
+    "text": "",
+    "imagePath": "materials/commit-6.gif",
+    "userGoal": "能判断图中修改位于哪个存储层",
+    "sourceUrls": [
+      "https://www.sqlite.org/atomiccommit.html"
+    ],
+    "assetUrl": "https://www.sqlite.org/images/ac/commit-6.gif",
+    "provenance": "SQLite 官方原始 GIF，未编辑；SQLite public domain",
+    "expectedStatus": "ready",
+    "expectedObjective": "能判断图中修改位于哪个存储层",
+    "keyEvidence": [
+      "观察用户空间色块变化",
+      "不要声称磁盘已提交"
+    ],
+    "criticalErrors": [
+      "伪造图中不可见的标签或字符偏移"
+    ]
+  },
+  {
+    "id": "image-04",
+    "category": "image",
+    "title": "SQLite 原子提交图：数据库刷盘",
+    "text": "",
+    "imagePath": "materials/commit-9.gif",
+    "userGoal": "能识别日志与数据库都存在时的状态",
+    "sourceUrls": [
+      "https://www.sqlite.org/atomiccommit.html"
+    ],
+    "assetUrl": "https://www.sqlite.org/images/ac/commit-9.gif",
+    "provenance": "SQLite 官方原始 GIF，未编辑；SQLite public domain",
+    "expectedStatus": "ready",
+    "expectedObjective": "能识别日志与数据库都存在时的状态",
+    "keyEvidence": [
+      "图中日志仍然存在",
+      "不能仅凭数据库写入断言已提交"
+    ],
+    "criticalErrors": [
+      "伪造图中不可见的标签或字符偏移"
+    ]
+  },
+  {
+    "id": "insufficient-01",
+    "category": "insufficient",
+    "title": "缺失排序目标",
+    "text": "排序前先计算一个 key。",
+    "userGoal": "能完成按照业务要求对记录排序",
+    "sourceUrls": [
+      "https://docs.python.org/3/howto/sorting.html"
+    ],
+    "provenance": "根据公开文档构造的截断材料，用于检验是否识别信息不足",
+    "expectedStatus": "insufficient_material",
+    "expectedObjective": "指出缺失材料，不伪造结论",
+    "keyEvidence": [
+      "缺少数据和业务排序规则"
+    ],
+    "criticalErrors": [
+      "编造未提供的条件"
+    ]
+  },
+  {
+    "id": "insufficient-02",
+    "category": "insufficient",
+    "title": "没有源站响应",
+    "text": "Cache-Control: max-age=60",
+    "userGoal": "能判断这个缓存副本现在是否与源站数据相同",
+    "sourceUrls": [
+      "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching"
+    ],
+    "provenance": "根据公开文档构造的截断材料，用于检验是否识别信息不足",
+    "expectedStatus": "insufficient_material",
+    "expectedObjective": "指出缺失材料，不伪造结论",
+    "keyEvidence": [
+      "缺少时间和源站内容",
+      "新鲜并不证明源站未改变"
+    ],
+    "criticalErrors": [
+      "编造未提供的条件"
+    ]
+  },
+  {
+    "id": "insufficient-03",
+    "category": "insufficient",
+    "title": "只有错误现象",
+    "text": "浏览器控制台报告 CORS 错误。",
+    "userGoal": "能完成修复当前请求的服务端配置",
+    "sourceUrls": [
+      "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS"
+    ],
+    "provenance": "根据公开文档构造的截断材料，用于检验是否识别信息不足",
+    "expectedStatus": "insufficient_material",
+    "expectedObjective": "指出缺失材料，不伪造结论",
+    "keyEvidence": [
+      "缺少 Origin 请求头和服务端响应头",
+      "不能盲目建议所有来源放开"
+    ],
+    "criticalErrors": [
+      "编造未提供的条件"
+    ]
+  },
+  {
+    "id": "condition-01",
+    "category": "condition",
+    "title": "不改变原列表",
+    "text": "list.sort() 在原列表上排序并返回 None；sorted() 从可迭代对象构建一个新的有序列表。需要保留原列表顺序时，可以使用 sorted()。",
+    "userGoal": "能区分原地排序与返回新列表",
+    "sourceUrls": [
+      "https://docs.python.org/3/howto/sorting.html"
+    ],
+    "provenance": "官方公开文档的条件敏感段落中文摘译",
+    "expectedStatus": "ready",
+    "expectedObjective": "能区分原地排序与返回新列表",
+    "keyEvidence": [
+      "sort 返回 None",
+      "sorted 不原地改列表"
+    ],
+    "criticalErrors": [
+      "删去关键前提",
+      "把有条件结论绝对化"
+    ]
+  },
+  {
+    "id": "condition-02",
+    "category": "condition",
+    "title": "浮点比较",
+    "text": "0.1 + 0.1 + 0.1 == 0.3 的比较为 False。预先对每个 0.1 调用 round 并不能消除表示误差；math.isclose 可按容差判断两个浮点数是否接近。容差选择依赖具体需求。",
+    "userGoal": "能判断浮点数相等与近似相等的差别",
+    "sourceUrls": [
+      "https://docs.python.org/3/tutorial/floatingpoint.html"
+    ],
+    "provenance": "官方公开文档的条件敏感段落中文摘译",
+    "expectedStatus": "ready",
+    "expectedObjective": "能判断浮点数相等与近似相等的差别",
+    "keyEvidence": [
+      "round 不能让不可表示值变精确",
+      "近似比较需要容差"
+    ],
+    "criticalErrors": [
+      "删去关键前提",
+      "把有条件结论绝对化"
+    ]
+  },
+  {
+    "id": "condition-03",
+    "category": "condition",
+    "title": "带凭据的跨域请求",
+    "text": "带凭据的跨域请求要求响应的 Access-Control-Allow-Origin 明确指定来源，不能使用通配符 *。服务端还需要允许凭据，浏览器的 Cookie 策略仍然适用。",
+    "userGoal": "能判断带凭据请求能否使用通配来源",
+    "sourceUrls": [
+      "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS"
+    ],
+    "provenance": "官方公开文档的条件敏感段落中文摘译",
+    "expectedStatus": "ready",
+    "expectedObjective": "能判断带凭据请求能否使用通配来源",
+    "keyEvidence": [
+      "凭据请求不能配通配来源",
+      "CORS 许可不能覆盖 Cookie 策略"
+    ],
+    "criticalErrors": [
+      "删去关键前提",
+      "把有条件结论绝对化"
+    ]
+  }
+]

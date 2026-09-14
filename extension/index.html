@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fbfbf7">
+  <title>知识扭蛋机</title>
+  <link rel="stylesheet" href="./src/frontend/styles.css">
+  <link rel="stylesheet" href="./src/frontend/companion.css">
+</head>
+<body data-view="home">
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"><span></span></div>
+        <div class="brand-copy">
+          <p class="eyebrow" id="page-kicker">Knowledge Gacha</p>
+          <h1 id="page-title">知识扭蛋机</h1>
+        </div>
+      </div>
+      <button class="icon-btn top-action" id="top-action" type="button" aria-label="页面操作" hidden>
+        <img id="top-action-icon" src="./assets/icons/gear.svg" alt="">
+      </button>
+    </header>
+
+    <main id="page" class="page" aria-live="polite" tabindex="-1"></main>
+
+    <nav class="nav-dock" aria-label="主导航">
+      <button class="nav-item is-active" type="button" data-view="home">首页</button>
+      <button class="nav-item" type="button" data-view="feed">制卡</button>
+      <button class="nav-item" type="button" data-view="agent">伴学</button>
+      <button class="nav-item" type="button" data-view="album">卡册</button>
+      <button class="nav-item" type="button" data-view="review">复习</button>
+    </nav>
+  </div>
+
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-panel" role="status" aria-live="polite">
+      <div class="mini-machine" aria-hidden="true">
+        <div class="machine-dome"><span></span><span></span><span></span></div>
+        <div class="machine-body">
+          <div class="machine-window"></div>
+          <div class="machine-knob"></div>
+        </div>
+      </div>
+      <strong id="loader-text">正在生成知识卡</strong>
+      <p>把材料压成一口能吃掉的小知识</p>
+      <div class="progress-track"><div class="progress-fill"></div></div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-label="详情">
+      <button class="icon-btn modal-close" id="modal-close" type="button" aria-label="关闭">
+        <img src="./assets/icons/x.svg" alt="">
+      </button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="./src/frontend/domain/card-domain.js"></script>
+  <script src="./src/frontend/settings/browser-storage.js"></script>
+  <script src="./src/backend/provider/provider-transport.js"></script>
+  <script src="./src/shared/runtime-utils.js"></script>
+  <script src="./src/shared/rag/query-analyzer.js"></script>
+  <script src="./src/shared/rag/structural-chunker.js"></script>
+  <script src="./src/shared/rag/lexical-retriever.js"></script>
+  <script src="./src/shared/rag/context-assembler.js"></script>
+  <script src="./src/shared/material-index.js"></script>
+  <script src="./src/shared/document-structure.js"></script>
+  <script src="./src/shared/knowledge-schema.js"></script>
+  <script src="./src/shared/review-learning.js"></script>
+  <script src="./src/shared/rag/embedding-config.js"></script>
+  <script src="./src/shared/rag/knowledge-corpus.js"></script>
+  <script src="./src/shared/rag/hybrid-retriever.js"></script>
+  <script src="./src/backend/infrastructure/embedding/local-embedding-client.js"></script>
+  <script src="./src/harness/rag/semantic-knowledge-service.js"></script>
+  <script src="./src/backend/infrastructure/storage/material-repository.js"></script>
+  <script src="./src/backend/infrastructure/storage/extension-store.js"></script>
+  <script src="./src/backend/features/import/document-parser-client.js"></script>
+  <script src="./src/backend/features/import/document-import-service.js"></script>
+  <script src="./src/harness/skills/definitions/concept-card/task.js"></script>
+  <script src="./src/harness/skills/definitions/knowledge-plan/task.js"></script>
+  <script src="./src/harness/skills/skill-catalog.generated.js"></script>
+  <script src="./src/harness/skills/skill-registry.js"></script>
+  <script src="./src/backend/features/generation/card-quality.js"></script>
+  <script src="./src/backend/features/generation/multi-card-service.js"></script>
+  <script src="./src/harness/rag/rag-service.js"></script>
+  <script src="./src/harness/memory/memory-policy.js"></script>
+  <script src="./src/harness/memory/learning-context.js"></script>
+  <script src="./src/harness/memory/memory-service.js"></script>
+  <script src="./src/harness/tools/tool-calling.js"></script>
+  <script src="./src/harness/mcp/mcp-audit-service.js"></script>
+  <script src="./src/harness/core/agent-harness.js"></script>
+  <script src="./src/harness/core/companion-session.js"></script>
+  <script src="./src/harness/core/companion-context.js"></script>
+  <script src="./src/harness/core/companion-skills.js"></script>
+  <script src="./src/harness/tools/companion-tools.js"></script>
+  <script src="./src/harness/core/learning-companion.js"></script>
+  <script src="./src/backend/infrastructure/observability/trace-service.js"></script>
+  <script src="./src/backend/features/review/review-service.js"></script>
+  <script src="./src/backend/features/discovery/discovery-planner.js"></script>
+  <script src="./src/backend/features/discovery/discovery-ranking.js"></script>
+  <script src="./src/backend/features/discovery/discovery-service.js"></script>
+  <script src="./src/backend/application/extension-service.js"></script>
+  <script src="./src/frontend/browser/browser-capture.js"></script>
+  <script src="./src/frontend/browser/screenshot-region.js"></script>
+  <script src="./src/frontend/knowledge-plan-ui.js"></script>
+  <script src="./src/frontend/document-import-ui.js"></script>
+  <script src="./src/frontend/discovery-interests-ui.js"></script>
+  <script src="./src/frontend/companion-markdown.js"></script>
+  <script src="./src/frontend/companion-ui.js"></script>
+  <script src="./src/frontend/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,2417 @@
+[
+  {
+    "id": "discovery-arc",
+    "expected": "blocked",
+    "provenance": "test-results/2026-09-06-product-fixes/v2.3.6-recorded/results.json",
+    "context": {
+      "userGoal": "能解释自适应缓存淘汰策略如何根据访问模式动态调整\n必须新增：相比LRU和LFU,自适应策略结合两者优点,根据访问模式动态调整权重,如ARC和LIRS算法,能适应工作负载变化,提高命中率。\n不得复述关联卡摘要。",
+      "evidence": [
+        {
+          "id": "discovery_outline",
+          "kind": "text",
+          "origin": "discovery_outline",
+          "title": "发现候选：自适应缓存淘汰策略",
+          "text": "主题：自适应缓存淘汰策略\n学习目标：能解释自适应缓存淘汰策略如何根据访问模式动态调整\n必须新增：相比LRU和LFU,自适应策略结合两者优点,根据访问模式动态调整权重,如ARC和LIRS算法,能适应工作负载变化,提高命中率。\n与已有知识的关系：从《常见缓存淘汰算法及其适用场景》向前延伸，不重复原卡解释\n依据状态：已有卡片延伸\n知识说明（模型生成，未经外部来源验证）：自适应缓存淘汰策略如ARC(Adaptive Replacement Cache)和LIRS(Low Inter-reference Recency Set)通过动态调整LRU和LFU的权重来适应访问模式变化。ARC维护两个列表,分别跟踪近期访问和频繁访问,根据命中情况自动调整容量分配。LIRS使用重用距离区分热数据和冷数据,优先保留高重用性的数据。这些策略在混合工作负载下通常优于单一策略,但实现复杂度较高。应用时需权衡性能与开销,适合对缓存命中率要求高的场景。",
+          "startCharacter": 0,
+          "version": 1
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "自适应缓存淘汰策略",
+        "learningObjective": "能解释自适应缓存淘汰策略如何根据访问模式动态调整",
+        "knowledgeType": "concept",
+        "summary": "自适应缓存淘汰策略（如ARC和LIRS）通过动态调整LRU和LFU的权重来适应访问模式变化。ARC维护两个列表，分别跟踪近期访问和频繁访问，根据命中情况自动调整容量分配。LIRS使用重用距离区分热数据和冷数据，优先保留高重用性的数据。这些策略在混合工作负载下通常优于单一策略，但实现复杂度较高。",
+        "example": {
+          "type": "example",
+          "text": "假设一个缓存系统采用ARC策略，初始时近期访问列表和频繁访问列表各占一半容量。当工作负载以突发访问为主时，近期访问列表命中率高，ARC会逐渐增加该列表的容量；当工作负载转为稳定重复访问时，频繁访问列表命中率上升，ARC会相应调整容量分配。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "某系统采用ARC缓存淘汰策略，当前工作负载从突发性访问转变为稳定的重复访问。请说明ARC如何根据访问模式动态调整，并解释为什么这种调整能提高命中率。",
+        "answer": "ARC维护两个列表：近期访问列表和频繁访问列表。当工作负载从突发性访问转变为稳定的重复访问时，频繁访问列表的命中率会上升，ARC会根据命中情况自动增加频繁访问列表的容量分配，减少近期访问列表的容量。这种调整使得缓存能更好地保留频繁访问的数据，从而提高命中率。",
+        "answerExplanation": "ARC通过动态调整两个列表的容量分配来适应访问模式变化。在稳定重复访问下，频繁访问的数据更可能被再次访问，因此增加频繁访问列表的容量可以提高命中率。",
+        "rubric": [
+          "指出ARC维护两个列表（近期访问和频繁访问）",
+          "说明根据命中情况自动调整容量分配",
+          "解释调整后能更好地保留频繁访问数据，提高命中率"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "自适应缓存淘汰策略如ARC(Adaptive Replacement Cache)和LIRS(Low Inter-reference Recency Set)通过动态调整LRU和LFU的权重来适应访问模式变化。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "ARC维护两个列表,分别跟踪近期访问和频繁访问,根据命中情况自动调整容量分配。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "LIRS使用重用距离区分热数据和冷数据,优先保留高重用性的数据。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "这些策略在混合工作负载下通常优于单一策略,但实现复杂度较高。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "自适应缓存淘汰策略如ARC(Adaptive Replacement Cache)和LIRS(Low Inter-reference Recency Set)通过动态调整LRU和LFU的权重来适应访问模式变化。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "ARC维护两个列表,分别跟踪近期访问和频繁访问,根据命中情况自动调整容量分配。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "LIRS使用重用距离区分热数据和冷数据,优先保留高重用性的数据。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "自适应缓存淘汰策略如ARC(Adaptive Replacement Cache)和LIRS(Low Inter-reference Recency Set)通过动态调整LRU和LFU的权重来适应访问模式变化。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "ARC维护两个列表,分别跟踪近期访问和频繁访问,根据命中情况自动调整容量分配。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "LIRS使用重用距离区分热数据和冷数据,优先保留高重用性的数据。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "解释、边界及示例均被对应引文支持，示例为假设场景，未涉及真实系统实现细节。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例和答案的每一步均与ARC机制一致，中间状态和最终结果逻辑连贯。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习要求解释在特定访问模式变化下ARC的动态调整，符合学习目标。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案依据充分，评分要点覆盖完整，无选择题故省略optionChecks。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "条件表述与原文一致，未出现将‘可以’改为‘必须’等不当强化。"
+        }
+      ],
+      "issues": [],
+      "quality": {
+        "passed": true,
+        "issues": [],
+        "evidence": [
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "自适应缓存淘汰策略如ARC(Adaptive Replacement Cache)和LIRS(Low Inter-reference Recency Set)通过动态调整LRU和LFU的权重来适应访问模式变化。",
+            "occurrence": 0,
+            "startCharacter": 183,
+            "endCharacter": 288
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "ARC维护两个列表,分别跟踪近期访问和频繁访问,根据命中情况自动调整容量分配。",
+            "occurrence": 0,
+            "startCharacter": 288,
+            "endCharacter": 327
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "LIRS使用重用距离区分热数据和冷数据,优先保留高重用性的数据。",
+            "occurrence": 0,
+            "startCharacter": 327,
+            "endCharacter": 359
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "这些策略在混合工作负载下通常优于单一策略,但实现复杂度较高。",
+            "occurrence": 0,
+            "startCharacter": 359,
+            "endCharacter": 389
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "自适应缓存淘汰策略如ARC(Adaptive Replacement Cache)和LIRS(Low Inter-reference Recency Set)通过动态调整LRU和LFU的权重来适应访问模式变化。",
+            "occurrence": 0,
+            "startCharacter": 183,
+            "endCharacter": 288
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "ARC维护两个列表,分别跟踪近期访问和频繁访问,根据命中情况自动调整容量分配。",
+            "occurrence": 0,
+            "startCharacter": 288,
+            "endCharacter": 327
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "LIRS使用重用距离区分热数据和冷数据,优先保留高重用性的数据。",
+            "occurrence": 0,
+            "startCharacter": 327,
+            "endCharacter": 359
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "example",
+            "quote": "自适应缓存淘汰策略如ARC(Adaptive Replacement Cache)和LIRS(Low Inter-reference Recency Set)通过动态调整LRU和LFU的权重来适应访问模式变化。",
+            "occurrence": 0,
+            "startCharacter": 183,
+            "endCharacter": 288
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "example",
+            "quote": "ARC维护两个列表,分别跟踪近期访问和频繁访问,根据命中情况自动调整容量分配。",
+            "occurrence": 0,
+            "startCharacter": 288,
+            "endCharacter": 327
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "example",
+            "quote": "LIRS使用重用距离区分热数据和冷数据,优先保留高重用性的数据。",
+            "occurrence": 0,
+            "startCharacter": 327,
+            "endCharacter": 359
+          }
+        ],
+        "checks": [
+          {
+            "rule": "grounding",
+            "passed": true,
+            "reason": "解释、边界及示例均被对应引文支持，示例为假设场景，未涉及真实系统实现细节。"
+          },
+          {
+            "rule": "coherence",
+            "passed": true,
+            "reason": "示例和答案的每一步均与ARC机制一致，中间状态和最终结果逻辑连贯。"
+          },
+          {
+            "rule": "objectiveAlignment",
+            "passed": true,
+            "reason": "练习要求解释在特定访问模式变化下ARC的动态调整，符合学习目标。"
+          },
+          {
+            "rule": "answerCorrectness",
+            "passed": true,
+            "reason": "答案依据充分，评分要点覆盖完整，无选择题故省略optionChecks。"
+          },
+          {
+            "rule": "conditions",
+            "passed": true,
+            "reason": "条件表述与原文一致，未出现将‘可以’改为‘必须’等不当强化。"
+          }
+        ]
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.3.6",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-v4-flash-vision-exp",
+        "materialLength": 0,
+        "elapsedMs": 9811,
+        "calls": [
+          {
+            "operation": "generate",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 6124,
+            "usage": {
+              "inputTokens": 1894,
+              "outputTokens": 683,
+              "totalTokens": 2577,
+              "cachedInputTokens": 1408
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1509,
+            "usage": {
+              "inputTokens": 578,
+              "outputTokens": 140,
+              "totalTokens": 718,
+              "cachedInputTokens": 512
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 2169,
+            "usage": {
+              "inputTokens": 2269,
+              "outputTokens": 162,
+              "totalTokens": 2431,
+              "cachedInputTokens": 1024
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "解释、边界及示例均被对应引文支持，示例为假设场景，未涉及真实系统实现细节。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例和答案的每一步均与ARC机制一致，中间状态和最终结果逻辑连贯。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "练习要求解释在特定访问模式变化下ARC的动态调整，符合学习目标。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "答案依据充分，评分要点覆盖完整，无选择题故省略optionChecks。"
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "条件表述与原文一致，未出现将‘可以’改为‘必须’等不当强化。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": null,
+        "answerVerification": {
+          "answerable": true,
+          "answer": "ARC维护两个列表：近期访问列表（LRU）和频繁访问列表（LFU），并根据命中情况动态调整两个列表的容量分配。当工作负载从突发性访问转变为稳定重复访问时，ARC会检测到频繁访问列表的命中率上升，从而增加其容量，减少近期访问列表的容量。这种调整使得ARC能更好地保留高频访问的数据，适应稳定的重复访问模式，从而提高命中率。",
+          "basis": "依据发现候选中的ARC描述：维护两个列表，根据命中情况自动调整容量分配。结合工作负载变化，解释调整机制和命中率提升原因。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  },
+  {
+    "id": "discovery-consistency",
+    "expected": "blocked",
+    "provenance": "test-results/2026-09-06-product-fixes/v2.3.6-recorded/results.json",
+    "context": {
+      "userGoal": "能解释缓存失效的常见策略及其适用场景\n必须新增：相比缓存基础,新增了缓存失效的机制,包括TTL、主动失效、写失效和写更新,以及不同策略的优缺点和适用场景。\n不得复述关联卡摘要。",
+      "evidence": [
+        {
+          "id": "discovery_outline",
+          "kind": "text",
+          "origin": "discovery_outline",
+          "title": "发现候选：缓存失效策略",
+          "text": "主题：缓存失效策略\n学习目标：能解释缓存失效的常见策略及其适用场景\n必须新增：相比缓存基础,新增了缓存失效的机制,包括TTL、主动失效、写失效和写更新,以及不同策略的优缺点和适用场景。\n与已有知识的关系：从你选择的“缓存”兴趣继续探索\n依据状态：模型建议\n知识说明（模型生成，未经外部来源验证）：缓存失效是确保缓存数据一致性的关键。常见策略包括:TTL(设置过期时间,简单但可能有过期数据)、主动失效(数据变更时主动删除或更新缓存,保证强一致但增加系统复杂度)、写失效(更新数据库时同时使缓存失效,下次读取时重新加载)和写更新(更新数据库时同步更新缓存,减少读取延迟但可能造成不一致)。选择策略需权衡一致性与性能。例如,对于读多写少且允许短暂不一致的场景,TTL足够;对于金融交易等强一致场景,需采用主动失效或写失效。",
+          "startCharacter": 0,
+          "version": 1
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "缓存失效策略",
+        "learningObjective": "能解释缓存失效的常见策略及其适用场景",
+        "knowledgeType": "concept",
+        "summary": "缓存失效是确保缓存数据一致性的关键。常见策略包括：TTL（设置过期时间，简单但可能有过期数据）、主动失效（数据变更时主动删除或更新缓存，保证强一致但增加系统复杂度）、写失效（更新数据库时同时使缓存失效，下次读取时重新加载）和写更新（更新数据库时同步更新缓存，减少读取延迟但可能造成不一致）。选择策略需权衡一致性与性能。例如，对于读多写少且允许短暂不一致的场景，TTL足够；对于金融交易等强一致场景，需采用主动失效或写失效。",
+        "example": {
+          "type": "example",
+          "text": "假设一个电商网站的商品详情页，读多写少且允许短暂不一致，可以使用TTL策略，设置过期时间如5分钟，到期后重新加载。对于银行账户余额，需要强一致，应采用主动失效或写失效，在余额变更时立即删除或使缓存失效，确保下次读取拿到最新数据。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "某系统需要缓存用户信息，但用户信息更新后必须立即反映到缓存中，不能容忍任何不一致。请从TTL、主动失效、写失效、写更新中选择最合适的策略，并说明理由。",
+        "answer": "应选择主动失效或写失效。主动失效在数据变更时主动删除或更新缓存，保证强一致；写失效在更新数据库时同时使缓存失效，下次读取时重新加载，也能保证强一致。TTL可能有过期数据，写更新可能造成不一致，均不适合。",
+        "answerExplanation": "题目要求强一致，不能容忍不一致。TTL允许过期数据，写更新可能造成不一致，因此排除。主动失效和写失效都能在数据变更时保证缓存与数据库一致，符合要求。",
+        "rubric": [
+          "选择主动失效或写失效",
+          "说明理由：能保证强一致，排除TTL和写更新"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "TTL(设置过期时间,简单但可能有过期数据)",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "主动失效(数据变更时主动删除或更新缓存,保证强一致但增加系统复杂度)",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "写失效(更新数据库时同时使缓存失效,下次读取时重新加载)",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "写更新(更新数据库时同步更新缓存,减少读取延迟但可能造成不一致)",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "选择策略需权衡一致性与性能",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "对于读多写少且允许短暂不一致的场景,TTL足够;对于金融交易等强一致场景,需采用主动失效或写失效",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "TTL(设置过期时间,简单但可能有过期数据)",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "主动失效(数据变更时主动删除或更新缓存,保证强一致但增加系统复杂度)",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "写失效(更新数据库时同时使缓存失效,下次读取时重新加载)",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "写更新(更新数据库时同步更新缓存,减少读取延迟但可能造成不一致)",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "选择策略需权衡一致性与性能",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "对于读多写少且允许短暂不一致的场景,TTL足够;对于金融交易等强一致场景,需采用主动失效或写失效",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "TTL(设置过期时间,简单但可能有过期数据)",
+          "occurrence": 0,
+          "claim": "example"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "主动失效(数据变更时主动删除或更新缓存,保证强一致但增加系统复杂度)",
+          "occurrence": 0,
+          "claim": "example"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "写失效(更新数据库时同时使缓存失效,下次读取时重新加载)",
+          "occurrence": 0,
+          "claim": "example"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "写更新(更新数据库时同步更新缓存,减少读取延迟但可能造成不一致)",
+          "occurrence": 0,
+          "claim": "example"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "选择策略需权衡一致性与性能",
+          "occurrence": 0,
+          "claim": "example"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "对于读多写少且允许短暂不一致的场景,TTL足够;对于金融交易等强一致场景,需采用主动失效或写失效",
+          "occurrence": 0,
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "解释、边界及示例均被对应引文支持，且示例为假设场景，未引入真实系统实现事实。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例中TTL和主动失效/写失效的应用与策略描述一致，中间状态和最终结果均合理。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习要求根据具体条件（强一致）选择策略并说明理由，符合应用目标。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案依据充分，唯一有效答案与评分要点一致，且无选项检查。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "条件范围与原文一致，未将‘可以’改为‘必须’等，且未混用模式。"
+        }
+      ],
+      "issues": [],
+      "quality": {
+        "passed": true,
+        "issues": [],
+        "evidence": [
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "TTL(设置过期时间,简单但可能有过期数据)",
+            "occurrence": 0,
+            "startCharacter": 173,
+            "endCharacter": 195
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "主动失效(数据变更时主动删除或更新缓存,保证强一致但增加系统复杂度)",
+            "occurrence": 0,
+            "startCharacter": 196,
+            "endCharacter": 230
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "写失效(更新数据库时同时使缓存失效,下次读取时重新加载)",
+            "occurrence": 0,
+            "startCharacter": 231,
+            "endCharacter": 259
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "写更新(更新数据库时同步更新缓存,减少读取延迟但可能造成不一致)",
+            "occurrence": 0,
+            "startCharacter": 260,
+            "endCharacter": 292
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "选择策略需权衡一致性与性能",
+            "occurrence": 0,
+            "startCharacter": 293,
+            "endCharacter": 306
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "对于读多写少且允许短暂不一致的场景,TTL足够;对于金融交易等强一致场景,需采用主动失效或写失效",
+            "occurrence": 0,
+            "startCharacter": 310,
+            "endCharacter": 358
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "TTL(设置过期时间,简单但可能有过期数据)",
+            "occurrence": 0,
+            "startCharacter": 173,
+            "endCharacter": 195
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "主动失效(数据变更时主动删除或更新缓存,保证强一致但增加系统复杂度)",
+            "occurrence": 0,
+            "startCharacter": 196,
+            "endCharacter": 230
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "写失效(更新数据库时同时使缓存失效,下次读取时重新加载)",
+            "occurrence": 0,
+            "startCharacter": 231,
+            "endCharacter": 259
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "写更新(更新数据库时同步更新缓存,减少读取延迟但可能造成不一致)",
+            "occurrence": 0,
+            "startCharacter": 260,
+            "endCharacter": 292
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "选择策略需权衡一致性与性能",
+            "occurrence": 0,
+            "startCharacter": 293,
+            "endCharacter": 306
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "对于读多写少且允许短暂不一致的场景,TTL足够;对于金融交易等强一致场景,需采用主动失效或写失效",
+            "occurrence": 0,
+            "startCharacter": 310,
+            "endCharacter": 358
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "example",
+            "quote": "TTL(设置过期时间,简单但可能有过期数据)",
+            "occurrence": 0,
+            "startCharacter": 173,
+            "endCharacter": 195
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "example",
+            "quote": "主动失效(数据变更时主动删除或更新缓存,保证强一致但增加系统复杂度)",
+            "occurrence": 0,
+            "startCharacter": 196,
+            "endCharacter": 230
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "example",
+            "quote": "写失效(更新数据库时同时使缓存失效,下次读取时重新加载)",
+            "occurrence": 0,
+            "startCharacter": 231,
+            "endCharacter": 259
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "example",
+            "quote": "写更新(更新数据库时同步更新缓存,减少读取延迟但可能造成不一致)",
+            "occurrence": 0,
+            "startCharacter": 260,
+            "endCharacter": 292
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "example",
+            "quote": "选择策略需权衡一致性与性能",
+            "occurrence": 0,
+            "startCharacter": 293,
+            "endCharacter": 306
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "example",
+            "quote": "对于读多写少且允许短暂不一致的场景,TTL足够;对于金融交易等强一致场景,需采用主动失效或写失效",
+            "occurrence": 0,
+            "startCharacter": 310,
+            "endCharacter": 358
+          }
+        ],
+        "checks": [
+          {
+            "rule": "grounding",
+            "passed": true,
+            "reason": "解释、边界及示例均被对应引文支持，且示例为假设场景，未引入真实系统实现事实。"
+          },
+          {
+            "rule": "coherence",
+            "passed": true,
+            "reason": "示例中TTL和主动失效/写失效的应用与策略描述一致，中间状态和最终结果均合理。"
+          },
+          {
+            "rule": "objectiveAlignment",
+            "passed": true,
+            "reason": "练习要求根据具体条件（强一致）选择策略并说明理由，符合应用目标。"
+          },
+          {
+            "rule": "answerCorrectness",
+            "passed": true,
+            "reason": "答案依据充分，唯一有效答案与评分要点一致，且无选项检查。"
+          },
+          {
+            "rule": "conditions",
+            "passed": true,
+            "reason": "条件范围与原文一致，未将‘可以’改为‘必须’等，且未混用模式。"
+          }
+        ]
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.3.6",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-v4-flash-vision-exp",
+        "materialLength": 0,
+        "elapsedMs": 9477,
+        "calls": [
+          {
+            "operation": "generate",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 6576,
+            "usage": {
+              "inputTokens": 1883,
+              "outputTokens": 768,
+              "totalTokens": 2651,
+              "cachedInputTokens": 1408
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 944,
+            "usage": {
+              "inputTokens": 579,
+              "outputTokens": 64,
+              "totalTokens": 643,
+              "cachedInputTokens": 512
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1946,
+            "usage": {
+              "inputTokens": 2267,
+              "outputTokens": 173,
+              "totalTokens": 2440,
+              "cachedInputTokens": 1024
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "解释、边界及示例均被对应引文支持，且示例为假设场景，未引入真实系统实现事实。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例中TTL和主动失效/写失效的应用与策略描述一致，中间状态和最终结果均合理。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "练习要求根据具体条件（强一致）选择策略并说明理由，符合应用目标。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "答案依据充分，唯一有效答案与评分要点一致，且无选项检查。"
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "条件范围与原文一致，未将‘可以’改为‘必须’等，且未混用模式。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": null,
+        "answerVerification": {
+          "answerable": true,
+          "answer": "主动失效或写失效",
+          "basis": "根据知识说明，主动失效和写失效能保证强一致，而TTL和写更新可能造成不一致。用户要求立即反映且不能容忍不一致，因此选择主动失效或写失效。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  },
+  {
+    "id": "bayes-arithmetic",
+    "expected": "blocked",
+    "provenance": "test-results/2026-09-06-product-fixes/v2.3.6-recorded/results.json",
+    "context": {
+      "userGoal": "能解释能运用贝叶斯定理从结果反推原因的概率\n必须新增：贝叶斯定理的公式P(A|B)=P(B|A)P(A)/P(B),以及先验概率与后验概率的概念\n不得复述关联卡摘要。",
+      "evidence": [
+        {
+          "id": "discovery_outline",
+          "kind": "text",
+          "origin": "discovery_outline",
+          "title": "发现候选：贝叶斯定理与逆概率",
+          "text": "主题：贝叶斯定理与逆概率\n学习目标：能解释能运用贝叶斯定理从结果反推原因的概率\n必须新增：贝叶斯定理的公式P(A|B)=P(B|A)P(A)/P(B),以及先验概率与后验概率的概念\n与已有知识的关系：从你选择的“概率数学”兴趣继续探索\n依据状态：模型建议\n知识说明（模型生成，未经外部来源验证）：贝叶斯定理描述了在已知结果B时,原因A的概率如何更新:P(A|B)=P(B|A)P(A)/P(B)。其中P(A)为先验概率,P(A|B)为后验概率。例如,某种疾病患病率为1%,检测准确率为99%,若检测阳性,实际患病概率约为50%,因为假阳性率较高。该定理在医学诊断、垃圾邮件过滤等领域广泛应用,是概率推理的核心工具。",
+          "startCharacter": 0,
+          "version": 1
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "贝叶斯定理与逆概率",
+        "learningObjective": "能解释并运用贝叶斯定理从结果反推原因的概率",
+        "knowledgeType": "concept",
+        "summary": "贝叶斯定理用于从结果B反推原因A的概率，公式为P(A|B)=P(B|A)P(A)/P(B)。其中P(A)是先验概率，即在考虑结果B之前对原因A的初始概率估计；P(A|B)是后验概率，即在观察到结果B之后对原因A的更新概率。该定理适用于医学诊断、垃圾邮件过滤等场景，是概率推理的核心工具。",
+        "example": {
+          "type": "example",
+          "text": "假设某种疾病的患病率为1%，检测准确率为99%。若某人检测结果为阳性，根据贝叶斯定理，实际患病的概率约为50%，因为假阳性率较高。",
+          "origin": "source"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "某地区人群中，某种罕见病的患病率为0.1%。现有一种检测方法，其灵敏度（患病者检测阳性的概率）为99%，特异度（未患病者检测阴性的概率）为95%。若某人检测结果为阳性，请根据贝叶斯定理计算他实际患病的概率（写出公式并代入数值，结果用百分数表示，保留整数）。",
+        "answer": "P(患病|阳性) = P(阳性|患病)P(患病)/P(阳性) = 0.99×0.001 / (0.99×0.001 + 0.05×0.999) ≈ 0.0194，即约2%。",
+        "answerExplanation": "根据贝叶斯定理，后验概率P(患病|阳性) = P(阳性|患病)P(患病)/P(阳性)。先验概率P(患病)=0.001，灵敏度P(阳性|患病)=0.99，特异度0.95意味着假阳性率P(阳性|未患病)=0.05。总阳性率P(阳性)=P(阳性|患病)P(患病)+P(阳性|未患病)P(未患病)=0.99×0.001+0.05×0.999≈0.05094。代入得P(患病|阳性)≈0.0194，即约2%。",
+        "rubric": [
+          "正确写出贝叶斯公式并代入数值",
+          "计算得到约2%的结果"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "贝叶斯定理描述了在已知结果B时,原因A的概率如何更新:P(A|B)=P(B|A)P(A)/P(B)。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "其中P(A)为先验概率,P(A|B)为后验概率。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "贝叶斯定理描述了在已知结果B时,原因A的概率如何更新:P(A|B)=P(B|A)P(A)/P(B)。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "例如,某种疾病患病率为1%,检测准确率为99%,若检测阳性,实际患病概率约为50%,因为假阳性率较高。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "discovery_outline",
+          "quote": "例如,某种疾病患病率为1%,检测准确率为99%,若检测阳性,实际患病概率约为50%,因为假阳性率较高。",
+          "occurrence": 0,
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "解释、示例及练习均被对应引文支持，且未引入未提供的机制。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例和练习的计算步骤、中间结果与最终答案一致，且与独立解题结果相符。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习要求运用贝叶斯定理在具体条件下计算后验概率，符合目标。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案依据正确，计算无误，评分要点完整。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "条件表述与原文一致，未改变范围或强度。"
+        }
+      ],
+      "issues": [],
+      "quality": {
+        "passed": true,
+        "issues": [],
+        "evidence": [
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "贝叶斯定理描述了在已知结果B时,原因A的概率如何更新:P(A|B)=P(B|A)P(A)/P(B)。",
+            "occurrence": 0,
+            "startCharacter": 148,
+            "endCharacter": 198
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "其中P(A)为先验概率,P(A|B)为后验概率。",
+            "occurrence": 0,
+            "startCharacter": 198,
+            "endCharacter": 222
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "贝叶斯定理描述了在已知结果B时,原因A的概率如何更新:P(A|B)=P(B|A)P(A)/P(B)。",
+            "occurrence": 0,
+            "startCharacter": 148,
+            "endCharacter": 198
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "例如,某种疾病患病率为1%,检测准确率为99%,若检测阳性,实际患病概率约为50%,因为假阳性率较高。",
+            "occurrence": 0,
+            "startCharacter": 222,
+            "endCharacter": 273
+          },
+          {
+            "evidenceId": "discovery_outline",
+            "kind": "text",
+            "claim": "example",
+            "quote": "例如,某种疾病患病率为1%,检测准确率为99%,若检测阳性,实际患病概率约为50%,因为假阳性率较高。",
+            "occurrence": 0,
+            "startCharacter": 222,
+            "endCharacter": 273
+          }
+        ],
+        "checks": [
+          {
+            "rule": "grounding",
+            "passed": true,
+            "reason": "解释、示例及练习均被对应引文支持，且未引入未提供的机制。"
+          },
+          {
+            "rule": "coherence",
+            "passed": true,
+            "reason": "示例和练习的计算步骤、中间结果与最终答案一致，且与独立解题结果相符。"
+          },
+          {
+            "rule": "objectiveAlignment",
+            "passed": true,
+            "reason": "练习要求运用贝叶斯定理在具体条件下计算后验概率，符合目标。"
+          },
+          {
+            "rule": "answerCorrectness",
+            "passed": true,
+            "reason": "答案依据正确，计算无误，评分要点完整。"
+          },
+          {
+            "rule": "conditions",
+            "passed": true,
+            "reason": "条件表述与原文一致，未改变范围或强度。"
+          }
+        ]
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.3.6",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-v4-flash-vision-exp",
+        "materialLength": 0,
+        "elapsedMs": 9838,
+        "calls": [
+          {
+            "operation": "generate",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 6447,
+            "usage": {
+              "inputTokens": 1862,
+              "outputTokens": 699,
+              "totalTokens": 2561,
+              "cachedInputTokens": 1408
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1882,
+            "usage": {
+              "inputTokens": 591,
+              "outputTokens": 164,
+              "totalTokens": 755,
+              "cachedInputTokens": 512
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1495,
+            "usage": {
+              "inputTokens": 2277,
+              "outputTokens": 145,
+              "totalTokens": 2422,
+              "cachedInputTokens": 1024
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "解释、示例及练习均被对应引文支持，且未引入未提供的机制。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例和练习的计算步骤、中间结果与最终答案一致，且与独立解题结果相符。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "练习要求运用贝叶斯定理在具体条件下计算后验概率，符合目标。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "答案依据正确，计算无误，评分要点完整。"
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "条件表述与原文一致，未改变范围或强度。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": null,
+        "answerVerification": {
+          "answerable": true,
+          "answer": "约2%",
+          "basis": "使用贝叶斯定理：P(D|+)=P(+|D)P(D)/P(+)，其中P(+)=P(+|D)P(D)+P(+|¬D)P(¬D)。代入P(D)=0.001，P(+|D)=0.99，P(+|¬D)=1-0.95=0.05，P(¬D)=0.999，得P(+)=0.99*0.001+0.05*0.999=0.00099+0.04995=0.05094，P(D|+)=0.00099/0.05094≈0.01943，即约2%。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  },
+  {
+    "id": "choice-stable-method",
+    "expected": "blocked",
+    "provenance": "test-results/2026-09-06-product-fixes/v2.3.5-holdouts/results.json",
+    "context": {
+      "userGoal": "能判断多级稳定排序的执行顺序。请明确使用一道三选一选择题，只考执行方法，不计算自拟列表的排序结果。",
+      "evidence": [
+        {
+          "id": "material",
+          "kind": "text",
+          "text": "Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。因此可以先按次要键排序，再按主要键排序，实现多级排序。"
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "多级稳定排序的执行顺序",
+        "learningObjective": "能判断多级稳定排序的执行顺序",
+        "knowledgeType": "mechanism",
+        "summary": "Python 的排序是稳定的，即当排序键相同时，记录会保留它们在输入中的相对顺序。利用这一特性，可以通过先按次要键排序，再按主要键排序来实现多级排序。最终结果中，主要键相同的记录会按照次要键的顺序排列。",
+        "example": {
+          "type": "example",
+          "text": "给定一个学生记录列表，需要按成绩（主要键）和姓名（次要键）排序。正确的执行顺序是什么？",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "choice",
+        "question": "给定一个学生记录列表，需要按成绩（主要键）和姓名（次要键）排序。正确的执行顺序是什么？",
+        "options": [
+          "先按成绩排序，再按姓名排序",
+          "先按姓名排序，再按成绩排序",
+          "同时按成绩和姓名排序"
+        ],
+        "correctIndex": 1,
+        "answer": "先按姓名排序，再按成绩排序",
+        "answerExplanation": "由于Python排序是稳定的，先按次要键（姓名）排序后，再按主要键（成绩）排序时，成绩相同的记录会保留上次排序的相对顺序，从而使得姓名有序。因此正确的顺序是先按次要键排序，再按主要键排序。",
+        "rubric": [
+          "能说出先按次要键排序，再按主要键排序",
+          "理解稳定性保证了多级排序的正确性"
+        ],
+        "misconceptions": [
+          "先按主要键排序再按次要键排序会导致主要键相同的记录在次要键排序时可能打乱主要键的顺序，因为次要键排序不稳定（除非再次稳定），但通常不能保证最终主要键有序。",
+          "",
+          "同时按主要键和次要键排序通常不是标准的多级排序方法，且可能无法保证稳定排序的预期效果，因为需要自定义比较器，而Python的sort不支持直接多键比较。"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "material",
+          "quote": "Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "因此可以先按次要键排序，再按主要键排序，实现多级排序。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "因此可以先按次要键排序，再按主要键排序，实现多级排序。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "因此可以先按次要键排序，再按主要键排序，实现多级排序。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "解释和示例均被引文c1和c2支持，边界为空，示例为假设场景，无真实系统实现事实。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例和答案依据的步骤一致：先按姓名（次要键）排序，再按成绩（主要键）排序，最终结果正确。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习要求判断多级稳定排序的执行顺序，符合学习目标，且不涉及自拟列表计算。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "唯一有效答案为选项1，与correctIndex一致，且所有误区解释均准确。",
+          "optionChecks": [
+            {
+              "index": 0,
+              "validAnswer": false,
+              "misconceptionCorrect": true,
+              "reason": "先按主要键排序再按次要键排序会打乱主要键顺序，该误区解释准确。"
+            },
+            {
+              "index": 1,
+              "validAnswer": true,
+              "misconceptionCorrect": true,
+              "reason": "先按次要键排序再按主要键排序是正确方法，该项无错误解释。"
+            },
+            {
+              "index": 2,
+              "validAnswer": false,
+              "misconceptionCorrect": true,
+              "reason": "同时排序不是标准多级排序方法，该误区解释准确。"
+            }
+          ]
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "条件范围与材料一致，未改变情态动词，输入、调用和初始状态均符合原文。"
+        }
+      ],
+      "issues": [],
+      "quality": {
+        "passed": true,
+        "issues": [],
+        "evidence": [
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 35
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "因此可以先按次要键排序，再按主要键排序，实现多级排序。",
+            "occurrence": 0,
+            "startCharacter": 35,
+            "endCharacter": 62
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 35
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "因此可以先按次要键排序，再按主要键排序，实现多级排序。",
+            "occurrence": 0,
+            "startCharacter": 35,
+            "endCharacter": 62
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "Python 排序是稳定的。同一个排序键的记录会保留输入中的相对顺序。",
+            "occurrence": 0,
+            "startCharacter": 0,
+            "endCharacter": 35
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "因此可以先按次要键排序，再按主要键排序，实现多级排序。",
+            "occurrence": 0,
+            "startCharacter": 35,
+            "endCharacter": 62
+          }
+        ],
+        "checks": [
+          {
+            "rule": "grounding",
+            "passed": true,
+            "reason": "解释和示例均被引文c1和c2支持，边界为空，示例为假设场景，无真实系统实现事实。"
+          },
+          {
+            "rule": "coherence",
+            "passed": true,
+            "reason": "示例和答案依据的步骤一致：先按姓名（次要键）排序，再按成绩（主要键）排序，最终结果正确。"
+          },
+          {
+            "rule": "objectiveAlignment",
+            "passed": true,
+            "reason": "练习要求判断多级稳定排序的执行顺序，符合学习目标，且不涉及自拟列表计算。"
+          },
+          {
+            "rule": "answerCorrectness",
+            "passed": true,
+            "reason": "唯一有效答案为选项1，与correctIndex一致，且所有误区解释均准确。",
+            "optionChecks": [
+              {
+                "index": 0,
+                "validAnswer": false,
+                "misconceptionCorrect": true,
+                "reason": "先按主要键排序再按次要键排序会打乱主要键顺序，该误区解释准确。"
+              },
+              {
+                "index": 1,
+                "validAnswer": true,
+                "misconceptionCorrect": true,
+                "reason": "先按次要键排序再按主要键排序是正确方法，该项无错误解释。"
+              },
+              {
+                "index": 2,
+                "validAnswer": false,
+                "misconceptionCorrect": true,
+                "reason": "同时排序不是标准多级排序方法，该误区解释准确。"
+              }
+            ]
+          },
+          {
+            "rule": "conditions",
+            "passed": true,
+            "reason": "条件范围与材料一致，未改变情态动词，输入、调用和初始状态均符合原文。"
+          }
+        ]
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.3.5",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-v4-flash-vision-exp",
+        "materialLength": 62,
+        "elapsedMs": 13217,
+        "calls": [
+          {
+            "operation": "generate",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 5616,
+            "usage": {
+              "inputTokens": 1651,
+              "outputTokens": 617,
+              "totalTokens": 2268,
+              "cachedInputTokens": 1024
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "repair",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 3270,
+            "usage": {
+              "inputTokens": 2278,
+              "outputTokens": 350,
+              "totalTokens": 2628,
+              "cachedInputTokens": 1024
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1800
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1251,
+            "usage": {
+              "inputTokens": 377,
+              "outputTokens": 124,
+              "totalTokens": 501,
+              "cachedInputTokens": 256
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 3066,
+            "usage": {
+              "inputTokens": 1735,
+              "outputTokens": 303,
+              "totalTokens": 2038,
+              "cachedInputTokens": 0
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [
+              {
+                "code": "generated_trace_unverified",
+                "field": "card.example.text",
+                "message": "新编多步列表排序轨迹没有可执行的校验依据，模型互审不能保证中间状态正确。请改成新情境下选择排序方法或执行次序的应用题，并移除自拟列表追踪示例；保留原学习目标。"
+              }
+            ],
+            "checks": []
+          },
+          {
+            "attempt": 2,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "解释和示例均被引文c1和c2支持，边界为空，示例为假设场景，无真实系统实现事实。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例和答案依据的步骤一致：先按姓名（次要键）排序，再按成绩（主要键）排序，最终结果正确。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "练习要求判断多级稳定排序的执行顺序，符合学习目标，且不涉及自拟列表计算。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "唯一有效答案为选项1，与correctIndex一致，且所有误区解释均准确。",
+                "optionChecks": [
+                  {
+                    "index": 0,
+                    "validAnswer": false,
+                    "misconceptionCorrect": true,
+                    "reason": "先按主要键排序再按次要键排序会打乱主要键顺序，该误区解释准确。"
+                  },
+                  {
+                    "index": 1,
+                    "validAnswer": true,
+                    "misconceptionCorrect": true,
+                    "reason": "先按次要键排序再按主要键排序是正确方法，该项无错误解释。"
+                  },
+                  {
+                    "index": 2,
+                    "validAnswer": false,
+                    "misconceptionCorrect": true,
+                    "reason": "同时排序不是标准多级排序方法，该误区解释准确。"
+                  }
+                ]
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "条件范围与材料一致，未改变情态动词，输入、调用和初始状态均符合原文。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": null,
+        "answerVerification": {
+          "answerable": true,
+          "answer": "先按姓名排序，再按成绩排序",
+          "basis": "Python排序稳定，多级排序应先按次要键排序，再按主要键排序。主要键为成绩，次要键为姓名，故先按姓名排序，再按成绩排序。",
+          "validOptionIndices": [
+            1
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": "cache-repeat-1",
+    "expected": "blocked",
+    "provenance": "test-results/2026-09-06-product-fixes/v2.3.5-holdouts/results.json",
+    "context": {
+      "userGoal": "能区分缓存新鲜度和内容是否改变",
+      "evidence": [
+        {
+          "id": "material",
+          "kind": "text",
+          "text": "缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。"
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "缓存新鲜度与内容改变",
+        "learningObjective": "能区分缓存新鲜度和内容是否改变",
+        "knowledgeType": "concept",
+        "summary": "缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+        "example": {
+          "type": "example",
+          "text": "假设一个响应在生成时 age=0，max-age=60。经过 30 秒后，age=30，响应仍新鲜，可直接复用；经过 70 秒后，age=70，响应陈旧，但内容可能并未改变，可以向源站验证。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "一个缓存的响应在生成时 age=0，max-age=60。当前 age=45，该响应是否新鲜？能否直接复用？如果 age=75，该响应是否新鲜？能否直接复用？",
+        "answer": "当 age=45 时，响应新鲜（45≤60），通常可直接复用。当 age=75 时，响应陈旧（75>60），可以向源站验证，但陈旧不代表内容已错误。",
+        "answerExplanation": "根据材料，max-age 指定响应可视为新鲜的时长。当 age 不超过 max-age 时，响应新鲜，通常可直接复用；当 age 超过 max-age 时，响应陈旧，可以向源站验证，但陈旧不代表内容已错误。",
+        "rubric": [
+          "正确判断 age=45 时新鲜且通常可直接复用",
+          "正确判断 age=75 时陈旧，且可向源站验证，但陈旧不代表内容已错误"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "material",
+          "quote": "响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "example"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+          "occurrence": 0,
+          "observation": "",
+          "claim": "exercise"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "解释、边界及示例均被引文c1和c2支持，示例中的数字为假设场景，符合origin=authored。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例和答案依据的每一步均与材料一致，中间状态和最终结果正确。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习要求应用新鲜度判断条件，而非仅识别名词，符合目标。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案依据材料正确判断新鲜度及复用策略，评分要点覆盖关键条件。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "条件范围与材料一致，未改变模态或阈值归属。"
+        }
+      ],
+      "issues": [],
+      "quality": {
+        "passed": true,
+        "issues": [],
+        "evidence": [
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+            "occurrence": 0,
+            "startCharacter": 10,
+            "endCharacter": 46
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+            "occurrence": 0,
+            "startCharacter": 46,
+            "endCharacter": 90
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+            "occurrence": 0,
+            "startCharacter": 10,
+            "endCharacter": 46
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+            "occurrence": 0,
+            "startCharacter": 46,
+            "endCharacter": 90
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+            "occurrence": 0,
+            "startCharacter": 10,
+            "endCharacter": 46
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+            "occurrence": 0,
+            "startCharacter": 46,
+            "endCharacter": 90
+          }
+        ],
+        "checks": [
+          {
+            "rule": "grounding",
+            "passed": true,
+            "reason": "解释、边界及示例均被引文c1和c2支持，示例中的数字为假设场景，符合origin=authored。"
+          },
+          {
+            "rule": "coherence",
+            "passed": true,
+            "reason": "示例和答案依据的每一步均与材料一致，中间状态和最终结果正确。"
+          },
+          {
+            "rule": "objectiveAlignment",
+            "passed": true,
+            "reason": "练习要求应用新鲜度判断条件，而非仅识别名词，符合目标。"
+          },
+          {
+            "rule": "answerCorrectness",
+            "passed": true,
+            "reason": "答案依据材料正确判断新鲜度及复用策略，评分要点覆盖关键条件。"
+          },
+          {
+            "rule": "conditions",
+            "passed": true,
+            "reason": "条件范围与材料一致，未改变模态或阈值归属。"
+          }
+        ]
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.3.5",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-v4-flash-vision-exp",
+        "materialLength": 90,
+        "elapsedMs": 8732,
+        "calls": [
+          {
+            "operation": "generate",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 4723,
+            "usage": {
+              "inputTokens": 1641,
+              "outputTokens": 496,
+              "totalTokens": 2137,
+              "cachedInputTokens": 1408
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "repair",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1287,
+            "usage": {
+              "inputTokens": 2281,
+              "outputTokens": 105,
+              "totalTokens": 2386,
+              "cachedInputTokens": 1024
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1800
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1052,
+            "usage": {
+              "inputTokens": 383,
+              "outputTokens": 91,
+              "totalTokens": 474,
+              "cachedInputTokens": 256
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1642,
+            "usage": {
+              "inputTokens": 1709,
+              "outputTokens": 158,
+              "totalTokens": 1867,
+              "cachedInputTokens": 1024
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [
+              {
+                "code": "conditions_strengthened",
+                "field": "exercise.answer",
+                "sourcePhrase": "通常可直接复用",
+                "outputPhrase": "不能直接复用",
+                "requiresNewQuestion": true,
+                "matchKind": "literal",
+                "message": "exercise.answer 将原文“通常可直接复用”改成无依据的“不能直接复用”，请保留原文限定或给出明确支持该条件的依据。原文的限定许可不能推导出禁止；加上‘通常不能’仍未解决问题。请删除该禁止结论，原题依赖此条件时改问材料明确支持的判断，不补造规则。"
+              },
+              {
+                "code": "conditions_strengthened",
+                "field": "exercise.rubric.1",
+                "sourcePhrase": "通常可直接复用",
+                "outputPhrase": "不能直接复用",
+                "requiresNewQuestion": true,
+                "matchKind": "literal",
+                "message": "exercise.rubric.1 将原文“通常可直接复用”改成无依据的“不能直接复用”，请保留原文限定或给出明确支持该条件的依据。原文的限定许可不能推导出禁止；加上‘通常不能’仍未解决问题。请删除该禁止结论，原题依赖此条件时改问材料明确支持的判断，不补造规则。"
+              }
+            ],
+            "checks": []
+          },
+          {
+            "attempt": 2,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "解释、边界及示例均被引文c1和c2支持，示例中的数字为假设场景，符合origin=authored。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例和答案依据的每一步均与材料一致，中间状态和最终结果正确。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "练习要求应用新鲜度判断条件，而非仅识别名词，符合目标。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "答案依据材料正确判断新鲜度及复用策略，评分要点覆盖关键条件。"
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "条件范围与材料一致，未改变模态或阈值归属。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": null,
+        "answerVerification": {
+          "answerable": true,
+          "answer": "age=45时新鲜，可直接复用；age=75时陈旧，不能直接复用，需向源站验证。",
+          "basis": "根据材料，max-age指定响应可视为新鲜的时长，新鲜响应通常可直接复用；陈旧响应需向源站验证。当前age=45小于max-age=60，故新鲜；age=75大于60，故陈旧。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  },
+  {
+    "id": "arc-correct",
+    "expected": "ready",
+    "provenance": "Author-written positive control; separate from historical failures.",
+    "context": {
+      "userGoal": "能区分ARC的驻留命中与幽灵记录命中",
+      "evidence": [
+        {
+          "id": "material",
+          "kind": "text",
+          "origin": "current",
+          "text": "ARC用T1和T2保存驻留页面，用B1和B2保存已淘汰页面的标识。p是T1的目标容量。命中B1会提高p，命中B2会降低p；驻留T1或T2命中会把页面放到T2的最近使用端，不直接调整p。",
+          "url": "https://www.usenix.org/event/fast03/tech/full_papers/megiddo/megiddo.pdf"
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "ARC的容量反馈",
+        "learningObjective": "能区分ARC的驻留命中与幽灵记录命中",
+        "knowledgeType": "concept",
+        "summary": "ARC用T1和T2保存驻留页面，用B1和B2保存已淘汰页面的标识。p是T1的目标容量。命中B1会提高p，命中B2会降低p；驻留T1或T2命中会把页面放到T2的最近使用端，不直接调整p。",
+        "example": {
+          "type": "example",
+          "text": "某页面已从T1淘汰，但标识仍在B1。再次访问该页面构成B1命中，ARC会提高T1目标容量p。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "假设当前命中的是驻留列表T1中的页面，这次命中会直接提高p吗？页面会移到哪里？",
+        "answer": "不会直接提高p；页面移到T2的最近使用端。",
+        "answerExplanation": "题目给的是驻留T1命中，不是B1命中。材料规定驻留命中不调整p，而会把页面放到T2的最近使用端。",
+        "rubric": [
+          "不会直接提高p；页面移到T2的最近使用端。"
+        ]
+      },
+      "evidence": [
+        {
+          "claim": "summary",
+          "evidenceId": "material",
+          "quote": "ARC用T1和T2保存驻留页面，用B1和B2保存已淘汰页面的标识。p是T1的目标容量。命中B1会提高p，命中B2会降低p；驻留T1或T2命中会把页面放到T2的最近使用端，不直接调整p。"
+        },
+        {
+          "claim": "exercise",
+          "evidenceId": "material",
+          "quote": "ARC用T1和T2保存驻留页面，用B1和B2保存已淘汰页面的标识。p是T1的目标容量。命中B1会提高p，命中B2会降低p；驻留T1或T2命中会把页面放到T2的最近使用端，不直接调整p。"
+        }
+      ],
+      "checks": []
+    }
+  },
+  {
+    "id": "invalidation-correct",
+    "expected": "ready",
+    "provenance": "Author-written positive control; separate from historical failures.",
+    "context": {
+      "userGoal": "能判断单独删除缓存为什么不足以保证强一致",
+      "evidence": [
+        {
+          "id": "material",
+          "kind": "text",
+          "origin": "current",
+          "text": "单独删除缓存不能保证数据库与缓存强一致。一个并发读取可能先取得旧数据库值，在写入者更新数据库并删除缓存之后，再将旧值回填缓存。因此还需约束并发读写顺序和失败处理，不能仅凭失效操作就断言后续读取必然是最新数据。",
+          "url": "https://redis.io/docs/latest/develop/reference/client-side-caching/#avoiding-race-conditions"
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "失效与并发旧值回填",
+        "learningObjective": "能判断单独删除缓存为什么不足以保证强一致",
+        "knowledgeType": "concept",
+        "summary": "单独删除缓存不能保证数据库与缓存强一致。一个并发读取可能先取得旧数据库值，在写入者更新数据库并删除缓存之后，再将旧值回填缓存。因此还需约束并发读写顺序和失败处理，不能仅凭失效操作就断言后续读取必然是最新数据。",
+        "example": {
+          "type": "example",
+          "text": "读取R先取得旧值v1；写入W把数据库改为v2并删除缓存；随后R把v1回填，缓存又出现旧值。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "在R读到v1、W更新为v2并删除缓存、R随后回填v1的情景中，能否仅凭W做了失效操作认定缓存强一致？",
+        "answer": "不能，R在失效后回填了旧值v1。",
+        "answerExplanation": "材料给出了旧读取晚于删除操作回填的竞态，单独删除并没有约束这个并发顺序。",
+        "rubric": [
+          "不能，R在失效后回填了旧值v1。"
+        ]
+      },
+      "evidence": [
+        {
+          "claim": "summary",
+          "evidenceId": "material",
+          "quote": "单独删除缓存不能保证数据库与缓存强一致。一个并发读取可能先取得旧数据库值，在写入者更新数据库并删除缓存之后，再将旧值回填缓存。因此还需约束并发读写顺序和失败处理，不能仅凭失效操作就断言后续读取必然是最新数据。"
+        },
+        {
+          "claim": "exercise",
+          "evidenceId": "material",
+          "quote": "单独删除缓存不能保证数据库与缓存强一致。一个并发读取可能先取得旧数据库值，在写入者更新数据库并删除缓存之后，再将旧值回填缓存。因此还需约束并发读写顺序和失败处理，不能仅凭失效操作就断言后续读取必然是最新数据。"
+        }
+      ],
+      "checks": []
+    }
+  },
+  {
+    "id": "bayes-complete",
+    "expected": "ready",
+    "provenance": "Author-written positive control; separate from historical failures.",
+    "context": {
+      "userGoal": "能完成给定检测参数下的条件概率计算",
+      "evidence": [
+        {
+          "id": "material",
+          "kind": "text",
+          "origin": "current",
+          "text": "设A为产品有缺陷，B为检测阳性。P(A|B)=P(B|A)P(A)/(P(B|A)P(A)+P(B|非A)P(非A))。本例缺陷率为1%，有缺陷产品检出阳性的概率为99%，无缺陷产品误报阳性的概率为1%；这些参数分别给定，不能用一个未定义的准确率代替。",
+          "url": null
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "贝叶斯公式的条件概率",
+        "learningObjective": "能完成给定检测参数下的条件概率计算",
+        "knowledgeType": "concept",
+        "summary": "设A为产品有缺陷，B为检测阳性。P(A|B)=P(B|A)P(A)/(P(B|A)P(A)+P(B|非A)P(非A))。本例缺陷率为1%，有缺陷产品检出阳性的概率为99%，无缺陷产品误报阳性的概率为1%；这些参数分别给定，不能用一个未定义的准确率代替。",
+        "example": {
+          "type": "example",
+          "text": "一万件产品中预计有100件缺陷，其中99件阳性；9900件无缺陷产品中预计有99件误报阳性。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "只依据材料给定的缺陷率、检出率和误报率，一件检测阳性的产品有缺陷的概率是多少？",
+        "answer": "50%。",
+        "answerExplanation": "阳性来自真阳性和误报两部分：0.99×0.01/(0.99×0.01+0.01×0.99)=0.5，即50%。",
+        "rubric": [
+          "50%。"
+        ]
+      },
+      "evidence": [
+        {
+          "claim": "summary",
+          "evidenceId": "material",
+          "quote": "设A为产品有缺陷，B为检测阳性。P(A|B)=P(B|A)P(A)/(P(B|A)P(A)+P(B|非A)P(非A))。本例缺陷率为1%，有缺陷产品检出阳性的概率为99%，无缺陷产品误报阳性的概率为1%；这些参数分别给定，不能用一个未定义的准确率代替。"
+        },
+        {
+          "claim": "exercise",
+          "evidenceId": "material",
+          "quote": "设A为产品有缺陷，B为检测阳性。P(A|B)=P(B|A)P(A)/(P(B|A)P(A)+P(B|非A)P(非A))。本例缺陷率为1%，有缺陷产品检出阳性的概率为99%，无缺陷产品误报阳性的概率为1%；这些参数分别给定，不能用一个未定义的准确率代替。"
+        }
+      ],
+      "checks": []
+    }
+  },
+  {
+    "id": "choice-exclusive",
+    "expected": "ready",
+    "provenance": "Author-written positive control; separate from historical failures.",
+    "context": {
+      "userGoal": "能判断两次稳定排序的执行顺序",
+      "evidence": [
+        {
+          "id": "material",
+          "kind": "text",
+          "origin": "current",
+          "text": "Python排序是稳定的。用两次排序实现多级排序时，先按次要键排序，再按主要键排序。同键记录保留此前的相对顺序。也可以用元组key一次按多个键排序，但那不是两次排序。",
+          "url": "https://docs.python.org/3/howto/sorting.html"
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "两次稳定排序的执行顺序",
+        "learningObjective": "能判断两次稳定排序的执行顺序",
+        "knowledgeType": "concept",
+        "summary": "Python排序是稳定的。用两次排序实现多级排序时，先按次要键排序，再按主要键排序。同键记录保留此前的相对顺序。也可以用元组key一次按多个键排序，但那不是两次排序。",
+        "example": {
+          "type": "example",
+          "text": "成绩是主要键、姓名是次要键时，两次排序先按姓名，再按成绩。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "choice",
+        "question": "限定只执行两次稳定排序，成绩为主要键、姓名为次要键，应采用哪个顺序？",
+        "answer": "先姓名，再成绩",
+        "answerExplanation": "先按次要键姓名排序，再按主要键成绩排序，成绩相同的记录会保留姓名排序的相对顺序。",
+        "rubric": [
+          "先姓名，再成绩"
+        ],
+        "options": [
+          "先姓名，再成绩",
+          "先成绩，再姓名",
+          "两次都按姓名"
+        ],
+        "correctIndex": 0,
+        "misconceptions": [
+          "",
+          "最后按姓名排序会使姓名成为主要排序键，不符合成绩优先。",
+          "两次均按姓名排序没有建立成绩优先的顺序。"
+        ]
+      },
+      "evidence": [
+        {
+          "claim": "summary",
+          "evidenceId": "material",
+          "quote": "Python排序是稳定的。用两次排序实现多级排序时，先按次要键排序，再按主要键排序。同键记录保留此前的相对顺序。也可以用元组key一次按多个键排序，但那不是两次排序。"
+        },
+        {
+          "claim": "exercise",
+          "evidenceId": "material",
+          "quote": "Python排序是稳定的。用两次排序实现多级排序时，先按次要键排序，再按主要键排序。同键记录保留此前的相对顺序。也可以用元组key一次按多个键排序，但那不是两次排序。"
+        }
+      ],
+      "checks": []
+    }
+  },
+  {
+    "id": "cache-supported",
+    "expected": "ready",
+    "provenance": "test-results/2026-09-06-product-fixes/v2.3.5-holdouts/results.json",
+    "context": {
+      "userGoal": "能区分缓存新鲜度和内容是否改变",
+      "evidence": [
+        {
+          "id": "material",
+          "kind": "text",
+          "text": "缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。"
+        }
+      ]
+    },
+    "candidate": {
+      "status": "ready",
+      "card": {
+        "title": "缓存新鲜度与内容改变",
+        "learningObjective": "能区分缓存新鲜度和内容是否改变",
+        "knowledgeType": "concept",
+        "summary": "缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+        "example": {
+          "type": "contrast",
+          "text": "假设一个响应在生成时 age=0，max-age=60。经过30秒后，age=30，仍在max-age内，是新鲜响应，可直接复用。经过90秒后，age=90，超过max-age，是陈旧响应，但内容可能仍然正确，可以向源站验证。",
+          "origin": "authored"
+        },
+        "boundaries": "",
+        "analogy": "",
+        "mantra": ""
+      },
+      "exercise": {
+        "type": "recall",
+        "question": "一个缓存的响应在生成时 age=0，max-age=60。当前 age=45。该响应是新鲜还是陈旧？能否直接复用？",
+        "answer": "该响应是新鲜的（因为 age=45 小于 max-age=60），通常可以直接复用。",
+        "answerExplanation": "根据材料，max-age 指定响应可视为新鲜的时长。当前 age=45 小于 max-age=60，所以响应仍在新鲜期内，通常可直接复用。",
+        "rubric": [
+          "正确判断为新鲜（age < max-age）",
+          "说明通常可直接复用"
+        ]
+      },
+      "evidence": [
+        {
+          "evidenceId": "material",
+          "quote": "响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+          "occurrence": 0,
+          "claim": "summary"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+          "occurrence": 0,
+          "claim": "exercise"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+          "occurrence": 0,
+          "claim": "example"
+        },
+        {
+          "evidenceId": "material",
+          "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+          "occurrence": 0,
+          "claim": "example"
+        }
+      ],
+      "checks": [
+        {
+          "rule": "grounding",
+          "passed": true,
+          "reason": "解释、边界及示例均被引文支持，示例中的数字为假设场景，不涉及真实系统实现事实。"
+        },
+        {
+          "rule": "coherence",
+          "passed": true,
+          "reason": "示例和答案依据的每一步均一致：age=45小于max-age=60，因此新鲜且可直接复用，中间状态和最终结果正确。"
+        },
+        {
+          "rule": "objectiveAlignment",
+          "passed": true,
+          "reason": "练习要求应用条件（age与max-age比较）判断新鲜度，符合目标。"
+        },
+        {
+          "rule": "answerCorrectness",
+          "passed": true,
+          "reason": "答案依据正确，评分要点覆盖判断和复用结论。"
+        },
+        {
+          "rule": "conditions",
+          "passed": true,
+          "reason": "条件范围与材料一致，未改变模态或阈值。"
+        }
+      ],
+      "issues": [],
+      "quality": {
+        "passed": true,
+        "issues": [],
+        "evidence": [
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+            "occurrence": 0,
+            "startCharacter": 10,
+            "endCharacter": 46
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "summary",
+            "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+            "occurrence": 0,
+            "startCharacter": 46,
+            "endCharacter": 90
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "exercise",
+            "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+            "occurrence": 0,
+            "startCharacter": 46,
+            "endCharacter": 90
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+            "occurrence": 0,
+            "startCharacter": 10,
+            "endCharacter": 46
+          },
+          {
+            "evidenceId": "material",
+            "kind": "text",
+            "claim": "example",
+            "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+            "occurrence": 0,
+            "startCharacter": 46,
+            "endCharacter": 90
+          }
+        ],
+        "checks": [
+          {
+            "rule": "grounding",
+            "passed": true,
+            "reason": "解释、边界及示例均被引文支持，示例中的数字为假设场景，不涉及真实系统实现事实。"
+          },
+          {
+            "rule": "coherence",
+            "passed": true,
+            "reason": "示例和答案依据的每一步均一致：age=45小于max-age=60，因此新鲜且可直接复用，中间状态和最终结果正确。"
+          },
+          {
+            "rule": "objectiveAlignment",
+            "passed": true,
+            "reason": "练习要求应用条件（age与max-age比较）判断新鲜度，符合目标。"
+          },
+          {
+            "rule": "answerCorrectness",
+            "passed": true,
+            "reason": "答案依据正确，评分要点覆盖判断和复用结论。"
+          },
+          {
+            "rule": "conditions",
+            "passed": true,
+            "reason": "条件范围与材料一致，未改变模态或阈值。"
+          }
+        ]
+      },
+      "generation": {
+        "promptVersion": "concept-card-v2.3.5",
+        "requestProfile": "bounded-card-v2/non-thinking-v1",
+        "model": "deepseek-v4-flash-vision-exp",
+        "materialLength": 90,
+        "elapsedMs": 7323,
+        "calls": [
+          {
+            "operation": "generate",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 3783,
+            "usage": {
+              "inputTokens": 1641,
+              "outputTokens": 428,
+              "totalTokens": 2069,
+              "cachedInputTokens": 1536
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 3000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "repair",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1100,
+            "usage": {
+              "inputTokens": 1999,
+              "outputTokens": 97,
+              "totalTokens": 2096,
+              "cachedInputTokens": 1280
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1800
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "solve",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 691,
+            "usage": {
+              "inputTokens": 371,
+              "outputTokens": 47,
+              "totalTokens": 418,
+              "cachedInputTokens": 256
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          },
+          {
+            "operation": "review",
+            "model": "deepseek-v4-flash-vision-exp",
+            "latencyMs": 1737,
+            "usage": {
+              "inputTokens": 1586,
+              "outputTokens": 163,
+              "totalTokens": 1749,
+              "cachedInputTokens": 1024
+            },
+            "finishReason": "stop",
+            "requestOptions": {
+              "max_tokens": 1000
+            },
+            "thinkingPolicy": "non-thinking-v1"
+          }
+        ],
+        "rounds": [
+          {
+            "attempt": 1,
+            "issues": [
+              {
+                "code": "conditions_strengthened",
+                "field": "card.example.text",
+                "sourcePhrase": "可以向源站验证",
+                "outputPhrase": "需要向源站验证",
+                "requiresNewQuestion": false,
+                "matchKind": "literal",
+                "message": "card.example.text 将原文“可以向源站验证”改成无依据的“需要向源站验证”，请保留原文限定或给出明确支持该条件的依据。"
+              }
+            ],
+            "checks": []
+          },
+          {
+            "attempt": 2,
+            "issues": [],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "解释、边界及示例均被引文支持，示例中的数字为假设场景，不涉及真实系统实现事实。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例和答案依据的每一步均一致：age=45小于max-age=60，因此新鲜且可直接复用，中间状态和最终结果正确。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "练习要求应用条件（age与max-age比较）判断新鲜度，符合目标。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "答案依据正确，评分要点覆盖判断和复用结论。"
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "条件范围与材料一致，未改变模态或阈值。"
+              }
+            ]
+          }
+        ],
+        "resume": null,
+        "reviewMode": "separate",
+        "imageObservation": null,
+        "answerVerification": {
+          "answerable": true,
+          "answer": "新鲜，可以直接复用",
+          "basis": "根据规则，max-age=60，当前age=45，45<60，所以响应仍新鲜，可直接复用。",
+          "validOptionIndices": []
+        }
+      }
+    }
+  }
+]

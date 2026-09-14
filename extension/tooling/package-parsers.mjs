@@ -1,0 +1,20 @@
+import { createRequire } from 'node:module';
+import { cp, mkdir, writeFile, readFile } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const require = createRequire(import.meta.url);
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const pdf = path.dirname(require.resolve('pdfjs-dist/package.json'));
+const mammoth = path.dirname(require.resolve('mammoth/package.json'));
+const vendor = path.join(root, 'vendor');
+await mkdir(path.join(vendor, 'pdfjs'), { recursive: true });
+for (const file of ['pdf.mjs', 'pdf.worker.mjs']) await cp(path.join(pdf, 'legacy/build', file), path.join(vendor, 'pdfjs', file));
+for (const name of ['cmaps', 'standard_fonts', 'wasm']) await cp(path.join(pdf, name), path.join(vendor, 'pdfjs', name), { recursive: true });
+await cp(path.join(pdf, 'LICENSE'), path.join(vendor, 'pdfjs', 'LICENSE'));
+await mkdir(path.join(vendor, 'mammoth'), { recursive: true });
+await cp(path.join(mammoth, 'mammoth.browser.min.js'), path.join(vendor, 'mammoth', 'mammoth.browser.min.js'));
+await cp(path.join(mammoth, 'LICENSE'), path.join(vendor, 'mammoth', 'LICENSE'));
+const manifest = { pdfjs: JSON.parse(await readFile(path.join(pdf, 'package.json'))).version, mammoth: JSON.parse(await readFile(path.join(mammoth, 'package.json'))).version };
+await writeFile(path.join(vendor, 'versions.json'), JSON.stringify(manifest, null, 2) + '\n');
+console.log('Packaged local document parsers: ' + JSON.stringify(manifest));

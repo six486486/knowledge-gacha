@@ -1,0 +1,287 @@
+{
+  "outputs": {
+    "format": "card-quality-evaluation-v1",
+    "executedAt": "2026-09-03T12:17:13.796Z",
+    "model": "deepseek-v4-flash-vision-exp",
+    "temperature": 0.3,
+    "promptVersion": "concept-card-v2.2.1",
+    "baselineVersion": "concept-card-v1-step01",
+    "corpus": "[{\"id\":\"short-05\",\"category\":\"short\",\"title\":\"默认列表参数\",\"text\":\"Python 的默认参数值只在函数定义时求值一次。把可变列表作为默认值，多个调用可能共享并修改同一个对象；用 None 作为默认值，在函数体中创建新列表可以避免共享。\",\"userGoal\":\"能判断默认列表参数为什么跨调用保留内容\",\"sourceUrls\":[\"https://docs.python.org/3/tutorial/controlflow.html#default-argument-values\"],\"provenance\":\"官方公开文档的中文摘译与压缩，非逐字原文；2026-09-02 核对\",\"expectedStatus\":\"ready\",\"expectedObjective\":\"能判断默认列表参数为什么跨调用保留内容\",\"keyEvidence\":[\"定义时只求值一次\",\"可变对象共享\"],\"criticalErrors\":[]}]",
+    "evaluationMode": "single",
+    "requestProfile": "bounded-card-v1/non-thinking-v1",
+    "budget": {
+      "maxRequests": 4,
+      "maxTokens": 8000,
+      "requestsUsed": 2,
+      "knownTokens": 3936,
+      "missingUsage": 0
+    },
+    "status": "awaiting_ai_review",
+    "reviewers": [],
+    "learningExperiment": false,
+    "cases": [
+      {
+        "id": "short-05",
+        "category": "short",
+        "expectedStatus": "ready",
+        "old": null,
+        "current": {
+          "status": "needs_revision",
+          "card": {
+            "title": "默认列表参数的共享陷阱",
+            "learningObjective": "能判断默认列表参数为什么跨调用保留内容",
+            "knowledgeType": "concept",
+            "summary": "Python 的默认参数值只在函数定义时求值一次。若默认值为可变列表，则所有调用共享同一个列表对象，修改会跨调用保留。使用 None 作为默认值，并在函数体内创建新列表，可避免共享。",
+            "example": {
+              "type": "contrast",
+              "text": "def f(x, lst=[]):\n    lst.append(x)\n    return lst\n\nprint(f(1))  # [1]\nprint(f(2))  # [1, 2]  # 共享同一列表\n\ndef g(x, lst=None):\n    if lst is None:\n        lst = []\n    lst.append(x)\n    return lst\n\nprint(g(1))  # [1]\nprint(g(2))  # [2]  # 每次新列表",
+              "origin": "authored"
+            },
+            "boundaries": "",
+            "analogy": "",
+            "mantra": ""
+          },
+          "exercise": {
+            "type": "choice",
+            "question": "以下哪个函数调用序列会导致默认列表参数跨调用保留内容？",
+            "options": [
+              "def f(x, lst=[]):\n    lst.append(x)\n    return lst\nf(1); f(2)",
+              "def g(x, lst=None):\n    if lst is None:\n        lst = []\n    lst.append(x)\n    return lst\ng(1); g(2)",
+              "两个都会"
+            ],
+            "correctIndex": 0,
+            "answer": "def f(x, lst=[]):\n    lst.append(x)\n    return lst\nf(1); f(2)",
+            "answerExplanation": "默认参数值只在定义时求值一次，lst 是同一个列表对象，所以 f(1) 后列表为 [1]，f(2) 后为 [1,2]，内容跨调用保留。",
+            "rubric": [
+              "能识别可变默认参数导致共享",
+              "能区分 None 默认值避免共享"
+            ],
+            "misconceptions": [
+              "",
+              "认为每次调用都会创建新列表",
+              "认为 None 默认值也会共享列表"
+            ]
+          },
+          "evidence": [
+            {
+              "evidenceId": "material",
+              "quote": "Python 的默认参数值只在函数定义时求值一次。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "summary"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "summary"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "summary"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "Python 的默认参数值只在函数定义时求值一次。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "exercise"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "exercise"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "exercise"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "Python 的默认参数值只在函数定义时求值一次。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "example"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "example"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "example"
+            }
+          ],
+          "checks": [],
+          "issues": [],
+          "quality": {
+            "passed": false,
+            "issues": [
+              {
+                "code": "evidence_limit",
+                "message": "每张卡最多关联 8 处最小依据"
+              }
+            ],
+            "evidence": [
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "summary",
+                "quote": "Python 的默认参数值只在函数定义时求值一次。",
+                "occurrence": 0,
+                "startCharacter": 0,
+                "endCharacter": 25
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "summary",
+                "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；",
+                "occurrence": 0,
+                "startCharacter": 25,
+                "endCharacter": 53
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "summary",
+                "quote": "用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+                "occurrence": 0,
+                "startCharacter": 53,
+                "endCharacter": 83
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "exercise",
+                "quote": "Python 的默认参数值只在函数定义时求值一次。",
+                "occurrence": 0,
+                "startCharacter": 0,
+                "endCharacter": 25
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "exercise",
+                "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；",
+                "occurrence": 0,
+                "startCharacter": 25,
+                "endCharacter": 53
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "exercise",
+                "quote": "用 None 作为默认值，在函数体中创建新列表可以避免共享。",
+                "occurrence": 0,
+                "startCharacter": 53,
+                "endCharacter": 83
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "example",
+                "quote": "Python 的默认参数值只在函数定义时求值一次。",
+                "occurrence": 0,
+                "startCharacter": 0,
+                "endCharacter": 25
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "example",
+                "quote": "把可变列表作为默认值，多个调用可能共享并修改同一个对象；",
+                "occurrence": 0,
+                "startCharacter": 25,
+                "endCharacter": 53
+              }
+            ],
+            "checks": []
+          },
+          "generation": {
+            "promptVersion": "concept-card-v2.2.1",
+            "requestProfile": "bounded-card-v1/non-thinking-v1",
+            "model": "deepseek-v4-flash-vision-exp",
+            "materialLength": 83,
+            "elapsedMs": 10198,
+            "calls": [
+              {
+                "operation": "generate",
+                "model": "deepseek-v4-flash-vision-exp",
+                "latencyMs": 5772,
+                "usage": {
+                  "inputTokens": 1107,
+                  "outputTokens": 633,
+                  "totalTokens": 1740,
+                  "cachedInputTokens": 0
+                },
+                "finishReason": "stop",
+                "requestOptions": {
+                  "max_tokens": 3000
+                },
+                "thinkingPolicy": "non-thinking-v1"
+              },
+              {
+                "operation": "repair",
+                "model": "deepseek-v4-flash-vision-exp",
+                "latencyMs": 4408,
+                "usage": {
+                  "inputTokens": 1692,
+                  "outputTokens": 504,
+                  "totalTokens": 2196,
+                  "cachedInputTokens": 0
+                },
+                "finishReason": "stop",
+                "requestOptions": {
+                  "max_tokens": 1800
+                },
+                "thinkingPolicy": "non-thinking-v1"
+              }
+            ],
+            "rounds": [
+              {
+                "attempt": 1,
+                "issues": [
+                  {
+                    "code": "evidence_limit",
+                    "message": "每张卡最多关联 8 处最小依据"
+                  }
+                ],
+                "checks": []
+              },
+              {
+                "attempt": 2,
+                "issues": [
+                  {
+                    "code": "evidence_limit",
+                    "message": "每张卡最多关联 8 处最小依据"
+                  }
+                ],
+                "checks": []
+              }
+            ],
+            "resume": null,
+            "reviewMode": "separate"
+          }
+        },
+        "ratings": null
+      }
+    ],
+    "updatedAt": "2026-09-03T12:17:23.995Z"
+  }
+}

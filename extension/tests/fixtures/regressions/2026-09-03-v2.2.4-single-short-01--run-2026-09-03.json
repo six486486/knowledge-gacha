@@ -1,0 +1,338 @@
+{
+  "outputs": {
+    "format": "card-quality-evaluation-v1",
+    "executedAt": "2026-09-03T13:36:56.226Z",
+    "model": "deepseek-v4-flash-vision-exp",
+    "temperature": 0.3,
+    "promptVersion": "concept-card-v2.2.4",
+    "baselineVersion": "concept-card-v1-step01",
+    "corpus": "[{\"id\":\"short-01\",\"category\":\"short\",\"title\":\"缓存新鲜度\",\"text\":\"缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。\",\"userGoal\":\"能判断缓存新鲜度和内容是否改变的区别\",\"sourceUrls\":[\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching\"],\"provenance\":\"官方公开文档的中文摘译与压缩，非逐字原文；2026-09-02 核对\",\"expectedStatus\":\"ready\",\"expectedObjective\":\"能判断缓存新鲜度和内容是否改变的区别\",\"keyEvidence\":[\"age 从响应生成时算起\",\"过期不等于内容发生变化\"],\"criticalErrors\":[]}]",
+    "evaluationMode": "single",
+    "requestProfile": "bounded-card-v1/non-thinking-v1",
+    "budget": {
+      "maxRequests": 4,
+      "maxTokens": 8000,
+      "requestsUsed": 3,
+      "knownTokens": 4997,
+      "missingUsage": 0
+    },
+    "status": "awaiting_ai_review",
+    "reviewers": [],
+    "learningExperiment": false,
+    "cases": [
+      {
+        "id": "short-01",
+        "category": "short",
+        "expectedStatus": "ready",
+        "old": null,
+        "current": {
+          "status": "ready",
+          "card": {
+            "title": "缓存新鲜度与内容正确性",
+            "learningObjective": "能区分缓存新鲜度和内容是否改变",
+            "knowledgeType": "concept",
+            "summary": "缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+            "example": {
+              "type": "example",
+              "text": "假设一个响应 age 为 10 秒，max-age 为 60 秒，则该响应是新鲜的，可直接复用。若 age 为 70 秒，则响应陈旧，但内容可能仍然正确，可以向源站验证。",
+              "origin": "authored"
+            },
+            "boundaries": "",
+            "analogy": "",
+            "mantra": ""
+          },
+          "exercise": {
+            "type": "choice",
+            "question": "一个缓存的响应 age 为 30 秒，max-age 为 60 秒。关于该响应，以下哪项正确？",
+            "options": [
+              "该响应是新鲜的，可以直接复用",
+              "该响应是陈旧的，内容一定已改变",
+              "该响应是陈旧的，但内容可能仍然正确",
+              "该响应是新鲜的，但内容一定未改变"
+            ],
+            "correctIndex": 0,
+            "answer": "该响应是新鲜的，可以直接复用",
+            "answerExplanation": "因为 age（30秒）小于 max-age（60秒），所以响应是新鲜的，通常可直接复用。",
+            "rubric": [
+              "能根据 age 和 max-age 判断新鲜度",
+              "理解新鲜响应通常可直接复用"
+            ],
+            "misconceptions": [
+              "",
+              "该选项错误地认为陈旧意味着内容已改变，但陈旧只是指超过 max-age，内容可能仍然正确。",
+              "该选项错误地认为陈旧意味着内容已改变，但陈旧只是指超过 max-age，内容可能仍然正确。",
+              "该选项错误地认为新鲜意味着内容一定未改变，但新鲜只表示在 max-age 内，内容可能已经改变（尽管通常不会）。"
+            ]
+          },
+          "evidence": [
+            {
+              "evidenceId": "material",
+              "quote": "缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "summary"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "summary"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "exercise"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "exercise"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "example"
+            },
+            {
+              "evidenceId": "material",
+              "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+              "occurrence": 0,
+              "observation": "",
+              "claim": "example"
+            }
+          ],
+          "checks": [
+            {
+              "rule": "grounding",
+              "passed": true,
+              "reason": "解释、边界和示例均被引文支持，引文逐字匹配且支持新增机制。"
+            },
+            {
+              "rule": "coherence",
+              "passed": true,
+              "reason": "示例和答案依据的每一步均正确，中间状态与最终结果一致。"
+            },
+            {
+              "rule": "objectiveAlignment",
+              "passed": true,
+              "reason": "练习要求根据age和max-age判断新鲜度，并应用复用规则，符合目标。"
+            },
+            {
+              "rule": "answerCorrectness",
+              "passed": true,
+              "reason": "选项0正确，其余选项均有有效误区说明，且正确项误区为空。"
+            },
+            {
+              "rule": "conditions",
+              "passed": true,
+              "reason": "条件范围与原文一致，未改变阈值或添加未明确的等号归属。"
+            }
+          ],
+          "issues": [],
+          "quality": {
+            "passed": true,
+            "issues": [],
+            "evidence": [
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "summary",
+                "quote": "缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+                "occurrence": 0,
+                "startCharacter": 0,
+                "endCharacter": 46
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "summary",
+                "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+                "occurrence": 0,
+                "startCharacter": 46,
+                "endCharacter": 90
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "exercise",
+                "quote": "缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+                "occurrence": 0,
+                "startCharacter": 0,
+                "endCharacter": 46
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "exercise",
+                "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+                "occurrence": 0,
+                "startCharacter": 46,
+                "endCharacter": 90
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "example",
+                "quote": "缓存复用保存的响应。响应生成后经过的时间是 age；max-age 指定其可视为新鲜的时长。",
+                "occurrence": 0,
+                "startCharacter": 0,
+                "endCharacter": 46
+              },
+              {
+                "evidenceId": "material",
+                "kind": "text",
+                "claim": "example",
+                "quote": "新鲜响应通常可直接复用；陈旧响应可以向源站验证，不能把“陈旧”直接理解为“内容已错误”。",
+                "occurrence": 0,
+                "startCharacter": 46,
+                "endCharacter": 90
+              }
+            ],
+            "checks": [
+              {
+                "rule": "grounding",
+                "passed": true,
+                "reason": "解释、边界和示例均被引文支持，引文逐字匹配且支持新增机制。"
+              },
+              {
+                "rule": "coherence",
+                "passed": true,
+                "reason": "示例和答案依据的每一步均正确，中间状态与最终结果一致。"
+              },
+              {
+                "rule": "objectiveAlignment",
+                "passed": true,
+                "reason": "练习要求根据age和max-age判断新鲜度，并应用复用规则，符合目标。"
+              },
+              {
+                "rule": "answerCorrectness",
+                "passed": true,
+                "reason": "选项0正确，其余选项均有有效误区说明，且正确项误区为空。"
+              },
+              {
+                "rule": "conditions",
+                "passed": true,
+                "reason": "条件范围与原文一致，未改变阈值或添加未明确的等号归属。"
+              }
+            ]
+          },
+          "generation": {
+            "promptVersion": "concept-card-v2.2.4",
+            "requestProfile": "bounded-card-v1/non-thinking-v1",
+            "model": "deepseek-v4-flash-vision-exp",
+            "materialLength": 90,
+            "elapsedMs": 8493,
+            "calls": [
+              {
+                "operation": "generate",
+                "model": "deepseek-v4-flash-vision-exp",
+                "latencyMs": 5243,
+                "usage": {
+                  "inputTokens": 1197,
+                  "outputTokens": 541,
+                  "totalTokens": 1738,
+                  "cachedInputTokens": 0
+                },
+                "finishReason": "stop",
+                "requestOptions": {
+                  "max_tokens": 3000
+                },
+                "thinkingPolicy": "non-thinking-v1"
+              },
+              {
+                "operation": "repair",
+                "model": "deepseek-v4-flash-vision-exp",
+                "latencyMs": 1396,
+                "usage": {
+                  "inputTokens": 1796,
+                  "outputTokens": 84,
+                  "totalTokens": 1880,
+                  "cachedInputTokens": 0
+                },
+                "finishReason": "stop",
+                "requestOptions": {
+                  "max_tokens": 1800
+                },
+                "thinkingPolicy": "non-thinking-v1"
+              },
+              {
+                "operation": "review",
+                "model": "deepseek-v4-flash-vision-exp",
+                "latencyMs": 1843,
+                "usage": {
+                  "inputTokens": 1224,
+                  "outputTokens": 155,
+                  "totalTokens": 1379,
+                  "cachedInputTokens": 0
+                },
+                "finishReason": "stop",
+                "requestOptions": {
+                  "max_tokens": 800
+                },
+                "thinkingPolicy": "non-thinking-v1"
+              }
+            ],
+            "rounds": [
+              {
+                "attempt": 1,
+                "issues": [
+                  {
+                    "code": "conditions_strengthened",
+                    "field": "card.example.text",
+                    "sourcePhrase": "可以向源站验证",
+                    "outputPhrase": "需要向源站验证",
+                    "matchKind": "literal",
+                    "message": "card.example.text 将原文“可以向源站验证”加强为“需要向源站验证”，请保留原文限定或给出明确支持该条件的依据"
+                  }
+                ],
+                "checks": []
+              },
+              {
+                "attempt": 2,
+                "issues": [],
+                "checks": [
+                  {
+                    "rule": "grounding",
+                    "passed": true,
+                    "reason": "解释、边界和示例均被引文支持，引文逐字匹配且支持新增机制。"
+                  },
+                  {
+                    "rule": "coherence",
+                    "passed": true,
+                    "reason": "示例和答案依据的每一步均正确，中间状态与最终结果一致。"
+                  },
+                  {
+                    "rule": "objectiveAlignment",
+                    "passed": true,
+                    "reason": "练习要求根据age和max-age判断新鲜度，并应用复用规则，符合目标。"
+                  },
+                  {
+                    "rule": "answerCorrectness",
+                    "passed": true,
+                    "reason": "选项0正确，其余选项均有有效误区说明，且正确项误区为空。"
+                  },
+                  {
+                    "rule": "conditions",
+                    "passed": true,
+                    "reason": "条件范围与原文一致，未改变阈值或添加未明确的等号归属。"
+                  }
+                ]
+              }
+            ],
+            "resume": null,
+            "reviewMode": "separate"
+          }
+        },
+        "ratings": null
+      }
+    ],
+    "updatedAt": "2026-09-03T13:37:04.719Z"
+  }
+}

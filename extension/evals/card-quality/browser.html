@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>单卡质量评测 · 知识扭蛋机</title>
+  <link rel="stylesheet" href="browser.css">
+</head>
+<body>
+  <main>
+    <a href="../../index.html">← 返回知识扭蛋机</a>
+    <h1>单卡质量评测</h1>
+    <p>内部开发回归页面。新版先转写图片中的可见证据（有图片时），再生成、独立解题与核验，必要时修复一次。生成温度为 0.3，转写、解题与核验为 0。</p>
+    <p id="connection">正在检查配置…</p>
+    <p>全项目固定关闭思考，新版、旧版对比与连接测试都遵守此规则。服务仍返回思考内容时停止评测。</p>
+    <p>密钥只用于向你配置的模型服务发起请求，不会放进评测文件。评测不会生成收藏卡，也不会修改模型设置。</p>
+    <div class="settings">
+      <label for="mode">评测方式
+        <select id="mode">
+          <option value="single" selected>单样本评测 · 自选 1 份，仅新版</option>
+          <option value="targeted">定向检查 · 5 份已知问题，仅新版</option>
+          <option value="quick">快速检查 · 8 份，仅新版</option>
+          <option value="current">仅测新版 · 24 份</option>
+          <option value="paired">完整新旧对比 · 24 份</option>
+        </select>
+      </label>
+      <label id="sample-field" for="sample">选择素材<select id="sample" required></select></label>
+      <label for="max-requests">累计请求上限<input id="max-requests" type="number" min="1" step="1" value="7" required></label>
+      <label for="max-tokens">累计 token 预算<input id="max-tokens" type="number" min="1" step="1" value="18000" required></label>
+    </div>
+    <p id="mode-note">单样本评测仅运行所选素材，不会自动开始下一份；不能替代第二步的完整验收。</p>
+    <p>预算涵盖修复与核验，达到后不再发送新请求。Token 在响应后统计，最后一次可能超额；缺失用量会单独提示，请求上限仍然有效。</p>
+    <p id="usage" role="status">尚未发送请求。</p>
+    <div class="actions">
+      <button id="start" disabled>开始评测</button>
+      <button id="stop" disabled>完成当前素材后暂停</button>
+      <button id="export" disabled>导出评测结果</button>
+    </div>
+    <p id="status" role="status" aria-live="polite">正在加载素材…</p>
+    <progress id="progress" max="1" value="0" aria-label="已完成素材"></progress>
+    <p id="storage-warning"></p>
+    <ol id="cases"></ol>
+    <details>
+      <summary>使用说明与评审方式</summary>
+      <p>运行时保持此页面打开。每个版本完成后在扩展本地保存检查点；中断后可继续，已成功完成的版本不会重复请求。预算在修复或核验前耗尽时保留草稿，调高累计预算后接着处理。</p>
+      <p>开始运行后，素材与评测方式固定。换一份前先导出结果，再清除本次记录；刷新页面会恢复原样本和已用预算。建议依次验证 short-05 默认参数、short-01 缓存、image-02 图片。</p>
+      <p>开发测试可导出 card-quality-results.json 留存证据。文件包括输出、耗时、用量和评分表；完整对比另外包含随机 A/B 版本映射。评分默认为空，AI 代评会明确标记，不冒充真人学习实验或双人复核。</p>
+      <p>“材料不足”与“待拆分”分别统计，不作为优质单卡。请求失败会暂停；输出达到上限的样本按失败保留，点击继续只处理剩余素材，不会重复发送该请求。网络错误仍可重试。</p>
+      <button id="reset" disabled>清除本次评测记录</button>
+    </details>
+  </main>
+  <script src="../../src/frontend/domain/card-domain.js"></script>
+  <script src="../../src/frontend/settings/browser-storage.js"></script>
+  <script src="../../src/backend/provider/provider-transport.js"></script>
+  <script src="../../src/harness/skills/definitions/concept-card/task.js"></script>
+  <script src="../../src/harness/skills/definitions/knowledge-plan/task.js"></script>
+  <script src="../../src/harness/skills/skill-catalog.generated.js"></script>
+  <script src="../../src/harness/skills/skill-registry.js"></script>
+  <script src="../../src/backend/features/generation/card-quality.js"></script>
+  <script src="baseline-v1.js"></script>
+  <script src="paired-runner.js"></script>
+  <script src="browser.js"></script>
+</body>
+</html>

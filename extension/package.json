@@ -1,0 +1,30 @@
+{
+  "name": "@knowledge-gacha/extension",
+  "version": "1.0.0",
+  "private": true,
+  "description": "知识扭蛋机 Manifest V3 浏览器侧边栏",
+  "scripts": {
+    "package:parsers": "node tooling/package-parsers.mjs",
+    "postinstall": "node tooling/package-parsers.mjs && node tooling/package-embedding.mjs",
+    "start": "node tooling/dev-server.js",
+    "build:skills": "node tooling/build-skills.mjs",
+    "check:skills": "node tooling/build-skills.mjs --check",
+    "check": "npm run check:skills && node tooling/check-source.mjs && node --test tests/*.test.js",
+    "test": "node --test tests/*.test.js",
+    "test:e2e": "node e2e/run-e2e.mjs",
+    "package:embedding": "node tooling/package-embedding.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "fake-indexeddb": "6.2.5"
+  },
+  "dependencies": {
+    "mammoth": "1.12.2",
+    "pdfjs-dist": "6.3.289"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/six486486/knowledge-gacha.git"
+  }
+}
